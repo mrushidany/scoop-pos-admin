@@ -18,7 +18,7 @@ const administrationNavigationConfig: NavigationTree[] = [
         subMenu: [
             {
                 key: 'administration.users',
-                path: `${ADMINISTRATION_PREFIX_PATH}/documentation/introduction`,
+                path: `${ADMINISTRATION_PREFIX_PATH}/users`,
                 title: 'Users',
                 translateKey: 'nav.administration.users',
                 icon: 'users',

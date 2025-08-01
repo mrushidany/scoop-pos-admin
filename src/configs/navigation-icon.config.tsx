@@ -17,7 +17,6 @@ const navigationIcon: NavigationIcons = {
     reports: <MdAnalytics />,
     dashboardOverview: <PiChartBarDuotone />,
     orders: <PiShoppingCartSimpleDuotone />
-
 }
 
 export default navigationIcon

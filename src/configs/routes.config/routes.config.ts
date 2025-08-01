@@ -1,18 +1,17 @@
 import dashboardRoute from './dashboardRoute'
-import conceptsRoute from './conceptsRoute'
-import uiComponentsRoute from './uiComponentsRoute'
+import financeRoute from './financeRoute'
+import logisticsRoute from './logisticsRoute'
 import authRoute from './authRoute'
-import authDemoRoute from './authDemoRoute'
-import guideRoute from './guideRoute'
-// import othersRoute from './othersRoute'
+import isightsRoute from './insightsRoute'
+import administrationRoute from './administrationRoute'
 import type { Routes } from '@/@types/routes'
 
 export const protectedRoutes: Routes = {
     ...dashboardRoute,
-    ...uiComponentsRoute,
-    ...authDemoRoute,
-    ...conceptsRoute,
-    ...guideRoute,
+    ...financeRoute,
+    ...logisticsRoute,
+    ...isightsRoute,
+    ...administrationRoute,
 }
 
 export const publicRoutes: Routes = {}
