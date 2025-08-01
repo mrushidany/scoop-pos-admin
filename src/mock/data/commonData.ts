@@ -1,9 +1,9 @@
 import {
     AUTH_PREFIX_PATH,
-    UI_COMPONENTS_PREFIX_PATH,
+    LOGISTICS_PREFIX_PATH,
     DASHBOARDS_PREFIX_PATH,
-    CONCEPTS_PREFIX_PATH,
-    GUIDE_PREFIX_PATH,
+    FINANCE_PREFIX_PATH,
+    ADMINISTRATION_PREFIX_PATH,
 } from '@/constants/route.constant'
 
 export const notificationListData = [
@@ -213,7 +213,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.button',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/button`,
+        path: `${LOGISTICS_PREFIX_PATH}/button`,
         title: 'Button',
         icon: 'uiCommonButton',
         category: 'Common',
@@ -221,7 +221,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.grid',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/grid`,
+        path: `${LOGISTICS_PREFIX_PATH}/grid`,
         title: 'Grid',
         icon: 'uiCommonGrid',
         category: 'Common',
@@ -229,7 +229,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.typography',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/typography`,
+        path: `${LOGISTICS_PREFIX_PATH}/typography`,
         title: 'Typography',
         icon: 'uiCommonTypography',
         category: 'Common',
@@ -237,7 +237,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.icons',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/icons`,
+        path: `${LOGISTICS_PREFIX_PATH}/icons`,
         title: 'Icons',
         icon: 'uiCommonIcons',
         category: 'Common',
@@ -245,7 +245,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.alert',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/alert`,
+        path: `${LOGISTICS_PREFIX_PATH}/alert`,
         title: 'Alert',
         icon: 'uiFeedbackAlert',
         category: 'Feedback',
@@ -253,7 +253,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.dialog',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/dialog`,
+        path: `${LOGISTICS_PREFIX_PATH}/dialog`,
         title: 'Dialog',
         icon: 'uiFeedbackDialog',
         category: 'Feedback',
@@ -261,7 +261,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.drawer',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/drawer`,
+        path: `${LOGISTICS_PREFIX_PATH}/drawer`,
         title: 'Drawer',
         icon: 'uiFeedbackDrawer',
         category: 'Feedback',
@@ -269,7 +269,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.progress',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/progress`,
+        path: `${LOGISTICS_PREFIX_PATH}/progress`,
         title: 'Progress',
         icon: 'uiFeedbackProgress',
         category: 'Feedback',
@@ -277,7 +277,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.skeleton',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/skeleton`,
+        path: `${LOGISTICS_PREFIX_PATH}/skeleton`,
         title: 'Skeleton',
         icon: 'uiFeedbackSkeleton',
         category: 'Feedback',
@@ -285,7 +285,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.spinner',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/spinner`,
+        path: `${LOGISTICS_PREFIX_PATH}/spinner`,
         title: 'Spinner',
         icon: 'uiFeedbackSpinner',
         category: 'Feedback',
@@ -293,7 +293,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.toast',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/toast`,
+        path: `${LOGISTICS_PREFIX_PATH}/toast`,
         title: 'Toast',
         icon: 'uiFeedbackToast',
         category: 'Feedback',
@@ -301,7 +301,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.avatar',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/avatar`,
+        path: `${LOGISTICS_PREFIX_PATH}/avatar`,
         title: 'Avatar',
         icon: 'uiDataDisplayAvatar',
         category: 'Data Display',
@@ -309,7 +309,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.badge',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/badge`,
+        path: `${LOGISTICS_PREFIX_PATH}/badge`,
         title: 'Badge',
         icon: 'uiDataDisplayBadge',
         category: 'Data Display',
@@ -317,7 +317,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.calendar',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/calendar`,
+        path: `${LOGISTICS_PREFIX_PATH}/calendar`,
         title: 'Calendar',
         icon: 'uiDataDisplayCalendar',
         category: 'Data Display',
@@ -325,7 +325,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.cards',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/cards`,
+        path: `${LOGISTICS_PREFIX_PATH}/cards`,
         title: 'Cards',
         icon: 'uiDataDisplayCard',
         category: 'Data Display',
@@ -333,7 +333,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.table',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/table`,
+        path: `${LOGISTICS_PREFIX_PATH}/table`,
         title: 'Table',
         icon: 'uiDataDisplayTable',
         category: 'Data Display',
@@ -341,7 +341,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.tag',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/tag`,
+        path: `${LOGISTICS_PREFIX_PATH}/tag`,
         title: 'Tag',
         icon: 'uiDataDisplayTag',
         category: 'Data Display',
@@ -349,7 +349,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.timeline',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/timeline`,
+        path: `${LOGISTICS_PREFIX_PATH}/timeline`,
         title: 'Timeline',
         icon: 'uiDataDisplayTimeline',
         category: 'Data Display',
@@ -357,7 +357,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.tooltip',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/tooltip`,
+        path: `${LOGISTICS_PREFIX_PATH}/tooltip`,
         title: 'Tooltip',
         icon: 'uiDataDisplayTooltip',
         category: 'Data Display',
@@ -365,7 +365,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.checkbox',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/checkbox`,
+        path: `${LOGISTICS_PREFIX_PATH}/checkbox`,
         title: 'Checkbox',
         icon: 'uiFormsCheckbox',
         category: 'Forms',
@@ -373,7 +373,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.datePicker',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/date-picker`,
+        path: `${LOGISTICS_PREFIX_PATH}/date-picker`,
         title: 'Date picker',
         icon: 'uiFormsDatepicker',
         category: 'Forms',
@@ -381,7 +381,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.formControl',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/form-control`,
+        path: `${LOGISTICS_PREFIX_PATH}/form-control`,
         title: 'Form control',
         icon: 'uiFormsFormControl',
         category: 'Forms',
@@ -389,7 +389,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.input',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/input`,
+        path: `${LOGISTICS_PREFIX_PATH}/input`,
         title: 'Input',
         icon: 'uiFormsInput',
         category: 'Forms',
@@ -397,7 +397,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.inputGroup',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/input-group`,
+        path: `${LOGISTICS_PREFIX_PATH}/input-group`,
         title: 'Input Group',
         icon: 'uiFormsInputGroup',
         category: 'Forms',
@@ -405,7 +405,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.radio',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/radio`,
+        path: `${LOGISTICS_PREFIX_PATH}/radio`,
         title: 'Radio',
         icon: 'uiFormsRadio',
         category: 'Forms',
@@ -413,7 +413,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.segment',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/segment`,
+        path: `${LOGISTICS_PREFIX_PATH}/segment`,
         title: 'Segment',
         icon: 'uiFormsSegment',
         category: 'Forms',
@@ -421,7 +421,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.select',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/select`,
+        path: `${LOGISTICS_PREFIX_PATH}/select`,
         title: 'Select',
         icon: 'uiFormsSelect',
         category: 'Forms',
@@ -429,7 +429,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.switcher',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/switcher`,
+        path: `${LOGISTICS_PREFIX_PATH}/switcher`,
         title: 'Switcher',
         icon: 'uiFormsSwitcher',
         category: 'Forms',
@@ -437,7 +437,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.timeInput',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/time-input`,
+        path: `${LOGISTICS_PREFIX_PATH}/time-input`,
         title: 'Time Input',
         icon: 'uiFormsTimePicker',
         category: 'Forms',
@@ -445,7 +445,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.upload',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/upload`,
+        path: `${LOGISTICS_PREFIX_PATH}/upload`,
         title: 'Upload',
         icon: 'uiFormsUpload',
         category: 'Forms',
@@ -453,7 +453,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.dropdown',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/dropdown`,
+        path: `${LOGISTICS_PREFIX_PATH}/dropdown`,
         title: 'Dropdown',
         icon: 'uiNavigationDropdown',
         category: 'Navigation',
@@ -461,7 +461,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.menu',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/menu`,
+        path: `${LOGISTICS_PREFIX_PATH}/menu`,
         title: 'Menu',
         icon: 'uiNavigationMenu',
         category: 'Navigation',
@@ -469,7 +469,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.pagination',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/pagination`,
+        path: `${LOGISTICS_PREFIX_PATH}/pagination`,
         title: 'Pagination',
         icon: 'uiNavigationPagination',
         category: 'Navigation',
@@ -477,7 +477,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.steps',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/steps`,
+        path: `${LOGISTICS_PREFIX_PATH}/steps`,
         title: 'Steps',
         icon: 'uiNavigationSteps',
         category: 'Navigation',
@@ -485,7 +485,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.tabs',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/tabs`,
+        path: `${LOGISTICS_PREFIX_PATH}/tabs`,
         title: 'Tabs',
         icon: 'uiNavigationTabs',
         category: 'Navigation',
@@ -493,7 +493,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.graph.charts',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/graph/charts`,
+        path: `${LOGISTICS_PREFIX_PATH}/graph/charts`,
         title: 'Charts',
         icon: 'uiGraphChart',
         category: 'Graph',
@@ -501,7 +501,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.graph.maps',
-        path: `${UI_COMPONENTS_PREFIX_PATH}/graph/maps`,
+        path: `${LOGISTICS_PREFIX_PATH}/graph/maps`,
         title: 'Maps',
         icon: 'uiGraphMaps',
         category: 'Graph',
@@ -509,7 +509,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.ai.chat',
-        path: `${CONCEPTS_PREFIX_PATH}/ai/chat`,
+        path: `${FINANCE_PREFIX_PATH}/ai/chat`,
         title: 'Chat',
         icon: 'aiChat',
         category: 'AI',
@@ -517,7 +517,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.ai.image',
-        path: `${CONCEPTS_PREFIX_PATH}/ai/image`,
+        path: `${FINANCE_PREFIX_PATH}/ai/image`,
         title: 'Image',
         icon: 'aiImage',
         category: 'AI',
@@ -525,7 +525,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.projects.scrumBoard',
-        path: `${CONCEPTS_PREFIX_PATH}/projects/scrum-board`,
+        path: `${FINANCE_PREFIX_PATH}/projects/scrum-board`,
         title: 'Scrum Board',
         icon: 'projectScrumBoard',
         category: 'Projects',
@@ -533,7 +533,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.projects.projectList',
-        path: `${CONCEPTS_PREFIX_PATH}/projects/project-list`,
+        path: `${FINANCE_PREFIX_PATH}/projects/project-list`,
         title: 'Project List',
         icon: 'projectList',
         category: 'Projects',
@@ -541,7 +541,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.projects.projectDetails',
-        path: `${CONCEPTS_PREFIX_PATH}/projects/project-details/27`,
+        path: `${FINANCE_PREFIX_PATH}/projects/project-details/27`,
         title: 'Details',
         icon: 'projectDetails',
         category: 'Projects',
@@ -549,7 +549,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.projects.projectTasks',
-        path: `${CONCEPTS_PREFIX_PATH}/projects/tasks`,
+        path: `${FINANCE_PREFIX_PATH}/projects/tasks`,
         title: 'Tasks',
         icon: 'projectTask',
         category: 'Projects',
@@ -557,7 +557,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.projects.projectIssue',
-        path: `${CONCEPTS_PREFIX_PATH}/projects/tasks/1`,
+        path: `${FINANCE_PREFIX_PATH}/projects/tasks/1`,
         title: 'Issue',
         icon: 'projectIssue',
         category: 'Projects',
@@ -565,7 +565,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.customers.customerList',
-        path: `${CONCEPTS_PREFIX_PATH}/customers/customer-list`,
+        path: `${FINANCE_PREFIX_PATH}/customers/customer-list`,
         title: 'Customer List',
         icon: 'customerList',
         category: 'Customers',
@@ -573,7 +573,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.customers.customerEdit',
-        path: `${CONCEPTS_PREFIX_PATH}/customers/customer-edit/1`,
+        path: `${FINANCE_PREFIX_PATH}/customers/customer-edit/1`,
         title: 'Customer Edit',
         icon: 'customerEdit',
         category: 'Customers',
@@ -581,7 +581,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.customers.customerCreate',
-        path: `${CONCEPTS_PREFIX_PATH}/customers/customer-create`,
+        path: `${FINANCE_PREFIX_PATH}/customers/customer-create`,
         title: 'Customer Create',
         icon: 'customerCreate',
         category: 'Customers',
@@ -589,7 +589,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.customers.customerDetails',
-        path: `${CONCEPTS_PREFIX_PATH}/customers/customer-details/1`,
+        path: `${FINANCE_PREFIX_PATH}/customers/customer-details/1`,
         title: 'Customer Details',
         icon: 'customerDetails',
         category: 'Customers',
@@ -597,7 +597,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.products.productList',
-        path: `${CONCEPTS_PREFIX_PATH}/products/product-list`,
+        path: `${FINANCE_PREFIX_PATH}/products/product-list`,
         title: 'Product List',
         icon: 'productList',
         category: 'Products',
@@ -605,7 +605,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.products.productEdit',
-        path: `${CONCEPTS_PREFIX_PATH}/products/product-edit/12`,
+        path: `${FINANCE_PREFIX_PATH}/products/product-edit/12`,
         title: 'Product Edit',
         icon: 'productEdit',
         category: 'Products',
@@ -613,7 +613,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.products.productCreate',
-        path: `${CONCEPTS_PREFIX_PATH}/products/product-create`,
+        path: `${FINANCE_PREFIX_PATH}/products/product-create`,
         title: 'Product Create',
         icon: 'productCreate',
         category: 'Products',
@@ -621,7 +621,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.orders.orderList',
-        path: `${CONCEPTS_PREFIX_PATH}/orders/order-list`,
+        path: `${FINANCE_PREFIX_PATH}/orders/order-list`,
         title: 'Order List',
         icon: 'orderList',
         category: 'Orders',
@@ -629,7 +629,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.orders.orderEdit',
-        path: `${CONCEPTS_PREFIX_PATH}/orders/order-edit/95954`,
+        path: `${FINANCE_PREFIX_PATH}/orders/order-edit/95954`,
         title: 'Order Edit',
         icon: 'orderEdit',
         category: 'Orders',
@@ -637,7 +637,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.orders.orderCreate',
-        path: `${CONCEPTS_PREFIX_PATH}/orders/order-create`,
+        path: `${FINANCE_PREFIX_PATH}/orders/order-create`,
         title: 'Order Create',
         icon: 'orderCreate',
         category: 'Orders',
@@ -645,7 +645,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.orders.orderDetails',
-        path: `${CONCEPTS_PREFIX_PATH}/orders/order-details/95954`,
+        path: `${FINANCE_PREFIX_PATH}/orders/order-details/95954`,
         title: 'Order Details',
         icon: 'ordeDetails',
         category: 'Orders',
@@ -653,7 +653,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.account.settings',
-        path: `${CONCEPTS_PREFIX_PATH}/account/settings`,
+        path: `${FINANCE_PREFIX_PATH}/account/settings`,
         title: 'Settings',
         icon: 'accountSettings',
         category: 'Account',
@@ -661,7 +661,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.account.activityLog',
-        path: `${CONCEPTS_PREFIX_PATH}/account/activity-log`,
+        path: `${FINANCE_PREFIX_PATH}/account/activity-log`,
         title: 'Activity log',
         icon: 'accountActivityLogs',
         category: 'Account',
@@ -669,7 +669,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.account.rolesPermissions',
-        path: `${CONCEPTS_PREFIX_PATH}/account/roles-permissions`,
+        path: `${FINANCE_PREFIX_PATH}/account/roles-permissions`,
         title: 'Roles & Permissions',
         icon: 'accountRoleAndPermission',
         category: 'Account',
@@ -677,7 +677,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.account.pricing',
-        path: `${CONCEPTS_PREFIX_PATH}/account/pricing`,
+        path: `${FINANCE_PREFIX_PATH}/account/pricing`,
         title: 'Pricing',
         icon: 'accountPricing',
         category: 'Account',
@@ -685,7 +685,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.helpCenter.supportHub',
-        path: `${CONCEPTS_PREFIX_PATH}/help-center/support-hub`,
+        path: `${FINANCE_PREFIX_PATH}/help-center/support-hub`,
         title: 'Support Hub',
         icon: 'helpCeterSupportHub',
         category: 'Help Center',
@@ -693,7 +693,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.helpCenter.article',
-        path: `${CONCEPTS_PREFIX_PATH}/help-center/article/pWBKE_0UiQ`,
+        path: `${FINANCE_PREFIX_PATH}/help-center/article/pWBKE_0UiQ`,
         title: 'Article',
         icon: 'helpCeterArticle',
         category: 'Help Center',
@@ -701,7 +701,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.helpCenter.editArticle',
-        path: `${CONCEPTS_PREFIX_PATH}/help-center/edit-article/pWBKE_0UiQ`,
+        path: `${FINANCE_PREFIX_PATH}/help-center/edit-article/pWBKE_0UiQ`,
         title: 'Edit Article',
         icon: 'helpCeterEditArticle',
         category: 'Help Center',
@@ -709,7 +709,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.helpCenter.manageArticle',
-        path: `${CONCEPTS_PREFIX_PATH}/help-center/manage-article`,
+        path: `${FINANCE_PREFIX_PATH}/help-center/manage-article`,
         title: 'Manage Article',
         icon: 'helpCeterManageArticle',
         category: 'Help Center',
@@ -717,7 +717,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.calendar',
-        path: `${CONCEPTS_PREFIX_PATH}/calendar`,
+        path: `${FINANCE_PREFIX_PATH}/calendar`,
         title: 'Calendar',
         icon: 'calendar',
         category: 'Others',
@@ -725,7 +725,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.fileManager',
-        path: `${CONCEPTS_PREFIX_PATH}/file-manager`,
+        path: `${FINANCE_PREFIX_PATH}/file-manager`,
         title: 'File Manager',
         icon: 'fileManager',
         category: 'Others',
@@ -733,7 +733,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.mail',
-        path: `${CONCEPTS_PREFIX_PATH}/mail`,
+        path: `${FINANCE_PREFIX_PATH}/mail`,
         title: 'Mail',
         icon: 'mail',
         category: 'Others',
@@ -741,7 +741,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'concepts.chat',
-        path: `${CONCEPTS_PREFIX_PATH}/chat`,
+        path: `${FINANCE_PREFIX_PATH}/chat`,
         title: 'Chat',
         icon: 'chat',
         category: 'Others',
@@ -749,7 +749,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.introduction',
-        path: `${GUIDE_PREFIX_PATH}/documentation/introduction`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/introduction`,
         title: 'Introduction',
         icon: 'documentation',
         category: 'Documentation',
@@ -757,7 +757,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.installation',
-        path: `${GUIDE_PREFIX_PATH}/documentation/installation`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/installation`,
         title: 'Installation',
         icon: 'documentation',
         category: 'Documentation',
@@ -765,7 +765,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.tailwindcss',
-        path: `${GUIDE_PREFIX_PATH}/documentation/tailwindcss`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/tailwindcss`,
         title: 'TailwindCSS',
         icon: 'documentation',
         category: 'Documentation',
@@ -773,7 +773,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.css',
-        path: `${GUIDE_PREFIX_PATH}/documentation/css`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/css`,
         title: 'CSS',
         icon: 'documentation',
         category: 'Documentation',
@@ -781,7 +781,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.starter',
-        path: `${GUIDE_PREFIX_PATH}/documentation/starter`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/starter`,
         title: 'Starter',
         icon: 'documentation',
         category: 'Documentation',
@@ -789,7 +789,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.typescript',
-        path: `${GUIDE_PREFIX_PATH}/documentation/typescript`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/typescript`,
         title: 'Typescript',
         icon: 'documentation',
         category: 'Documentation',
@@ -797,7 +797,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.updating',
-        path: `${GUIDE_PREFIX_PATH}/documentation/updating`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/updating`,
         title: 'Updating',
         icon: 'documentation',
         category: 'Documentation',
@@ -805,7 +805,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.development-server',
-        path: `${GUIDE_PREFIX_PATH}/documentation/development-server`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/development-server`,
         title: 'Development Server',
         icon: 'documentation',
         category: 'Documentation',
@@ -813,7 +813,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.folder-structure',
-        path: `${GUIDE_PREFIX_PATH}/documentation/folder-structure`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/folder-structure`,
         title: 'Folder Structure',
         icon: 'documentation',
         category: 'Documentation',
@@ -821,7 +821,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.routing',
-        path: `${GUIDE_PREFIX_PATH}/documentation/routing`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/routing`,
         title: 'Routing',
         icon: 'documentation',
         category: 'Documentation',
@@ -829,7 +829,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.stateManagement',
-        path: `${GUIDE_PREFIX_PATH}/documentation/stateManagement`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/stateManagement`,
         title: 'State management',
         icon: 'documentation',
         category: 'Documentation',
@@ -837,7 +837,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.api-integration',
-        path: `${GUIDE_PREFIX_PATH}/documentation/api-integration`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/api-integration`,
         title: 'API Integration',
         icon: 'documentation',
         category: 'Documentation',
@@ -845,7 +845,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.authentication',
-        path: `${GUIDE_PREFIX_PATH}/documentation/authentication`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/authentication`,
         title: 'Authentication',
         icon: 'documentation',
         category: 'Documentation',
@@ -853,7 +853,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.mock-api',
-        path: `${GUIDE_PREFIX_PATH}/documentation/mock-api`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/mock-api`,
         title: 'Mock Api',
         icon: 'documentation',
         category: 'Documentation',
@@ -861,7 +861,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.firebase',
-        path: `${GUIDE_PREFIX_PATH}/documentation/firebase`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/firebase`,
         title: 'Firebase',
         icon: 'documentation',
         category: 'Documentation',
@@ -869,7 +869,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.app',
-        path: `${GUIDE_PREFIX_PATH}/documentation/app`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/app`,
         title: 'App Config',
         icon: 'documentation',
         category: 'Documentation',
@@ -877,7 +877,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.layouts',
-        path: `${GUIDE_PREFIX_PATH}/documentation/layouts`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/layouts`,
         title: 'Layouts',
         icon: 'documentation',
         category: 'Documentation',
@@ -885,7 +885,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.navigation-config',
-        path: `${GUIDE_PREFIX_PATH}/documentation/navigation-config`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/navigation-config`,
         title: 'Navigation Config',
         icon: 'documentation',
         category: 'Documentation',
@@ -893,7 +893,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.theming',
-        path: `${GUIDE_PREFIX_PATH}/documentation/theming`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/theming`,
         title: 'Theming',
         icon: 'documentation',
         category: 'Documentation',
@@ -901,7 +901,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.internationalization',
-        path: `${GUIDE_PREFIX_PATH}/documentation/internationalization`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/internationalization`,
         title: 'Internationalization',
         icon: 'documentation',
         category: 'Documentation',
@@ -909,7 +909,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.dark-light-mode',
-        path: `${GUIDE_PREFIX_PATH}/documentation/dark-light-mode`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/dark-light-mode`,
         title: 'Dark/Light Mode',
         icon: 'documentation',
         category: 'Documentation',
@@ -917,7 +917,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.direction',
-        path: `${GUIDE_PREFIX_PATH}/documentation/direction`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/direction`,
         title: 'Direction',
         icon: 'documentation',
         category: 'Documentation',
@@ -925,7 +925,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.overall-theme-config',
-        path: `${GUIDE_PREFIX_PATH}/documentation/overall-theme-config`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/overall-theme-config`,
         title: 'Overall Theme Config',
         icon: 'documentation',
         category: 'Documentation',
@@ -933,7 +933,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.build-production',
-        path: `${GUIDE_PREFIX_PATH}/documentation/build-production`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/build-production`,
         title: 'Build production',
         icon: 'documentation',
         category: 'Documentation',
@@ -941,7 +941,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'documentation.credit',
-        path: `${GUIDE_PREFIX_PATH}/documentation/credit`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/credit`,
         title: 'Sources & Credits',
         icon: 'documentation',
         category: 'Documentation',
@@ -949,7 +949,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'guide.documentation',
-        path: `${GUIDE_PREFIX_PATH}/documentation/introduction`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/documentation/introduction`,
         title: 'Documentation',
         icon: 'documentation',
         category: 'Docs',
@@ -957,7 +957,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'guide.sharedComponentDoc',
-        path: `${GUIDE_PREFIX_PATH}/shared-component-doc/abbreviate-number`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/shared-component-doc/abbreviate-number`,
         title: 'Shared Component',
         icon: 'sharedComponentDoc',
         category: 'Docs',
@@ -965,7 +965,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'guide.utilsDoc',
-        path: `${GUIDE_PREFIX_PATH}/utils-doc/use-auth`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/utils-doc/use-auth`,
         title: 'Utilities',
         icon: 'utilsDoc',
         category: 'Docs',
@@ -973,7 +973,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'guide.changeLog',
-        path: `${GUIDE_PREFIX_PATH}/changelog`,
+        path: `${ADMINISTRATION_PREFIX_PATH}/changelog`,
         title: 'Changelog',
         icon: 'changeLog',
         category: 'Docs',

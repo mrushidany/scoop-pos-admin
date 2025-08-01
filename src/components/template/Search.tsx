@@ -8,8 +8,8 @@ import Dialog from '@/components/ui/Dialog'
 import ScrollBar from '@/components/ui/ScrollBar'
 import navigationIcon from '@/configs/navigation-icon.config'
 import {
-    GUIDE_PREFIX_PATH,
-    UI_COMPONENTS_PREFIX_PATH,
+    ADMINISTRATION_PREFIX_PATH,
+    LOGISTICS_PREFIX_PATH,
 } from '@/constants/route.constant'
 import { apiGetSearchResult } from '@/services/CommonService'
 import debounce from 'lodash/debounce'
@@ -37,24 +37,16 @@ const recommendedSearch: SearchResult[] = [
         title: 'Recommended',
         data: [
             {
-                key: 'guide.documentation',
-                path: `${GUIDE_PREFIX_PATH}/documentation/introduction`,
-                title: 'Documentation',
-                icon: 'documentation',
-                category: 'Docs',
-                categoryTitle: 'Guide',
-            },
-            {
-                key: 'guide.changeLog',
-                path: `${GUIDE_PREFIX_PATH}/changelog`,
-                title: 'Changelog',
-                icon: 'changeLog',
-                category: 'Docs',
-                categoryTitle: 'Guide',
+                key: 'administration.users',
+                path: `${ADMINISTRATION_PREFIX_PATH}/users`,
+                title: 'Users Management',
+                icon: 'users',
+                category: 'administration',
+                categoryTitle: 'Administration',
             },
             {
                 key: 'uiComponent.common.button',
-                path: `${UI_COMPONENTS_PREFIX_PATH}/button`,
+                path: `${LOGISTICS_PREFIX_PATH}/button`,
                 title: 'Button',
                 icon: 'uiCommonButton',
                 category: 'Common',

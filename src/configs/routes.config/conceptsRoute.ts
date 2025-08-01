@@ -169,13 +169,13 @@ const conceptsRoute: Routes = {
                 title: lazy(
                     () =>
                         import(
-                            '@/app/(protected-pages)/concepts/orders/order-details/[id]/_components/OrderDetailHeader'
+                            '@/app/(protected-pages)/finance/orders/order-details/[id]/_components/OrderDetailHeader'
                         ),
                 ),
                 extraHeader: lazy(
                     () =>
                         import(
-                            '@/app/(protected-pages)/concepts/orders/order-details/[id]/_components/OrderDetailHeaderExtra'
+                            '@/app/(protected-pages)/finance/orders/order-details/[id]/_components/OrderDetailHeaderExtra'
                         ),
                 ),
             },

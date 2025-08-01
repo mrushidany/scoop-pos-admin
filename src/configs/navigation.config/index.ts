@@ -1,18 +1,16 @@
-import dashboardsNavigationConfig from './dashboards.navigation.config'
-import uiComponentNavigationConfig from './ui-components.navigation.config'
-import conceptsNavigationConfig from './concepts.navigation.config'
-import authNavigationConfig from './auth.navigation.config'
-import othersNavigationConfig from './others.navigation.config'
-import guideNavigationConfig from './guide.navigation.config'
+import dashboardNavigationConfig from './dashboard.navigation.config'
+import logisticsNavigationConfig from './logistics.navigation.config'
+import financeNavigationConfig from './finance.navigation.config'
+import insightsNavigationConfig from './insights.navigation.config'
+import administrationNavigationConfig from './administration.navigation.config'
 import type { NavigationTree } from '@/@types/navigation'
 
 const navigationConfig: NavigationTree[] = [
-    ...dashboardsNavigationConfig,
-    ...conceptsNavigationConfig,
-    ...uiComponentNavigationConfig,
-    ...authNavigationConfig,
-    ...othersNavigationConfig,
-    ...guideNavigationConfig,
+    ...dashboardNavigationConfig,
+    ...financeNavigationConfig,
+    ...logisticsNavigationConfig,
+    ...insightsNavigationConfig,
+    ...administrationNavigationConfig,
 ]
 
 export default navigationConfig
