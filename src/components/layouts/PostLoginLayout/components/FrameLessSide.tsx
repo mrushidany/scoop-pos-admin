@@ -6,10 +6,8 @@ import FrameLessGap from '@/components/template/FrameLessGap'
 import SideNavToggle from '@/components/template/SideNavToggle'
 import MobileNav from '@/components/template/MobileNav'
 import Search from '@/components/template/Search'
-import LanguageSelector from '@/components/template/LanguageSelector'
 import Notification from '@/components/template/Notification'
 import UserProfileDropdown from '@/components//template/UserProfileDropdown'
-import SidePanel from '@/components//template/SidePanel'
 import LayoutBase from '@/components//template/LayoutBase'
 import classNames from '@/utils/classNames'
 import useScrollTop from '@/utils/hooks/useScrollTop'
@@ -100,9 +98,7 @@ const FrameLessSide = ({ children }: CommonProps) => {
                             }
                             headerEnd={
                                 <>
-                                    <LanguageSelector />
                                     <Notification />
-                                    <SidePanel />
                                     <UserProfileDropdown hoverable={false} />
                                 </>
                             }
