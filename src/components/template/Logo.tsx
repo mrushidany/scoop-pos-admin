@@ -37,7 +37,7 @@ const Logo = (props: LogoProps) => {
                     <>
                         <Image
                             className={classNames('', type === 'full' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}logo-light-full.png`}
+                            src={`${LOGO_SRC_PATH}logo.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
@@ -45,7 +45,7 @@ const Logo = (props: LogoProps) => {
                         />
                         <Image
                             className={classNames('', type === 'streamline' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}logo-light-streamline.png`}
+                            src={`${LOGO_SRC_PATH}logo.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
@@ -59,7 +59,7 @@ const Logo = (props: LogoProps) => {
                     <>
                         <Image
                             className={classNames(type === 'full' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}logo-dark-full.png`}
+                            src={`${LOGO_SRC_PATH}logo.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
@@ -67,7 +67,7 @@ const Logo = (props: LogoProps) => {
                         />
                         <Image
                             className={classNames(type === 'streamline' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}logo-dark-streamline.png`}
+                            src={`${LOGO_SRC_PATH}logo.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
