@@ -6,9 +6,7 @@ const insightsRoute: Routes = {
         key: 'insights.reports',
         authority: [ADMIN, USER],
         meta: {
-            layout: 'blank',
-            pageContainerType: 'gutterless',
-            footer: false,
+            pageContainerType: 'contained',
         },
     },
 }

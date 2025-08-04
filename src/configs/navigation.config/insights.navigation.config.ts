@@ -17,7 +17,7 @@ const insightsNavigationConfig: NavigationTree[] = [
         authority: [ADMIN, USER],
         subMenu: [
             {
-                key: 'insights.reporting',
+                key: 'insights.reports',
                 path: `${INSIGHTS_PREFIX_PATH}/reports`,
                 title: 'Reports',
                 translateKey: 'nav.insights.reports',

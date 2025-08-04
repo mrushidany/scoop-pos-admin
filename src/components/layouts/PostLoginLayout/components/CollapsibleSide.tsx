@@ -15,13 +15,13 @@ const CollapsibleSide = ({ children }: CommonProps) => {
     return (
         <LayoutBase
             type={LAYOUT_COLLAPSIBLE_SIDE}
-            className="app-layout-collapsible-side flex flex-auto flex-col"
+            className='app-layout-collapsible-side flex flex-auto flex-col'
         >
-            <div className="flex flex-auto min-w-0">
+            <div className='flex flex-auto min-w-0'>
                 <SideNav />
-                <div className="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">
+                <div className='flex flex-col flex-auto min-h-screen min-w-0 relative w-full'>
                     <Header
-                        className="shadow-sm dark:shadow-2xl"
+                        className='shadow-sm dark:shadow-2xl'
                         headerStart={
                             <>
                                 <MobileNav />
@@ -36,7 +36,7 @@ const CollapsibleSide = ({ children }: CommonProps) => {
                             </>
                         }
                     />
-                    <div className="h-full flex flex-auto flex-col">
+                    <div className='h-full flex flex-auto flex-col'>
                         {children}
                     </div>
                 </div>
