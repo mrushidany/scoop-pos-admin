@@ -24,20 +24,20 @@ export default async function Page({ searchParams }: PageProps) {
       status={params.status as string}
     >
       <Container>
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-6">
+        <div className='mb-6'>
+          <div className='flex items-center justify-between mb-6'>
             <h3>Roles & Permissions</h3>
             <RolesPermissionsGroupsAction />
           </div>
-          <div className="mb-10">
+          <div className='mb-10'>
             <RolesPermissionsGroups />
           </div>
         </div>
         <div>
           <div>
-            <div className="mb-6 flex flex-col gap-5">
+            <div className='mb-6 flex flex-col gap-5'>
               <h3>All accounts</h3>
-              <div className="flex-1">
+              <div className='flex-1'>
                 <RolesPermissionsUserAction />
               </div>
             </div>
