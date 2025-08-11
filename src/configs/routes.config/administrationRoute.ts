@@ -3,7 +3,7 @@ import type { Routes } from '@/@types/routes'
 
 const administrationRoute: Routes = {
     '/administration/users': {
-        key: 'administration.users',
+        key: 'administration.users.users',
         authority: [ADMIN, USER],
         meta: {
             pageBackgroundType: 'plain',
