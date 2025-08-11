@@ -2,6 +2,7 @@ import { ADMINISTRATION_PREFIX_PATH } from '@/constants/route.constant'
 import {
     NAV_ITEM_TYPE_TITLE,
     NAV_ITEM_TYPE_ITEM,
+    NAV_ITEM_TYPE_COLLAPSE
 } from '@/constants/navigation.constant'
 import { ADMIN, USER } from '@/constants/roles.constant'
 import type { NavigationTree } from '@/@types/navigation'
@@ -22,7 +23,7 @@ const administrationNavigationConfig: NavigationTree[] = [
                 title: 'Users',
                 translateKey: 'nav.administration.users',
                 icon: 'users',
-                type: NAV_ITEM_TYPE_ITEM,
+                type: NAV_ITEM_TYPE_COLLAPSE,
                 authority: [ADMIN, USER],
                 meta: {
                     description: {
@@ -30,7 +31,24 @@ const administrationNavigationConfig: NavigationTree[] = [
                         label: 'Users Management',
                     },
                 },
-                subMenu: [],
+                subMenu: [
+                    {
+                        key: 'administration.rolesPermissions',
+                        path: `${ADMINISTRATION_PREFIX_PATH}/users/roles-permissions`,
+                        title: 'Roles & Permissions',
+                        translateKey: 'nav.administration.rolesPermissions',
+                        icon: 'accountRoleAndPermission',
+                        type: NAV_ITEM_TYPE_ITEM,
+                        authority: [ADMIN, USER],
+                        meta: {
+                            description: {
+                                translateKey: 'nav.administration.rolesPermissionsDesc',
+                                label: 'Manage roles & permissions',
+                            },
+                        },
+                        subMenu: [],
+                    },
+                ],
             },
         ],
     },

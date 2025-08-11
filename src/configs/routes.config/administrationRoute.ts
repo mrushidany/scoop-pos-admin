@@ -9,7 +9,15 @@ const administrationRoute: Routes = {
             pageBackgroundType: 'plain',
             pageContainerType: 'contained',
         },
-    }
+    }, 
+    '/administration/users/roles-permissions': {
+        key: 'administration.users.rolesPermissions',
+        authority: [ADMIN, USER],
+        meta: {
+            pageContainerType: 'contained',
+            pageBackgroundType: 'plain',
+        },
+    },
 }
 
 export default administrationRoute

@@ -26,6 +26,8 @@
         "administration": {
             "administration": "Administration",
             "users": "Users",
+            "rolesPermissions": "Roles & Permissions",
+            "rolesPermissionsDesc": "Manage roles & permissions",
             "usersDesc": "Users Management"
         }
     }
