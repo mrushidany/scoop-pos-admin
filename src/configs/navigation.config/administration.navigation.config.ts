@@ -33,6 +33,22 @@ const administrationNavigationConfig: NavigationTree[] = [
                 },
                 subMenu: [
                     {
+                        key: 'administration.users.users',
+                        path: `${ADMINISTRATION_PREFIX_PATH}/users`,
+                        title: 'Accounts',
+                        translateKey: 'nav.administration.users.usersAccounts',
+                        icon: 'users',
+                        type: NAV_ITEM_TYPE_ITEM,
+                        authority: [ADMIN, USER],
+                        meta: {
+                            description: {
+                                translateKey: 'nav.administration.users.usersAccountsDesc',
+                                label: 'Users Accounts Management',
+                            },
+                        },
+                        subMenu: []
+                    },
+                    {
                         key: 'administration.users.rolesPermissions',
                         path: `${ADMINISTRATION_PREFIX_PATH}/users/roles-permissions`,
                         title: 'Roles & Permissions',
