@@ -19,7 +19,6 @@ const SignInClient = () => {
     }: OnSignInPayload) => {
         setSubmitting(true)
         clearMessages()
-
         try {
             const result = await login(values.email, values.password)
             if(result.success) {
