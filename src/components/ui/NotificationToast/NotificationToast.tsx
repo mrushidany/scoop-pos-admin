@@ -22,6 +22,7 @@ export interface NotificationToastProps {
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center'
   showSound?: boolean
   className?: string
+  priority?: string
 }
 
 const NotificationToast: React.FC<NotificationToastProps> = ({
@@ -32,7 +33,8 @@ const NotificationToast: React.FC<NotificationToastProps> = ({
   autoCloseDelay = 5000,
   position = 'top-right',
   showSound = false,
-  className = ''
+  className = '',
+  priority = 'normal'
 }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -97,7 +99,7 @@ const NotificationToast: React.FC<NotificationToastProps> = ({
         // Ignore audio play errors (user interaction required)
       })
     } catch (error) {
-      // Ignore audio errors
+      console.error('Error playing notification sound:', error)
     }
   }
 
@@ -179,12 +181,12 @@ const NotificationToast: React.FC<NotificationToastProps> = ({
   }
 
   const getPriorityIndicator = () => {
-    if (notification.priority === 'urgent') {
+    if (priority === 'urgent') {        
       return (
         <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
       )
     }
-    if (notification.priority === 'high') {
+    if (priority === 'high') {
       return (
         <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full" />
       )
