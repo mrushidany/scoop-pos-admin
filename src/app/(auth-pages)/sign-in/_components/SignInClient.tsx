@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import SignIn from '@/components/auth/SignIn'
 import { onSignInWithCredentials } from '@/server/actions/auth/handleSignIn'
 import handleOauthSignIn from '@/server/actions/auth/handleOauthSignIn'
@@ -38,7 +40,12 @@ const SignInClient = () => {
         }
     }
 
-    return <SignIn onSignIn={handleSignIn} onOauthSignIn={handleOAuthSignIn} />
+    return (
+        <SignIn 
+            onSignIn={handleSignIn} 
+            onOauthSignIn={handleOAuthSignIn} 
+        />
+    )
 }
 
 export default SignInClient

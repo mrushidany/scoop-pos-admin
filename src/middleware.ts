@@ -11,7 +11,9 @@ export function middleware(request: NextRequest) {
         return NextResponse.next()
     }
 
-    const encryptedToken = request.cookies.get('auth_token')?.value
+    const encryptedToken = request.cookies.get('pos_admin_auth_token')?.value
+    const sessionExp = request.cookies.get('pos_admin_session_exp')?.value
+    const userMetaEnc = request.cookies.get('pos_admin_user_meta')?.value
     const isPublicRoute = appConfig.publicRoutes.includes(pathname)
     const isProtectedRoute = appConfig.protectedRoutes.some(route => pathname.startsWith(route))
 
@@ -29,6 +31,32 @@ export function middleware(request: NextRequest) {
         }
     }
 
+    // Check session expiry
+    const now = Date.now()
+    const isExpired = sessionExp ? Number(sessionExp) <= now : false
+    if (isExpired && isAuthenticated) {
+        const response = NextResponse.redirect(new URL(appConfig.unAuthenticatedEntryPath, request.url))
+        // Clear auth cookies
+        response.cookies.set('pos_admin_auth_token', '', { path: '/', maxAge: 0 })
+        response.cookies.set('pos_admin_session_exp', '', { path: '/', maxAge: 0 })
+        response.cookies.set('pos_admin_user_meta', '', { path: '/', maxAge: 0 })
+        return response
+    }
+
+    // Optional: enforce active user on protected routes
+    if (isAuthenticated && isProtectedRoute && userMetaEnc) {
+        try {
+            const meta = JSON.parse(decrypt(userMetaEnc)) as { is_active?: boolean }
+            if (meta && meta.is_active === false) {
+                const response = NextResponse.redirect(new URL(appConfig.unAuthenticatedEntryPath, request.url))
+                response.cookies.set('pos_admin_redirect_after_login', pathname, { path: '/', maxAge: 300 })
+                return response
+            }
+        } catch (err) {
+            console.error('Failed to parse user meta', err)
+        }
+    }
+
     // If user is authenticated and tries to access public routes
     if (isAuthenticated && isPublicRoute) {
         return NextResponse.redirect(new URL(appConfig.authenticatedEntryPath, request.url))
@@ -38,7 +66,7 @@ export function middleware(request: NextRequest) {
     if (!isAuthenticated && isProtectedRoute) {
         // Store the current URL to redirect back after login
         const response = NextResponse.redirect(new URL(appConfig.unAuthenticatedEntryPath, request.url))
-        response.cookies.set('redirect_after_login', pathname, {
+        response.cookies.set('pos_admin_redirect_after_login', pathname, {
             path: '/',
             maxAge: 300 // 5 minutes
         })
