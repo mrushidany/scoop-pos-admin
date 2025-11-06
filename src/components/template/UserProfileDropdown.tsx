@@ -35,8 +35,6 @@ const dropdownItemList: DropdownList[] = [
 
 const _UserDropdown = () => {
     const { session } = useCurrentSession()
-
-    console.log('What is the session here : ', session)
     const router = useRouter()
     const logout = useAuthStore(state => state.logout)
 
