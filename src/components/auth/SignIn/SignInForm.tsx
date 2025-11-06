@@ -6,7 +6,6 @@ import Button from '@/components/ui/Button'
 import { FormItem, Form } from '@/components/ui/Form'
 import PasswordInput from '@/components/shared/PasswordInput'
 import classNames from '@/utils/classNames'
-
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -26,6 +25,7 @@ interface SignInFormProps extends CommonProps {
     passwordHint?: string | ReactNode
     setMessage: (message: string) => void
     onSignIn?: OnSignIn
+    isLoading?: boolean
 }
 
 type SignInFormSchema = {
@@ -44,8 +44,7 @@ const validationSchema: ZodType<SignInFormSchema> = z.object({
 
 const SignInForm = (props: SignInFormProps) => {
     const [isSubmitting, setSubmitting] = useState<boolean>(false)
-
-    const { className, setMessage, onSignIn, passwordHint } = props
+     const { className, setMessage, onSignIn, passwordHint, isLoading = false } = props
 
     const {
         handleSubmit,
@@ -53,8 +52,8 @@ const SignInForm = (props: SignInFormProps) => {
         control,
     } = useForm<SignInFormSchema>({
         defaultValues: {
-            email: 'admin-01@ecme.com',
-            password: '123Qwe',
+            email: '',
+            password: '',
         },
         resolver: zodResolver(validationSchema),
     })
@@ -69,25 +68,25 @@ const SignInForm = (props: SignInFormProps) => {
         <div className={className}>
             <Form onSubmit={handleSubmit(handleSignIn)}>
                 <FormItem
-                    label="Email"
+                    label='Email'
                     invalid={Boolean(errors.email)}
                     errorMessage={errors.email?.message}
                 >
                     <Controller
-                        name="email"
+                        name='email'
                         control={control}
                         render={({ field }) => (
                             <Input
-                                type="email"
-                                placeholder="Email"
-                                autoComplete="off"
+                                type='email'
+                                placeholder='Enter your email'
+                                autoComplete='off'
                                 {...field}
                             />
                         )}
                     />
                 </FormItem>
                 <FormItem
-                    label="Password"
+                    label='Password'
                     invalid={Boolean(errors.password)}
                     errorMessage={errors.password?.message}
                     className={classNames(
@@ -96,15 +95,16 @@ const SignInForm = (props: SignInFormProps) => {
                     )}
                 >
                     <Controller
-                        name="password"
+                        name='password'
                         control={control}
                         rules={{ required: true }}
                         render={({ field }) => (
                             <PasswordInput
-                                type="text"
-                                placeholder="Password"
-                                autoComplete="off"
+                                type='text'
+                                placeholder='Password'
+                                autoComplete='off'
                                 {...field}
+                                disabled={isLoading || isSubmitting}
                             />
                         )}
                     />
@@ -112,11 +112,12 @@ const SignInForm = (props: SignInFormProps) => {
                 {passwordHint}
                 <Button
                     block
-                    loading={isSubmitting}
-                    variant="solid"
-                    type="submit"
+                    loading={isLoading || isSubmitting}
+                    variant='solid'
+                    type='submit'
+                    disabled={isLoading || isSubmitting}
                 >
-                    {isSubmitting ? 'Signing in...' : 'Sign In'}
+                    {isLoading || isSubmitting ? 'Signing in...' : 'Sign In'}
                 </Button>
             </Form>
         </div>

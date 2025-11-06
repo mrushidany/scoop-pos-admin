@@ -7,18 +7,22 @@ import ActionLink from '@/components/shared/ActionLink'
 import useTimeOutMessage from '@/utils/hooks/useTimeOutMessage'
 import useTheme from '@/utils/hooks/useTheme'
 import type { OnSignIn } from './SignInForm'
-import type { OnOauthSignIn } from './OauthSignIn'
 
 type SignInProps = {
     signUpUrl?: string
     forgetPasswordUrl?: string
     onSignIn?: OnSignIn
-    onOauthSignIn?: OnOauthSignIn
+    isLoading?: boolean
+    error?: string | null
+    success?: string | null
 }
 
 const SignIn = ({
     forgetPasswordUrl = '/forgot-password',
     onSignIn,
+    isLoading = false,
+    error,
+    success
 }: SignInProps) => {
     const [message, setMessage] = useTimeOutMessage()
 
@@ -40,6 +44,16 @@ const SignIn = ({
                     Please enter your credentials to sign in!
                 </p>
             </div>
+            {error && (
+                <Alert showIcon className='mb-4' type='danger'>
+                    <span className='break-all'>{error}</span>
+                </Alert>
+            )}
+            {success && (
+                <Alert showIcon className='mb-4' type='success'>
+                    <span className='break-all'>{success}</span>
+                </Alert>
+            )}
             {message && (
                 <Alert showIcon className='mb-4' type='danger'>
                     <span className='break-all'>{message}</span>
@@ -59,6 +73,7 @@ const SignIn = ({
                     </div>
                 }
                 onSignIn={onSignIn}
+                isLoading={isLoading}
             />
         </>
     )

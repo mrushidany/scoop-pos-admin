@@ -3,47 +3,44 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import SignIn from '@/components/auth/SignIn'
-import { onSignInWithCredentials } from '@/server/actions/auth/handleSignIn'
-import handleOauthSignIn from '@/server/actions/auth/handleOauthSignIn'
-import { REDIRECT_URL_KEY } from '@/constants/app.constant'
-import { useSearchParams } from 'next/navigation'
-import type {
-    OnSignInPayload,
-    OnOauthSignInPayload,
-} from '@/components/auth/SignIn'
+import type { OnSignInPayload } from '@/components/auth/SignIn'
+import { useAuthStore } from '@/store/auth'
+import sleep from '@/utils/sleep'
 
 const SignInClient = () => {
-    const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get(REDIRECT_URL_KEY)
+    const router = useRouter()
+    const { login, isLoading, error, success, clearMessages } = useAuthStore()
+    const [isRedirecting, setIsRedirecting] = useState(false)
 
-    const handleSignIn = ({
+    const handleSignIn = async ({
         values,
         setSubmitting,
         setMessage,
     }: OnSignInPayload) => {
         setSubmitting(true)
+        clearMessages()
 
-        onSignInWithCredentials(values, callbackUrl || '').then((data) => {
-            if (data?.error) {
-                setMessage(data.error as string)
+        try {
+            const result = await login(values.email, values.password)
+            if(result.success) {
+                setIsRedirecting(true)
+                await sleep(1000)
+                router.refresh()
+            } else {
                 setSubmitting(false)
             }
-        })
-    }
-
-    const handleOAuthSignIn = async ({ type }: OnOauthSignInPayload) => {
-        if (type === 'google') {
-            await handleOauthSignIn('google')
-        }
-        if (type === 'github') {
-            await handleOauthSignIn('github')
+        } catch (error) {
+            setMessage(error instanceof Error ? error.message : 'Failed to sign in')
+            setSubmitting(false)   
         }
     }
 
     return (
         <SignIn 
             onSignIn={handleSignIn} 
-            onOauthSignIn={handleOAuthSignIn} 
+            isLoading={isLoading || isRedirecting}
+            error={error}
+            success={success}
         />
     )
 }
