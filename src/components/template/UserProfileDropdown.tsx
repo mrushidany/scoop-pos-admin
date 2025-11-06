@@ -3,11 +3,11 @@ import Avatar from '@/components/ui/Avatar'
 import Dropdown from '@/components/ui/Dropdown'
 import withHeaderItem from '@/utils/hoc/withHeaderItem'
 import Link from 'next/link'
-import signOut from '@/server/actions/auth/handleSignOut'
 import useCurrentSession from '@/utils/hooks/useCurrentSession'
+import { useAuthStore } from '@/store/auth'
+import { useRouter } from 'next/navigation'
 import {
     PiUserDuotone,
-    PiGearDuotone,
     PiPulseDuotone,
     PiSignOutDuotone,
 } from 'react-icons/pi'
@@ -23,17 +23,12 @@ type DropdownList = {
 const dropdownItemList: DropdownList[] = [
     {
         label: 'Profile',
-        path: '/concepts/account/settings',
+        path: '#',
         icon: <PiUserDuotone />,
     },
     {
-        label: 'Account Setting',
-        path: '/concepts/account/settings',
-        icon: <PiGearDuotone />,
-    },
-    {
         label: 'Activity Log',
-        path: '/concepts/account/activity-log',
+        path: '#',
         icon: <PiPulseDuotone />,
     },
 ]
@@ -41,62 +36,69 @@ const dropdownItemList: DropdownList[] = [
 const _UserDropdown = () => {
     const { session } = useCurrentSession()
 
+    console.log('What is the session here : ', session)
+    const router = useRouter()
+    const logout = useAuthStore(state => state.logout)
+
     const handleSignOut = async () => {
-        await signOut()
+        try {
+            await logout()
+            router.push('/sign-in')
+        } catch (error) {
+            console.error('Error during sign out:', error)
+        }
     }
 
     const avatarProps = {
-        ...(session?.user?.image
-            ? { src: session?.user?.image }
-            : { icon: <PiUserDuotone /> }),
+        icon: <PiUserDuotone />
     }
 
     return (
         <Dropdown
-            className="flex"
-            toggleClassName="flex items-center"
+            className='flex'
+            toggleClassName='flex items-center'
             renderTitle={
-                <div className="cursor-pointer flex items-center">
+                <div className='cursor-pointer flex items-center'>
                     <Avatar size={32} {...avatarProps} />
                 </div>
             }
-            placement="bottom-end"
+            placement='bottom-end'
         >
-            <Dropdown.Item variant="header">
-                <div className="py-2 px-3 flex items-center gap-3">
+            <Dropdown.Item variant='header'>
+                <div className='py-2 px-3 flex items-center gap-3'>
                     <Avatar {...avatarProps} />
                     <div>
-                        <div className="font-bold text-gray-900 dark:text-gray-100">
+                        <div className='font-bold text-gray-900 dark:text-gray-100'>
                             {session?.user?.name || 'Anonymous'}
                         </div>
-                        <div className="text-xs">
+                        <div className='text-xs'>
                             {session?.user?.email || 'No email available'}
                         </div>
                     </div>
                 </div>
             </Dropdown.Item>
-            <Dropdown.Item variant="divider" />
+            <Dropdown.Item variant='divider' />
             {dropdownItemList.map((item) => (
                 <Dropdown.Item
                     key={item.label}
                     eventKey={item.label}
-                    className="px-0"
+                    className='px-0'
                 >
-                    <Link className="flex h-full w-full px-2" href={item.path}>
-                        <span className="flex gap-2 items-center w-full">
-                            <span className="text-xl">{item.icon}</span>
+                    <Link className='flex h-full w-full px-2' href={item.path}>
+                        <span className='flex gap-2 items-center w-full'>
+                            <span className='text-xl'>{item.icon}</span>
                             <span>{item.label}</span>
                         </span>
                     </Link>
                 </Dropdown.Item>
             ))}
-            <Dropdown.Item variant="divider" />
+            <Dropdown.Item variant='divider' />
             <Dropdown.Item
-                eventKey="Sign Out"
-                className="gap-2"
+                eventKey='Sign Out'
+                className='gap-2'
                 onClick={handleSignOut}
             >
-                <span className="text-xl">
+                <span className='text-xl'>
                     <PiSignOutDuotone />
                 </span>
                 <span>Sign Out</span>

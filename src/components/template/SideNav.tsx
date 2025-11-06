@@ -11,6 +11,7 @@ import queryRoute from '@/utils/queryRoute'
 import appConfig from '@/configs/app.config'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { ADMIN, USER } from '@/constants/roles.constant'
 
 import {
     SIDE_NAV_WIDTH,
@@ -97,7 +98,7 @@ const SideNav = ({
                         routeKey={currentRouteKey}
                         direction={direction}
                         translationSetup={translationSetup}
-                        userAuthority={session?.user?.authroity || []}
+                        userAuthority={[session?.user?.is_admin ? ADMIN : USER]}
                     />
                 </ScrollBar>
             </div>

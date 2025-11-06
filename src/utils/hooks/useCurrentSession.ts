@@ -1,14 +1,15 @@
-import { useContext } from 'react'
-import SessionContext from '@/components/auth/AuthProvider/SessionContext'
+import { useAuthStore } from '@/store/auth'
 
 const useCurrentSession = () => {
-    const context = useContext(SessionContext)
+    const { user, access_token, refresh_token, isAuthenticated } = useAuthStore()
 
     return {
-        session: context || {
-            expires: '',
-            user: {},
-        },
+        session: {
+            user,
+            access_token,
+            refresh_token,
+            isAuthenticated
+        }
     }
 }
 

@@ -57,7 +57,7 @@ const CollapsedItem = ({
                 <Dropdown.Item active={currentKey === nav.key}>
                     {nav.path ? (
                         <Link
-                            className="h-full w-full flex items-center outline-hidden"
+                            className='h-full w-full flex items-center outline-hidden'
                             href={nav.path}
                             target={nav.isExternalLink ? '_blank' : ''}
                             onClick={() =>
@@ -95,7 +95,7 @@ const DefaultItem = (props: DefaultItemProps) => {
             <MenuItem key={nav.key} eventKey={nav.key} dotIndent={indent}>
                 <Link
                     href={nav.path}
-                    className="flex items-center gap-2 h-full w-full"
+                    className='flex items-center gap-2 h-full w-full'
                     target={nav.isExternalLink ? '_blank' : ''}
                     onClick={() =>
                         onLinkClick?.({
