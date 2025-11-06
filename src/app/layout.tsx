@@ -4,6 +4,7 @@ import ThemeProvider from '@/components/template/Theme/ThemeProvider'
 import pageMetaConfig from '@/configs/page-meta.config'
 import LocaleProvider from '@/components/template/LocaleProvider'
 import NavigationProvider from '@/components/template/Navigation/NavigationProvider'
+import { NotificationProvider } from '@/components/providers'
 import { getNavigation } from '@/server/actions/navigation/getNavigation'
 import { getTheme } from '@/server/actions/theme'
 import { getLocale, getMessages } from 'next-intl/server'
@@ -41,7 +42,15 @@ export default async function RootLayout({
                     <LocaleProvider locale={locale} messages={messages}>
                         <ThemeProvider locale={locale} theme={theme}>
                             <NavigationProvider navigationTree={navigationTree}>
-                                {children}
+                                <NotificationProvider
+                                    userId={session?.user?.id || 'guest'}
+                                    enableRealTime={true}
+                                    enableToasts={true}
+                                    toastPosition="top-right"
+                                    enableSound={true}
+                                >
+                                    {children}
+                                </NotificationProvider>
                             </NavigationProvider>
                         </ThemeProvider>
                     </LocaleProvider>

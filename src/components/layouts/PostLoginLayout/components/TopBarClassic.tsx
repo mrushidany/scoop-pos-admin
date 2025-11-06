@@ -2,16 +2,26 @@
 
 import Header from '@/components/template/Header'
 import UserProfileDropdown from '@/components//template/UserProfileDropdown'
-import Notification from '@/components/template/Notification'
+import NotificationCenter from '@/components/ui/NotificationCenter'
 import HeaderLogo from '@/components/template/HeaderLogo'
 import Search from '@/components/template/Search'
 import MobileNav from '@/components/template/MobileNav'
 import HorizontalNav from '@/components/template/HorizontalNav'
 import LayoutBase from '@/components//template/LayoutBase'
+import { useNotifications } from '@/components/providers'
 import { LAYOUT_TOP_BAR_CLASSIC } from '@/constants/theme.constant'
 import type { CommonProps } from '@/@types/common'
 
 const TopBarClassic = ({ children }: CommonProps) => {
+    const {
+        notifications,
+        unreadCount,
+        markAsRead,
+        markAllAsRead,
+        archiveNotification,
+        deleteNotification
+    } = useNotifications()
+
     return (
         <LayoutBase
             type={LAYOUT_TOP_BAR_CLASSIC}
@@ -32,7 +42,26 @@ const TopBarClassic = ({ children }: CommonProps) => {
                         headerEnd={
                             <>
                                 <Search />
-                                <Notification />
+                                <NotificationCenter
+                                    notifications={notifications}
+                                    unreadCount={unreadCount}
+                                    isOpen={false}
+                                    onToggle={() => {}}
+                                    onClose={() => {}}
+                                    onMarkAsRead={markAsRead}
+                                    onMarkAllAsRead={markAllAsRead}
+                                    onArchive={archiveNotification}
+                                    onDelete={deleteNotification}
+                                    onNotificationClick={(notification) => {
+                                        markAsRead(notification.id)
+                                        if (notification.actionUrl) {
+                                            window.location.href = notification.actionUrl
+                                        }
+                                    }}
+                                    onSettingsClick={() => {
+                                        window.location.href = '/settings/notifications'
+                                    }}
+                                />
                                 <UserProfileDropdown hoverable={false} />
                             </>
                         }

@@ -2,12 +2,13 @@
 
 import Header from '@/components/template/Header'
 import UserProfileDropdown from '@/components//template/UserProfileDropdown'
-import Notification from '@/components/template/Notification'
+import NotificationCenter from '@/components/ui/NotificationCenter'
 import HeaderLogo from '@/components/template/HeaderLogo'
 import Search from '@/components/template/Search'
 import MobileNav from '@/components/template/MobileNav'
 import HorizontalNav from '@/components/template/HorizontalNav'
 import LayoutBase from '@/components//template/LayoutBase'
+import { useNotifications } from '@/components/providers'
 import classNames from '@/utils/classNames'
 import useScrollTop from '@/utils/hooks/useScrollTop'
 import { LAYOUT_CONTENT_OVERLAY } from '@/constants/theme.constant'
@@ -15,6 +16,14 @@ import type { CommonProps } from '@/@types/common'
 import type { FooterPageContainerType } from '@/components/template/Footer'
 
 const ContentOverlay = ({ children }: CommonProps) => {
+    const {
+        notifications,
+        unreadCount,
+        markAsRead,
+        markAllAsRead,
+        archiveNotification,
+        deleteNotification
+    } = useNotifications()
     const { isSticky } = useScrollTop()
 
     return (
@@ -113,7 +122,26 @@ const ContentOverlay = ({ children }: CommonProps) => {
                         headerEnd={
                             <>
                                 <Search />
-                                <Notification />
+                                <NotificationCenter
+                                    notifications={notifications}
+                                    unreadCount={unreadCount}
+                                    isOpen={false}
+                                    onToggle={() => {}}
+                                    onClose={() => {}}
+                                    onMarkAsRead={markAsRead}
+                                    onMarkAllAsRead={markAllAsRead}
+                                    onArchive={archiveNotification}
+                                    onDelete={deleteNotification}
+                                    onNotificationClick={(notification) => {
+                                        markAsRead(notification.id)
+                                        if (notification.actionUrl) {
+                                            window.location.href = notification.actionUrl
+                                        }
+                                    }}
+                                    onSettingsClick={() => {
+                                        window.location.href = '/settings/notifications'
+                                    }}
+                                />
                                 <UserProfileDropdown hoverable={false} />
                             </>
                         }
