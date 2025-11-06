@@ -1,4 +1,6 @@
-import { cloneElement } from 'react'
+'use client'
+
+import { cloneElement, useEffect, useMemo, useState } from 'react'
 import type { ReactNode, ReactElement } from 'react'
 import type { CommonProps } from '@/@types/common'
 
@@ -7,30 +9,43 @@ interface SplitProps extends CommonProps {
 }
 
 const Split = ({ children, content, ...rest }: SplitProps) => {
+    const images = useMemo(
+        () => [
+            '/img/auth/number1.png',
+            '/img/auth/number2.png',
+            '/img/auth/number3.png',
+            '/img/auth/number4.png',
+        ],
+        [],
+    )
+
+    const [current, setCurrent] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % images.length)
+        }, 3000) // change image every 3s
+        return () => clearInterval(interval)
+    }, [images.length])
+
     return (
-        <div className="grid lg:grid-cols-2 h-full p-6 bg-white dark:bg-gray-800">
-            <div className="bg-no-repeat bg-cover py-6 px-16 flex-col justify-center items-center hidden lg:flex bg-primary rounded-3xl">
-                <div className="flex flex-col items-center gap-12">
-                    <img
-                        className="max-w-[450px] 2xl:max-w-[900px]"
-                        src="/img/others/auth-split-img.png"
-                        alt="auth-split-img"
+        <div className='grid lg:grid-cols-2 h-full p-6 bg-white dark:bg-gray-800'>
+            <div className='hidden lg:flex rounded-3xl relative overflow-hidden'>
+                {images.map((src, idx) => (
+                    <div
+                        key={src}
+                        className='absolute inset-0 bg-contain bg-center bg-no-repeat transition-opacity duration-700'
+                        style={{
+                            backgroundImage: `url(${src})`,
+                            opacity: current === idx ? 1 : 0,
+                        }}
                     />
-                    <div className="text-center max-w-[550px]">
-                        <h1 className="text-neutral">
-                            The easiest way to build your admin app
-                        </h1>
-                        <p className="text-neutral opacity-80 mx-auto mt-8 font-semibold">
-                            Experience seamless project management with Ecme.
-                            Simplify your workflow, and achieve your goals
-                            efficiently with our powerful and intuitive tools.
-                        </p>
-                    </div>
-                </div>
+                ))}
+                <div className='absolute inset-0 bg-black opacity-50' />
             </div>
-            <div className="flex flex-col justify-center items-center ">
-                <div className="w-full xl:max-w-[450px] px-8 max-w-[380px]">
-                    <div className="mb-8">{content}</div>
+            <div className='flex flex-col justify-center items-center '>
+                <div className='w-full xl:max-w-[450px] px-8 max-w-[380px]'>
+                    <div className='mb-8'>{content}</div>
                     {children
                         ? cloneElement(children as ReactElement, {
                               ...rest,

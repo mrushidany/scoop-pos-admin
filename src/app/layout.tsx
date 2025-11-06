@@ -46,7 +46,7 @@ export default async function RootLayout({
                                     userId={session?.user?.id || 'guest'}
                                     enableRealTime={true}
                                     enableToasts={true}
-                                    toastPosition="top-right"
+                                    toastPosition='top-right'
                                     enableSound={true}
                                 >
                                     {children}
