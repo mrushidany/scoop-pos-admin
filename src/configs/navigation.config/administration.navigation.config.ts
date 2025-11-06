@@ -1,8 +1,7 @@
 import { ADMINISTRATION_PREFIX_PATH } from '@/constants/route.constant'
 import {
-    NAV_ITEM_TYPE_TITLE,
     NAV_ITEM_TYPE_ITEM,
-    NAV_ITEM_TYPE_COLLAPSE
+    NAV_ITEM_TYPE_TITLE
 } from '@/constants/navigation.constant'
 import { ADMIN, USER } from '@/constants/roles.constant'
 import type { NavigationTree } from '@/@types/navigation'
@@ -18,53 +17,20 @@ const administrationNavigationConfig: NavigationTree[] = [
         authority: [ADMIN, USER],
         subMenu: [
             {
-                key: 'administration.users.users',
-                path: `${ADMINISTRATION_PREFIX_PATH}/users`,
-                title: 'Users',
-                translateKey: 'nav.administration.users.users',
+                key: 'administration.users.userManagement',
+                path: `${ADMINISTRATION_PREFIX_PATH}/user-management`,
+                title: 'User Management',
+                translateKey: 'nav.administration.users.userManagement',
                 icon: 'users',
-                type: NAV_ITEM_TYPE_COLLAPSE,
+                type: NAV_ITEM_TYPE_ITEM,
                 authority: [ADMIN, USER],
                 meta: {
                     description: {
-                        translateKey: 'nav.administration.users.usersDesc',
-                        label: 'Users Management',
+                        translateKey: 'nav.administration.users.userManagementDesc',
+                        label: 'User Management',
                     },
                 },
-                subMenu: [
-                    {
-                        key: 'administration.users.users',
-                        path: `${ADMINISTRATION_PREFIX_PATH}/users`,
-                        title: 'Accounts',
-                        translateKey: 'nav.administration.users.usersAccounts',
-                        icon: 'users',
-                        type: NAV_ITEM_TYPE_ITEM,
-                        authority: [ADMIN, USER],
-                        meta: {
-                            description: {
-                                translateKey: 'nav.administration.users.usersAccountsDesc',
-                                label: 'Users Accounts Management',
-                            },
-                        },
-                        subMenu: []
-                    },
-                    {
-                        key: 'administration.users.rolesPermissions',
-                        path: `${ADMINISTRATION_PREFIX_PATH}/users/roles-permissions`,
-                        title: 'Roles & Permissions',
-                        translateKey: 'nav.administration.users.rolesPermissions',
-                        icon: 'accountRoleAndPermission',
-                        type: NAV_ITEM_TYPE_ITEM,
-                        authority: [ADMIN, USER],
-                        meta: {
-                            description: {
-                                translateKey: 'nav.administration.users.rolesPermissionsDesc',
-                                label: 'Manage roles & permissions',
-                            },
-                        },
-                        subMenu: [],
-                    },
-                ],
+                subMenu: [],
             },
         ],
     },

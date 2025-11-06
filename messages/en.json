@@ -30,7 +30,8 @@
                 "usersAccounts": "Users Accounts",
                 "rolesPermissions": "Roles & Permissions",
                 "rolesPermissionsDesc": "Manage roles & permissions",
-                "usersDesc": "Users Management",
+                "userManagement": "User Management",
+                "userManagementDesc": "User Management",
                 "usersAccountsDesc": "Users Accounts Management"
 
             }
