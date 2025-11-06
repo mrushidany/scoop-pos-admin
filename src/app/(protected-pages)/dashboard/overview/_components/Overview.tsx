@@ -11,7 +11,7 @@ import classNames from '@/utils/classNames'
 import { COLOR_1, COLOR_2, COLOR_4 } from '@/constants/chart.constant'
 import { options } from '../constants'
 import { NumericFormat } from 'react-number-format'
-import { TbCoin, TbShoppingBagCheck, TbEye } from 'react-icons/tb'
+import { TbCoin, TbShoppingBagCheck, TbMoneybag } from 'react-icons/tb'
 import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
 import type { StatisticData, Period, StatisticCategory } from '../types'
@@ -19,7 +19,7 @@ import type { StatisticData, Period, StatisticCategory } from '../types'
 const Chart = dynamic(() => import('@/components/shared/Chart'), {
     ssr: false,
     loading: () => (
-        <div className="h-[425px] flex items-center justify-center">
+        <div className='h-[425px] flex items-center justify-center'>
             <Loading loading />
         </div>
     ),
@@ -68,17 +68,17 @@ const StatisticCard = (props: StatisticCardProps) => {
             )}
             onClick={() => onClick(label)}
         >
-            <div className="flex md:flex-col-reverse gap-2 2xl:flex-row justify-between relative">
+            <div className='flex md:flex-col-reverse gap-2 2xl:flex-row justify-between relative'>
                 <div>
-                    <div className="mb-4 text-sm font-semibold">{title}</div>
-                    <h3 className="mb-1">{value}</h3>
-                    <div className="inline-flex items-center flex-wrap gap-1">
+                    <div className='mb-4 text-sm font-semibold'>{title}</div>
+                    <h3 className='mb-1'>{value}</h3>
+                    <div className='inline-flex items-center flex-wrap gap-1'>
                         <GrowShrinkValue
-                            className="font-bold"
+                            className='font-bold'
                             value={growShrink}
-                            suffix="%"
-                            positiveIcon="+"
-                            negativeIcon=""
+                            suffix='%'
+                            positiveIcon='+'
+                            negativeIcon=''
                         />
                         <span>{compareFrom}</span>
                     </div>
@@ -121,13 +121,13 @@ const Overview = ({ data }: StatisticGroupsProps) => {
 
     return (
         <Card>
-            <div className="flex items-center justify-between">
+            <div className='flex items-center justify-between'>
                 <h4>Overview</h4>
                 <Select
-                    instanceId="overview-period"
-                    className="w-[120px]"
-                    size="sm"
-                    placeholder="Select period"
+                    instanceId='overview-period'
+                    className='w-[120px]'
+                    size='sm'
+                    placeholder='Select period'
                     value={options.filter(
                         (option) => option.value === selectedPeriod,
                     )}
@@ -140,68 +140,68 @@ const Overview = ({ data }: StatisticGroupsProps) => {
                     }}
                 />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 rounded-2xl p-3 bg-gray-100 dark:bg-gray-700 mt-4">
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 rounded-2xl p-3 bg-gray-100 dark:bg-gray-700 mt-4'>
                 <StatisticCard
-                    title="Total profit"
+                    title='Total profits'
                     value={
                         <NumericFormat
-                            displayType="text"
+                            displayType='text'
                             value={data.totalProfit[selectedPeriod].value}
                             prefix={'$'}
                             thousandSeparator={true}
                         />
                     }
                     growShrink={data.totalProfit[selectedPeriod].growShrink}
-                    iconClass="bg-sky-200"
+                    iconClass='bg-sky-200'
                     icon={<TbCoin />}
-                    label="totalProfit"
+                    label='totalProfit'
                     active={selectedCategory === 'totalProfit'}
                     compareFrom={data.totalProfit[selectedPeriod].comparePeriod}
                     onClick={setSelectedCategory}
                 />
                 <StatisticCard
-                    title="Total order"
+                    title='Total orders'
                     value={
                         <NumericFormat
-                            displayType="text"
+                            displayType='text'
                             value={data.totalOrder[selectedPeriod].value}
                             thousandSeparator={true}
                         />
                     }
                     growShrink={data.totalOrder[selectedPeriod].growShrink}
-                    iconClass="bg-emerald-200"
+                    iconClass='bg-emerald-200'
                     icon={<TbShoppingBagCheck />}
-                    label="totalOrder"
+                    label='totalOrder'
                     active={selectedCategory === 'totalOrder'}
                     compareFrom={data.totalProfit[selectedPeriod].comparePeriod}
                     onClick={setSelectedCategory}
                 />
                 <StatisticCard
-                    title="Impression"
+                    title='Total sales'
                     value={
                         <AbbreviateNumber
                             value={data.totalImpression[selectedPeriod].value}
                         />
                     }
                     growShrink={data.totalImpression[selectedPeriod].growShrink}
-                    iconClass="bg-purple-200"
-                    icon={<TbEye />}
-                    label="totalImpression"
+                    iconClass='bg-purple-200'
+                    icon={<TbMoneybag />}
+                    label='totalImpression'
                     active={selectedCategory === 'totalImpression'}
                     compareFrom={data.totalProfit[selectedPeriod].comparePeriod}
                     onClick={setSelectedCategory}
                 />
             </div>
-            <div className="min-h-[425px]">
+            <div className='min-h-[425px]'>
                 <Chart
-                    type="line"
+                    type='line'
                     series={
                         data[selectedCategory][selectedPeriod].chartData.series
                     }
                     xAxis={
                         data[selectedCategory][selectedPeriod].chartData.date
                     }
-                    height="410px"
+                    height='410px'
                     customOptions={{
                         legend: { show: false },
                         colors: [chartColors[selectedCategory]],

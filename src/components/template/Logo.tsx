@@ -37,7 +37,7 @@ const Logo = (props: LogoProps) => {
                     <>
                         <Image
                             className={classNames('', type === 'full' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}W1.png`}
+                            src={`${LOGO_SRC_PATH}W2.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
@@ -59,7 +59,7 @@ const Logo = (props: LogoProps) => {
                     <>
                         <Image
                             className={classNames(type === 'full' ? '' : 'hidden', imgClass)}
-                            src={`${LOGO_SRC_PATH}W1.png`}
+                            src={`${LOGO_SRC_PATH}W2.png`}
                             alt={`${APP_NAME} logo`}
                             width={width}
                             height={height}
