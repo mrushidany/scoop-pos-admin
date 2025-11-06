@@ -1,68 +1,64 @@
-import NextAuth from 'next-auth'
-
-import authConfig from '@/configs/auth.config'
-import {
-    authRoutes as _authRoutes,
-    publicRoutes as _publicRoutes,
-} from '@/configs/routes.config'
-import { REDIRECT_URL_KEY } from '@/constants/app.constant'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 import appConfig from '@/configs/app.config'
+import { decrypt } from '@/lib/encryt-decrypt'
 
-const { auth } = NextAuth(authConfig)
+export function middleware(request: NextRequest) {
+    const { pathname } = request.nextUrl
 
-const publicRoutes = Object.entries(_publicRoutes).map(([key]) => key)
-const authRoutes = Object.entries(_authRoutes).map(([key]) => key)
-
-const apiAuthPrefix = `${appConfig.apiPrefix}/auth`
-
-export default auth((req) => {
-    const { nextUrl } = req
-    const isSignedIn = !!req.auth
-
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname)
-
-    /** Skip auth middleware for api routes */
-    if (isApiAuthRoute) return
-
-    if (isAuthRoute) {
-        if (isSignedIn) {
-            /** Redirect to authenticated entry path if signed in & path is auth route */
-            return Response.redirect(
-                new URL(appConfig.authenticatedEntryPath, nextUrl),
-            )
-        }
-        return
+    // Check if the path is a static path
+    if (appConfig.staticPaths.some(path => pathname.startsWith(path)) || pathname.includes('.')) {
+        return NextResponse.next()
     }
 
-    /** Redirect to authenticated entry path if signed in & path is public route */
-    if (!isSignedIn && !isPublicRoute) {
-        let callbackUrl = nextUrl.pathname
-        if (nextUrl.search) {
-            callbackUrl += nextUrl.search
-        }
+    const encryptedToken = request.cookies.get('auth_token')?.value
+    const isPublicRoute = appConfig.publicRoutes.includes(pathname)
+    const isProtectedRoute = appConfig.protectedRoutes.some(route => pathname.startsWith(route))
 
-        return Response.redirect(
-            new URL(
-                `${appConfig.unAuthenticatedEntryPath}?${REDIRECT_URL_KEY}=${callbackUrl}`,
-                nextUrl,
-            ),
-        )
+    // Verify token if it exists
+    let isAuthenticated = false
+    if (encryptedToken) {
+        try {
+            // Decrypt the token
+            const token = decrypt(encryptedToken)
+            // If decryption succeeds and token exists, consider the user authenticated
+            isAuthenticated = !!token
+        } catch (error) {
+            console.error('Token verification failed:', error)
+            isAuthenticated = false
+        }
     }
 
-    /** Uncomment this and `import { protectedRoutes } from '@/configs/routes.config'` if you want to enable role based access */
-    // if (isSignedIn && nextUrl.pathname !== '/access-denied') {
-    //     const routeMeta = protectedRoutes[nextUrl.pathname]
-    //     const includedRole = routeMeta?.authority.some((role) => req.auth?.user?.authority.includes(role))
-    //     if (!includedRole) {
-    //         return Response.redirect(
-    //             new URL('/access-denied', nextUrl),
-    //         )
-    //     }
-    // }
-})
+    // If user is authenticated and tries to access public routes
+    if (isAuthenticated && isPublicRoute) {
+        return NextResponse.redirect(new URL(appConfig.authenticatedEntryPath, request.url))
+    }
+
+    // If user is not authenticated and tries to access protected routes
+    if (!isAuthenticated && isProtectedRoute) {
+        // Store the current URL to redirect back after login
+        const response = NextResponse.redirect(new URL(appConfig.unAuthenticatedEntryPath, request.url))
+        response.cookies.set('redirect_after_login', pathname, {
+            path: '/',
+            maxAge: 300 // 5 minutes
+        })
+        return response
+    }
+
+    // Allow access to all other routes
+    return NextResponse.next()
+}
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api)(.*)'],
+    matcher: [
+        /*
+         * Match all request paths except for the ones starting with:
+         * - api (API routes)
+         * - _next/static (static files)
+         * - _next/image (image optimization files)
+         * - favicon.ico (favicon file)
+         * - public folder
+         */
+        '/((?!api|_next/static|_next/image|favicon.ico|public).*)',
+    ],
 }
