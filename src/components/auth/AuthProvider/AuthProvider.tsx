@@ -1,27 +1,39 @@
 'use client'
 
-import { SessionProvider as NextAuthSessionProvider } from 'next-auth/react'
-import SessionContext from './SessionContext'
-import type { Session as NextAuthSession } from 'next-auth'
+import { ReactNode, useEffect, useState } from 'react'
+import { useAuthStore } from '@/store/auth'
+import Loading from '@/components/shared/Loading'
 
-type Session = NextAuthSession | null
-
-type AuthProviderProps = {
-    session: Session | null
-    children: React.ReactNode
+interface AuthProviderProps {
+    children: ReactNode
 }
 
-const AuthProvider = (props: AuthProviderProps) => {
-    const { session, children } = props
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+    const [isInitialized, setIsInitialized] = useState(false)
+    const { initialize } = useAuthStore()
 
-    return (
-        /** since the next auth useSession hook was triggering mutliple re-renders, hence we are using the our custom session provider and we still included the next auth session provider, incase we need to use any client hooks from next auth */
-        <NextAuthSessionProvider session={session} refetchOnWindowFocus={false}>
-            <SessionContext.Provider value={session}>
-                {children}
-            </SessionContext.Provider>
-        </NextAuthSessionProvider>
-    )
+    useEffect(() => {
+        const initAuth = async () => {
+            try {
+                await initialize()
+            } catch (error) {
+                console.error('Auth initialization error:', error)
+            } finally {
+                setIsInitialized(true)
+            }
+        }
+
+        initAuth()
+    }, [initialize])
+
+    // Show loading state while initializing
+    if (!isInitialized) {
+        return (
+            <div className='flex items-center h-screen justify-center'>
+                <Loading loading={true} />
+            </div>
+        )
+    }
+
+    return <>{children}</>
 }
-
-export default AuthProvider
