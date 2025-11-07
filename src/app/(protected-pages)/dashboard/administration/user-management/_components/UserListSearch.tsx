@@ -15,7 +15,7 @@ const UserListSearch = (props: UserListSearchProps) => {
     return (
         <DebouceInput
             ref={ref}
-            placeholder='Quick search...'
+            placeholder='Search user...'
             suffix={<TbSearch className='text-lg' />}
             onChange={(e) => onInputChange(e.target.value)}
         />
