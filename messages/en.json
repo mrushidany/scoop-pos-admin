@@ -8,6 +8,10 @@
             "deviceManagement": "Device Management",
             "deviceManagementDesc": "Device Management"
         },
+        "telecomOperators": {
+            "telecomOperators": "Telecom Operators",
+            "telecomOperatorsDesc": "Telecom Operators Management"
+        },
         "licensePricing": {
             "licensePricing": "License Pricing",
             "licensePricingDesc": "License Pricing"
