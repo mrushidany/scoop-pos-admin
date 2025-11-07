@@ -1,8 +1,7 @@
-export const API_BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}`
+export const API_BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/admin`
 
 export const API_ENDPOINTS = {
-    // Super Admin Authentication
-    LOGIN_SUPERADMIN: `${API_BASE_URL}/admin/login`,
-    // Token refresh endpoint (assumed path)
-    REFRESH_TOKEN: `${API_BASE_URL}/admin/refresh`,
+    LOGIN_SUPERADMIN: `${API_BASE_URL}/login`,
+    REFRESH_TOKEN: `${API_BASE_URL}/refresh`,
+    RETRIEVE_LIST_OF_USERS: `${API_BASE_URL}/users`,
 } as const
