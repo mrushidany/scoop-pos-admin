@@ -8,6 +8,10 @@
             "deviceManagement": "Device Management",
             "deviceManagementDesc": "Device Management"
         },
+        "licensePricing": {
+            "licensePricing": "License Pricing",
+            "licensePricingDesc": "License Pricing"
+        },
         "finance": {
             "finance": "Finance & Operations",
             "transactions": "Transactions",

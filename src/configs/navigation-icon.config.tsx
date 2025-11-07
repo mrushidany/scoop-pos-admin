@@ -4,7 +4,8 @@ import {
     PiWarehouseLight,
     PiShoppingCartSimpleDuotone,
     PiUserGearDuotone,
-    PiDevicesLight
+    PiDevicesLight,
+    PiCertificateLight
 } from 'react-icons/pi'
 import { MdOutlinePayments, MdAnalytics } from 'react-icons/md'
 
@@ -20,7 +21,8 @@ const navigationIcon: NavigationIcons = {
     dashboardOverview: <PiChartBarDuotone />,
     orders: <PiShoppingCartSimpleDuotone />,
     accountRoleAndPermission: <PiUserGearDuotone />,
-    devices: <PiDevicesLight />
+    devices: <PiDevicesLight />,
+    license: <PiCertificateLight />
 }
 
 export default navigationIcon
