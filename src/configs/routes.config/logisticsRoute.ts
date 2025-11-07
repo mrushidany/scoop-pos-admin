@@ -1,7 +1,7 @@
 import type { Routes } from '@/@types/routes'
 
 const logisticsRoute: Routes = {
-    '/logistics/vendor': {
+    '/dashboard/logistics/vendor': {
         key: 'logistics.vendor',
         authority: [],
         meta: {
@@ -9,7 +9,7 @@ const logisticsRoute: Routes = {
             pageContainerType: 'contained',
         },
     },
-    '/logistics/orders': {
+    '/dashboard/logistics/orders': {
         key: 'logistics.inventory',
         authority: [],
         meta: {
