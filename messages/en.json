@@ -41,6 +41,7 @@
             "administration": "Administration",
             "users": {
                 "users": "Users",
+                "create": "Create user",
                 "usersAccounts": "Users Accounts",
                 "rolesPermissions": "Roles & Permissions",
                 "rolesPermissionsDesc": "Manage roles & permissions",
