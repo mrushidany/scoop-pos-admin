@@ -5,6 +5,7 @@ import authRoute from './authRoute'
 import insightsRoute from './insightsRoute'
 import administrationRoute from './administrationRoute'
 import type { Routes } from '@/@types/routes'
+import deviceManagementRoute from './deviceManagementRoute'
 
 export const protectedRoutes: Routes = {
     ...dashboardRoute,
@@ -12,6 +13,7 @@ export const protectedRoutes: Routes = {
     ...logisticsRoute,
     ...insightsRoute,
     ...administrationRoute,
+    ...deviceManagementRoute,
 }
 
 export const publicRoutes: Routes = {}

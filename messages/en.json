@@ -4,6 +4,10 @@
             "dashboard": "Dashboard",
             "overview": "Overview"
         },
+        "deviceManagement": {
+            "deviceManagement": "Device Management",
+            "deviceManagementDesc": "Device Management"
+        },
         "finance": {
             "finance": "Finance & Operations",
             "transactions": "Transactions",
