@@ -21,7 +21,7 @@ import {
   HiOutlineChartBarSquare,
 } from 'react-icons/hi2'
 
-export default function InventoryPage() {
+export default function StorePage() {
   const {
     setFilters,
   } = useInventoryStore()

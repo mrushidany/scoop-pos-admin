@@ -1,6 +1,6 @@
 import dashboardRoute from './dashboardRoute'
 import financeRoute from './financeRoute'
-import logisticsRoute from './logisticsRoute'
+import storeRoute from './storeRoute'
 import authRoute from './authRoute'
 import insightsRoute from './insightsRoute'
 import administrationRoute from './administrationRoute'
@@ -12,7 +12,7 @@ import telecomOperatorsRoute from './telecomOperatorsRoute'
 export const protectedRoutes: Routes = {
     ...dashboardRoute,
     ...financeRoute,
-    ...logisticsRoute,
+    ...storeRoute,
     ...insightsRoute,
     ...administrationRoute,
     ...deviceManagementRoute,

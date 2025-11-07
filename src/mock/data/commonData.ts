@@ -1,6 +1,6 @@
 import {
     AUTH_PREFIX_PATH,
-    LOGISTICS_PREFIX_PATH,
+    STORE_PREFIX_PATH,
     DASHBOARDS_PREFIX_PATH,
     FINANCE_PREFIX_PATH,
     ADMINISTRATION_PREFIX_PATH,
@@ -213,7 +213,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.button',
-        path: `${LOGISTICS_PREFIX_PATH}/button`,
+        path: `${STORE_PREFIX_PATH}/button`,
         title: 'Button',
         icon: 'uiCommonButton',
         category: 'Common',
@@ -221,7 +221,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.grid',
-        path: `${LOGISTICS_PREFIX_PATH}/grid`,
+        path: `${STORE_PREFIX_PATH}/grid`,
         title: 'Grid',
         icon: 'uiCommonGrid',
         category: 'Common',
@@ -229,7 +229,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.typography',
-        path: `${LOGISTICS_PREFIX_PATH}/typography`,
+        path: `${STORE_PREFIX_PATH}/typography`,
         title: 'Typography',
         icon: 'uiCommonTypography',
         category: 'Common',
@@ -237,7 +237,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.common.icons',
-        path: `${LOGISTICS_PREFIX_PATH}/icons`,
+        path: `${STORE_PREFIX_PATH}/icons`,
         title: 'Icons',
         icon: 'uiCommonIcons',
         category: 'Common',
@@ -245,7 +245,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.alert',
-        path: `${LOGISTICS_PREFIX_PATH}/alert`,
+        path: `${STORE_PREFIX_PATH}/alert`,
         title: 'Alert',
         icon: 'uiFeedbackAlert',
         category: 'Feedback',
@@ -253,7 +253,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.dialog',
-        path: `${LOGISTICS_PREFIX_PATH}/dialog`,
+        path: `${STORE_PREFIX_PATH}/dialog`,
         title: 'Dialog',
         icon: 'uiFeedbackDialog',
         category: 'Feedback',
@@ -261,7 +261,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.drawer',
-        path: `${LOGISTICS_PREFIX_PATH}/drawer`,
+        path: `${STORE_PREFIX_PATH}/drawer`,
         title: 'Drawer',
         icon: 'uiFeedbackDrawer',
         category: 'Feedback',
@@ -269,7 +269,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.progress',
-        path: `${LOGISTICS_PREFIX_PATH}/progress`,
+        path: `${STORE_PREFIX_PATH}/progress`,
         title: 'Progress',
         icon: 'uiFeedbackProgress',
         category: 'Feedback',
@@ -277,7 +277,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.skeleton',
-        path: `${LOGISTICS_PREFIX_PATH}/skeleton`,
+        path: `${STORE_PREFIX_PATH}/skeleton`,
         title: 'Skeleton',
         icon: 'uiFeedbackSkeleton',
         category: 'Feedback',
@@ -285,7 +285,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.spinner',
-        path: `${LOGISTICS_PREFIX_PATH}/spinner`,
+        path: `${STORE_PREFIX_PATH}/spinner`,
         title: 'Spinner',
         icon: 'uiFeedbackSpinner',
         category: 'Feedback',
@@ -293,7 +293,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.feedback.toast',
-        path: `${LOGISTICS_PREFIX_PATH}/toast`,
+        path: `${STORE_PREFIX_PATH}/toast`,
         title: 'Toast',
         icon: 'uiFeedbackToast',
         category: 'Feedback',
@@ -301,7 +301,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.avatar',
-        path: `${LOGISTICS_PREFIX_PATH}/avatar`,
+        path: `${STORE_PREFIX_PATH}/avatar`,
         title: 'Avatar',
         icon: 'uiDataDisplayAvatar',
         category: 'Data Display',
@@ -309,7 +309,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.badge',
-        path: `${LOGISTICS_PREFIX_PATH}/badge`,
+        path: `${STORE_PREFIX_PATH}/badge`,
         title: 'Badge',
         icon: 'uiDataDisplayBadge',
         category: 'Data Display',
@@ -317,7 +317,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.calendar',
-        path: `${LOGISTICS_PREFIX_PATH}/calendar`,
+        path: `${STORE_PREFIX_PATH}/calendar`,
         title: 'Calendar',
         icon: 'uiDataDisplayCalendar',
         category: 'Data Display',
@@ -325,7 +325,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.cards',
-        path: `${LOGISTICS_PREFIX_PATH}/cards`,
+        path: `${STORE_PREFIX_PATH}/cards`,
         title: 'Cards',
         icon: 'uiDataDisplayCard',
         category: 'Data Display',
@@ -333,7 +333,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.table',
-        path: `${LOGISTICS_PREFIX_PATH}/table`,
+        path: `${STORE_PREFIX_PATH}/table`,
         title: 'Table',
         icon: 'uiDataDisplayTable',
         category: 'Data Display',
@@ -341,7 +341,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.tag',
-        path: `${LOGISTICS_PREFIX_PATH}/tag`,
+        path: `${STORE_PREFIX_PATH}/tag`,
         title: 'Tag',
         icon: 'uiDataDisplayTag',
         category: 'Data Display',
@@ -349,7 +349,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.timeline',
-        path: `${LOGISTICS_PREFIX_PATH}/timeline`,
+        path: `${STORE_PREFIX_PATH}/timeline`,
         title: 'Timeline',
         icon: 'uiDataDisplayTimeline',
         category: 'Data Display',
@@ -357,7 +357,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.dataDisplay.tooltip',
-        path: `${LOGISTICS_PREFIX_PATH}/tooltip`,
+        path: `${STORE_PREFIX_PATH}/tooltip`,
         title: 'Tooltip',
         icon: 'uiDataDisplayTooltip',
         category: 'Data Display',
@@ -365,7 +365,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.checkbox',
-        path: `${LOGISTICS_PREFIX_PATH}/checkbox`,
+        path: `${STORE_PREFIX_PATH}/checkbox`,
         title: 'Checkbox',
         icon: 'uiFormsCheckbox',
         category: 'Forms',
@@ -373,7 +373,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.datePicker',
-        path: `${LOGISTICS_PREFIX_PATH}/date-picker`,
+        path: `${STORE_PREFIX_PATH}/date-picker`,
         title: 'Date picker',
         icon: 'uiFormsDatepicker',
         category: 'Forms',
@@ -381,7 +381,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.formControl',
-        path: `${LOGISTICS_PREFIX_PATH}/form-control`,
+        path: `${STORE_PREFIX_PATH}/form-control`,
         title: 'Form control',
         icon: 'uiFormsFormControl',
         category: 'Forms',
@@ -389,7 +389,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.input',
-        path: `${LOGISTICS_PREFIX_PATH}/input`,
+        path: `${STORE_PREFIX_PATH}/input`,
         title: 'Input',
         icon: 'uiFormsInput',
         category: 'Forms',
@@ -397,7 +397,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.inputGroup',
-        path: `${LOGISTICS_PREFIX_PATH}/input-group`,
+        path: `${STORE_PREFIX_PATH}/input-group`,
         title: 'Input Group',
         icon: 'uiFormsInputGroup',
         category: 'Forms',
@@ -405,7 +405,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.radio',
-        path: `${LOGISTICS_PREFIX_PATH}/radio`,
+        path: `${STORE_PREFIX_PATH}/radio`,
         title: 'Radio',
         icon: 'uiFormsRadio',
         category: 'Forms',
@@ -413,7 +413,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.segment',
-        path: `${LOGISTICS_PREFIX_PATH}/segment`,
+        path: `${STORE_PREFIX_PATH}/segment`,
         title: 'Segment',
         icon: 'uiFormsSegment',
         category: 'Forms',
@@ -421,7 +421,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.select',
-        path: `${LOGISTICS_PREFIX_PATH}/select`,
+        path: `${STORE_PREFIX_PATH}/select`,
         title: 'Select',
         icon: 'uiFormsSelect',
         category: 'Forms',
@@ -429,7 +429,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.switcher',
-        path: `${LOGISTICS_PREFIX_PATH}/switcher`,
+        path: `${STORE_PREFIX_PATH}/switcher`,
         title: 'Switcher',
         icon: 'uiFormsSwitcher',
         category: 'Forms',
@@ -437,7 +437,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.timeInput',
-        path: `${LOGISTICS_PREFIX_PATH}/time-input`,
+        path: `${STORE_PREFIX_PATH}/time-input`,
         title: 'Time Input',
         icon: 'uiFormsTimePicker',
         category: 'Forms',
@@ -445,7 +445,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.forms.upload',
-        path: `${LOGISTICS_PREFIX_PATH}/upload`,
+        path: `${STORE_PREFIX_PATH}/upload`,
         title: 'Upload',
         icon: 'uiFormsUpload',
         category: 'Forms',
@@ -453,7 +453,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.dropdown',
-        path: `${LOGISTICS_PREFIX_PATH}/dropdown`,
+        path: `${STORE_PREFIX_PATH}/dropdown`,
         title: 'Dropdown',
         icon: 'uiNavigationDropdown',
         category: 'Navigation',
@@ -461,7 +461,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.menu',
-        path: `${LOGISTICS_PREFIX_PATH}/menu`,
+        path: `${STORE_PREFIX_PATH}/menu`,
         title: 'Menu',
         icon: 'uiNavigationMenu',
         category: 'Navigation',
@@ -469,7 +469,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.pagination',
-        path: `${LOGISTICS_PREFIX_PATH}/pagination`,
+        path: `${STORE_PREFIX_PATH}/pagination`,
         title: 'Pagination',
         icon: 'uiNavigationPagination',
         category: 'Navigation',
@@ -477,7 +477,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.steps',
-        path: `${LOGISTICS_PREFIX_PATH}/steps`,
+        path: `${STORE_PREFIX_PATH}/steps`,
         title: 'Steps',
         icon: 'uiNavigationSteps',
         category: 'Navigation',
@@ -485,7 +485,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.navigation.tabs',
-        path: `${LOGISTICS_PREFIX_PATH}/tabs`,
+        path: `${STORE_PREFIX_PATH}/tabs`,
         title: 'Tabs',
         icon: 'uiNavigationTabs',
         category: 'Navigation',
@@ -493,7 +493,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.graph.charts',
-        path: `${LOGISTICS_PREFIX_PATH}/graph/charts`,
+        path: `${STORE_PREFIX_PATH}/graph/charts`,
         title: 'Charts',
         icon: 'uiGraphChart',
         category: 'Graph',
@@ -501,7 +501,7 @@ export const searchQueryPoolData = [
     },
     {
         key: 'uiComponent.graph.maps',
-        path: `${LOGISTICS_PREFIX_PATH}/graph/maps`,
+        path: `${STORE_PREFIX_PATH}/graph/maps`,
         title: 'Maps',
         icon: 'uiGraphMaps',
         category: 'Graph',

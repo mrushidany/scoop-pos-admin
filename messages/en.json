@@ -23,8 +23,10 @@
             "transactionsDesc": "Transactions Management",
             "ordersDesc": "Orders Management"
         },
-        "logistics": {
-            "logistics": "Logistics",
+        "store": {
+            "storeManagement": "Store Management",
+            "store": "Store",
+            "storeDesc": "Store Management",
             "vendor": "Vendors",
             "inventory": "Inventory",
             "vendorDesc": "Vendors Management",

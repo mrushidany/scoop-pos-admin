@@ -9,7 +9,7 @@ import ScrollBar from '@/components/ui/ScrollBar'
 import navigationIcon from '@/configs/navigation-icon.config'
 import {
     ADMINISTRATION_PREFIX_PATH,
-    LOGISTICS_PREFIX_PATH,
+    STORE_PREFIX_PATH,
 } from '@/constants/route.constant'
 import { apiGetSearchResult } from '@/services/CommonService'
 import debounce from 'lodash/debounce'
@@ -46,7 +46,7 @@ const recommendedSearch: SearchResult[] = [
             },
             {
                 key: 'uiComponent.common.button',
-                path: `${LOGISTICS_PREFIX_PATH}/button`,
+                path: `${STORE_PREFIX_PATH}/button`,
                 title: 'Button',
                 icon: 'uiCommonButton',
                 category: 'Common',

@@ -1,5 +1,5 @@
 import dashboardNavigationConfig from './dashboard.navigation.config'
-import logisticsNavigationConfig from './logistics.navigation.config'
+import logisticsNavigationConfig from './store.navigation.config'
 import financeNavigationConfig from './finance.navigation.config'
 import insightsNavigationConfig from './insights.navigation.config'
 import administrationNavigationConfig from './administration.navigation.config'
