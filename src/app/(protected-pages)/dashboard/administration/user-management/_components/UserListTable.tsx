@@ -153,7 +153,6 @@ const UserListTable = ({
 
     return (
         <DataTable
-            selectable
             columns={columns}
             data={users}
             loading={initialLoading}
