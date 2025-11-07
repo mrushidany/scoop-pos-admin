@@ -20,11 +20,8 @@ export default async function RootLayout({
 }>) {
 
     const locale = await getLocale()
-
     const messages = await getMessages()
-
     const navigationTree = await getNavigation()
-
     const theme = await getTheme()
 
     return (
