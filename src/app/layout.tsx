@@ -28,7 +28,7 @@ export default async function RootLayout({
     const theme = await getTheme()
 
     return (
-        <AuthProvider>
+        <>
             <html
                 className={theme.mode === 'dark' ? 'dark' : 'light'}
                 lang={locale}
@@ -38,13 +38,15 @@ export default async function RootLayout({
                 <body suppressHydrationWarning>
                     <LocaleProvider locale={locale} messages={messages}>
                         <ThemeProvider locale={locale} theme={theme}>
-                            <NavigationProvider navigationTree={navigationTree}>
-                                {children}
-                            </NavigationProvider>
+                            <AuthProvider>
+                                <NavigationProvider navigationTree={navigationTree}>
+                                    {children}
+                                </NavigationProvider>
+                            </AuthProvider>
                         </ThemeProvider>
                     </LocaleProvider>
                 </body>
             </html>
-        </AuthProvider>
+        </>
     )
 }
