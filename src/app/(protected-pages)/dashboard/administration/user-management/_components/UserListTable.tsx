@@ -7,7 +7,7 @@ import DataTable from '@/components/shared/DataTable'
 import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { TbPencil, TbEye } from 'react-icons/tb'
+import { TbPencil, TbEye, TbTrash } from 'react-icons/tb'
 import type { ColumnDef } from '@/components/shared/DataTable'
 import type { User } from '../types'
 
@@ -40,9 +40,11 @@ const NameColumn = ({ row }: { row: User }) => {
 const ActionColumn = ({
     onEdit,
     onViewDetail,
+    onDelete,
 }: {
     onEdit: () => void
     onViewDetail: () => void
+    onDelete: () => void
 }) => {
     return (
         <div className='flex items-center gap-3'>
@@ -62,6 +64,15 @@ const ActionColumn = ({
                     onClick={onViewDetail}
                 >
                     <TbEye />
+                </div>
+            </Tooltip>
+            <Tooltip title='Delete'>
+                <div
+                    className={`text-xl cursor-pointer select-none font-semibold`}
+                    role='button'
+                    onClick={onDelete}
+                >
+                    <TbTrash />
                 </div>
             </Tooltip>
         </div>
@@ -85,6 +96,10 @@ const UserListTable = ({
 
     const handleViewDetails = (User: User) => {
         router.push(`#/${User.id}`)
+    }
+
+    const handleDelete = async (User: User) => {
+        void User
     }
 
     const columns: ColumnDef<User>[] = useMemo(
@@ -137,6 +152,7 @@ const UserListTable = ({
                         onViewDetail={() =>
                             handleViewDetails(props.row.original)
                         }
+                        onDelete={() => handleDelete(props.row.original)}
                     />
                 ),
             },
