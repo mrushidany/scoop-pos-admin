@@ -11,18 +11,15 @@ const administrationRoute: Routes = {
         },
     },
     '/dashboard/administration/user-management/create': {
-        key: 'administration.users.create',
+        key: 'administration.users.userManagement',
         authority: [ADMIN, USER],
+        dynamicRoute: true,
         meta: {
             header: {
-                title: 'Create user',
-                description:
-                    'Manage user details, track activity, and update preferences easily.',
-                contained: true,
+                title: 'Create user'
             },
-            footer: false,
+            pageContainerType: 'contained',
         },
-        dynamicRoute: true,
     },
 }
 
