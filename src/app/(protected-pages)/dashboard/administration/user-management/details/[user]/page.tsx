@@ -6,6 +6,7 @@ import NoUserFound from '@/assets/svg/NoUserFound'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Loading from '@/components/shared/Loading'
 import isEmpty from 'lodash/isEmpty'
+import UserDetails from './_components/UserDetails'
 
 export default function Page({ params }: { params: Promise<{user: number}> }) {
     const resolvedParams = use(params)
@@ -31,12 +32,5 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-
-    console.log('What are the user details here : ', data)
-
-    return (
-        <div>
-           
-        </div>
-    )
+    return <UserDetails data={data} />
 }

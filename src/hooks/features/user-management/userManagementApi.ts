@@ -5,14 +5,16 @@ import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
 
 interface UserResponse {
-    id?: number
-    name?: string
-    email?: string
-    phone?: string
-    created_at?: string
-    updated_at?: string
-    is_admin?: boolean
-    is_active?: boolean
+    data: {
+        id?: number
+        name?: string
+        email?: string
+        phone?: string
+        created_at?: string
+        updated_at?: string
+        is_admin?: boolean
+        is_active?: boolean
+    }
 }
 
 interface ListOfUsersResponse {

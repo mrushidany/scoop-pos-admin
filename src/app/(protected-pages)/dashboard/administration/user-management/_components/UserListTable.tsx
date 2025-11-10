@@ -121,7 +121,7 @@ const UserListTable = ({
                 accessorKey: 'phone',
             },
             {
-                header: 'Admin',
+                header: 'User type',
                 accessorKey: 'is_admin',
                 cell: (props) => {
                     const row = props.row.original

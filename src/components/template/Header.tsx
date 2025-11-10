@@ -31,15 +31,15 @@ const Header = (props: HeaderProps) => {
                 )}
                 style={{ height: HEADER_HEIGHT }}
             >
-                <div className="header-action header-action-start">
+                <div className='header-action header-action-start'>
                     {headerStart}
                 </div>
                 {headerMiddle && (
-                    <div className="header-action header-action-middle">
+                    <div className='header-action header-action-middle'>
                         {headerMiddle}
                     </div>
                 )}
-                <div className="header-action header-action-end">
+                <div className='header-action header-action-end'>
                     {headerEnd}
                 </div>
             </div>

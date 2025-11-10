@@ -41,12 +41,15 @@ export type UserFormSchema =  {
 }
 
 export type UserDetails =  {
-    name: string
-    email: string
-    password: string
-    phone: string
-    dialCode: string
-    is_active: boolean
-    is_admin: boolean
-    stores?: []
+    data: {
+        name?: string
+        email?: string
+        phone?: string
+        is_active?: boolean
+        is_admin?: boolean
+        stores?: []
+        created_at?: string
+        updated_at?: string
+        id?: number
+    }
 }
