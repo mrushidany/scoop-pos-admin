@@ -28,3 +28,13 @@ export type ListOfUsers = {
         active: boolean
     }>
 }
+
+export type UserFormSchema =  {
+    name: string
+    email: string
+    password: string
+    phone: string
+    dialCode: string
+    is_active: boolean
+    is_admin: boolean
+}
