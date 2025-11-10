@@ -5,7 +5,6 @@ import Select, { Option as DefaultOption } from '@/components/ui/Select'
 import Avatar from '@/components/ui/Avatar'
 import Card from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
-import PasswordInput from '@/components/shared/PasswordInput'
 import { FormItem } from '@/components/ui/Form'
 import Container from '@/components/shared/Container'
 import { Controller } from 'react-hook-form'
@@ -26,7 +25,7 @@ import NumericInput from '@/components/shared/NumericInput'
 import { countryList } from '@/constants/countries.constant'
 import { components } from 'react-select'
 import type { ControlProps, OptionProps } from 'react-select'
-import { useCreateUser } from '@/hooks/features/user-management/userManagementApi'
+import { useUpdateUserDetails } from '@/hooks/features/user-management/userManagementApi'
 import { getApiErrorMessage } from '@/utils/apiError'
 
 type CountryOption = {
@@ -79,20 +78,51 @@ const CustomControl = ({ children, ...props }: ControlProps<CountryOption>) => {
 
 const validationSchema: ZodType<UserFormSchema> = z.object({
     name: z.string().min(1, 'Name is required'),
-    email: z.string().min(1, { message: 'Email required' }).email('Invalid email address'),
-    password: z.string().min(6, 'Password must be at least 6 characters long'),
-    dialCode: z.string().min(1, { message: 'Please select your country code' }),
-    phone: z
+    email: z
         .string()
-        .min(1, { message: 'Please input your mobile number' }),
-    is_active: z.boolean(),
-    is_admin: z.boolean(),
+        .min(1, { message: 'Email required' })
+        .email('Invalid email address'),
+    dialCode: z.string().optional().or(z.string().length(0)),
+    phone: z.string().optional().or(z.string().length(0)),
+    is_active: z.boolean().optional(),
+    is_admin: z.boolean().optional(),
 })
 
-const UserEdit = () => {
+type UserEditProps = {
+    userId: number
+    data: {
+        id?: number
+        name?: string
+        email?: string
+        phone?: string
+        is_admin?: boolean
+        is_active?: boolean
+    }
+}
+
+const UserEdit = ({ userId, data }: UserEditProps) => {
     const router = useRouter()
 
-    const { mutate, isPending } = useCreateUser()
+    const { mutate, isPending } = useUpdateUserDetails(userId)
+
+    // Normalize phone input and split into dial code and local number
+    const splitPhone = (value?: string): { dialCode: string; number: string } => {
+        const raw = (value ?? '').replace(/\s+/g, '')
+        const strict = raw.match(/^(\+\d{1,4})(\d+)$/)
+        if (strict) {
+            return { dialCode: strict[1], number: strict[2] }
+        }
+        if (raw.startsWith('+')) {
+            const fallback = raw.match(/^\+(\d{1,4})(.*)$/)
+            if (fallback) {
+                return {
+                    dialCode: `+${fallback[1]}`,
+                    number: (fallback[2] ?? '').replace(/\D/g, ''),
+                }
+            }
+        }
+        return { dialCode: '', number: raw.replace(/\D/g, '') }
+    }
 
     const {
         handleSubmit,
@@ -100,11 +130,12 @@ const UserEdit = () => {
         control,
     } = useForm<UserFormSchema>({
         defaultValues: {
-            name: '',
-            email: '',
-            password: '',
-            is_active: true,
-            is_admin: false,
+            name: data?.name ?? '',
+            email: data?.email ?? '',
+            dialCode: splitPhone(data?.phone).dialCode,
+            phone: splitPhone(data?.phone).number,
+            is_active: data?.is_active ?? undefined,
+            is_admin: data?.is_admin ?? undefined,
         },
         resolver: zodResolver(validationSchema),
         mode: 'onTouched'
@@ -151,7 +182,7 @@ const UserEdit = () => {
             <Notification type='success'>User discarded!</Notification>,
             { placement: 'top-center' },
         )
-        router.push('/dashboard/administration/user-management')
+        router.push(`/dashboard/administration/user-management/details/${userId}`)
     }
 
     const handleDiscard = () => {
@@ -163,11 +194,23 @@ const UserEdit = () => {
     }
 
     const onSubmit = async (values: UserFormSchema) => {
-        const fullPhone = `${values.dialCode}${values.phone}`.replace(/\s+/g, '')
+        const fullPhone = `${values.dialCode ?? ''}${values.phone ?? ''}`
+            .replace(/\s+/g, '')
+            .trim()
 
-        const payload: UserFormSchema = {
-            ...values,
-            phone: fullPhone,
+        const payload = {
+            name: values.name,
+            email: values.email,
+            ...(values.password && values.password.trim().length > 0
+                ? { password: values.password.trim() }
+                : {}),
+            ...(fullPhone.length > 0 ? { phone: fullPhone } : {}),
+            ...(typeof values.is_admin === 'boolean'
+                ? { is_admin: values.is_admin }
+                : {}),
+            ...(typeof values.is_active === 'boolean'
+                ? { is_active: values.is_active }
+                : {}),
         }
 
         await mutate(payload, {
@@ -176,10 +219,10 @@ const UserEdit = () => {
                     <Notification type='success'>{response.message}</Notification>,
                     { placement: 'top-center' },
                 )
-                router.push('/dashboard/administration/user-management')
+                router.push(`/dashboard/administration/user-management/details/${userId}`)
             }, 
             onError: (error) => {
-                const message = getApiErrorMessage(error, 'Failed to create user')
+                const message = getApiErrorMessage(error, 'Failed to update user details')
                 toast.push(
                     <Notification type='danger'>{message}</Notification>,
                     { placement: 'top-center' },
@@ -195,7 +238,7 @@ const UserEdit = () => {
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='gap-4 flex flex-col flex-auto'>
                             <Card>
-                                <h4 className='mb-6'>User details</h4>
+                                <h4 className='mb-6'>Edit user details</h4>
                                 <div className='grid md:grid-cols-3 gap-4'>
                                     <FormItem label='Name' invalid={Boolean(errors.name)} errorMessage={errors.name?.message}>
                                         <Controller 
@@ -241,16 +284,26 @@ const UserEdit = () => {
                                                         options={dialCodeList}
                                                         {...field}
                                                         className='w-[150px]'
+                                                        getOptionValue={(opt) => opt.dialCode.replace(/\s+/g, '')}
+                                                        getOptionLabel={(opt) => opt.dialCode}
                                                         components={{
                                                             Option: CustomSelectOption,
                                                             Control: CustomControl,
                                                         }}
                                                         placeholder=''
-                                                        value={dialCodeList.filter(
-                                                            (option) => option.dialCode === field.value,
-                                                        )}
+                                                        value={
+                                                            dialCodeList.find(
+                                                                (option) =>
+                                                                    option.dialCode.replace(/\s+/g, '') ===
+                                                                    String(field.value ?? '').replace(/\s+/g, ''),
+                                                            ) || null
+                                                        }
                                                         onChange={(option) =>
-                                                            field.onChange(option?.dialCode)
+                                                            field.onChange(
+                                                                option?.dialCode
+                                                                    ? option.dialCode.replace(/\s+/g, '')
+                                                                    : '',
+                                                            )
                                                         }
                                                     />
                                                 )}
@@ -266,31 +319,23 @@ const UserEdit = () => {
                                             <Controller
                                                 name='phone'
                                                 control={control}
-                                                render={({ field }) => (
-                                                    <NumericInput
-                                                        autoComplete='off'
-                                                        placeholder='Phone Number'
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                        onBlur={field.onBlur}
-                                                    />
-                                                )}
-                                            />
-                                        </FormItem>
-                                    </div>
-                                    <FormItem label='Password' invalid={Boolean(errors.password)} errorMessage={errors.password?.message}>
-                                        <Controller 
-                                            name='password'
-                                            control={control}
                                             render={({ field }) => (
-                                                <PasswordInput 
+                                                <NumericInput
                                                     autoComplete='off'
-                                                    placeholder='Enter password'
-                                                    {...field}
+                                                    placeholder='Phone Number'
+                                                    value={field.value ?? ''}
+                                                    allowLeadingZeros
+                                                    valueIsNumericString
+                                                    isAllowed={(values) => /^\d*$/.test(values.value)}
+                                                    onValueChange={(values) =>
+                                                        field.onChange(values.value)
+                                                    }
+                                                    onBlur={field.onBlur}
                                                 />
                                             )}
                                         />
                                     </FormItem>
+                                    </div>
                                     <div className='flex items-end gap-4 w-full'>
                                         <FormItem  
                                             invalid={
@@ -374,7 +419,7 @@ const UserEdit = () => {
                                     loading={isPending}
                                     disabled={isPending}
                                 >
-                                    Create
+                                    Update
                                 </Button>
                             </div>
                         </div>

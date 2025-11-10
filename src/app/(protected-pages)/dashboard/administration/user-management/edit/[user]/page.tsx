@@ -1,3 +1,5 @@
+'use client'
+
 import UserEdit from '../UserEdit'
 import { use } from 'react'
 import { useRetrieveUserDetails } from '@/hooks/features/user-management/userManagementApi'
@@ -31,6 +33,6 @@ export default function EditUserPage({ params }: { params: Promise<{user: number
   }
     
   return (
-    <UserEdit />
+    <UserEdit userId={user} data={data.data} />
   )
 }

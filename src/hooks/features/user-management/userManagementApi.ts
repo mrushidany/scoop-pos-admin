@@ -42,10 +42,10 @@ interface ListOfUsersResponse {
 interface UserCreateVariables {
     name: string
     email: string
-    password: string
-    phone: string
-    is_admin: boolean
-    is_active: boolean
+    password?: string
+    phone?: string
+    is_admin?: boolean
+    is_active?: boolean
 }
 
 interface UserCreateResponse {
@@ -86,5 +86,13 @@ export function useCreateUser() {
     return useMutation<UserCreateResponse, UserCreateVariables>(
         API_ENDPOINTS.ADMIN_USERS,
         createApiOptions(access_token ?? '', 'POST')
+    )
+}
+
+export function useUpdateUserDetails(userId: number) {
+    const { access_token } = useAuthStore()
+    return useMutation<UserCreateResponse, UserCreateVariables>(
+        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+        createApiOptions(access_token ?? '', 'PUT')
     )
 }

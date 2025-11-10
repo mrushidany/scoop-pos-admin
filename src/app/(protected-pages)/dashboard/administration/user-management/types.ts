@@ -32,11 +32,11 @@ export type ListOfUsers = {
 export type UserFormSchema =  {
     name: string
     email: string
-    password: string
-    phone: string
-    dialCode: string
-    is_active: boolean
-    is_admin: boolean
+    password?: string
+    phone?: string
+    dialCode?: string
+    is_active?: boolean
+    is_admin?: boolean
     stores?: []
 }
 
