@@ -151,7 +151,7 @@ const UserCreate = () => {
             <Notification type='success'>User discarded!</Notification>,
             { placement: 'top-center' },
         )
-        router.push('/administration/user-management')
+        router.push('/dashboard/administration/user-management')
     }
 
     const handleDiscard = () => {
@@ -172,12 +172,11 @@ const UserCreate = () => {
 
         await mutate(payload, {
             onSuccess: (response) => {
-                console.log('What is the response here : ', response)
                 toast.push(
                     <Notification type='success'>{response.message}</Notification>,
                     { placement: 'top-center' },
                 )
-                router.push('/administration/user-management')
+                router.push('/dashboard/administration/user-management')
             }, 
             onError: (error) => {
                 const message = getApiErrorMessage(error, 'Failed to create user')
@@ -187,7 +186,6 @@ const UserCreate = () => {
                 )
             }
         })
-
     }
 
     return (
