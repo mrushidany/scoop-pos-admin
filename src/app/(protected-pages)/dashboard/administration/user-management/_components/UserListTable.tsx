@@ -94,12 +94,12 @@ const UserListTable = ({
         router.push(`#/${User.id}`)
     }
 
-    const handleViewDetails = (User: User) => {
-        router.push(`#/${User.id}`)
+    const handleViewDetails = (user: User) => {
+        router.push(`/dashboard/administration/user-management/details/${user.id}`)
     }
-
-    const handleDelete = async (User: User) => {
-        void User
+    
+    const handleDelete = async (user: User) => {
+        void user
     }
 
     const columns: ColumnDef<User>[] = useMemo(
