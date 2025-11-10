@@ -90,8 +90,8 @@ const UserListTable = ({
 
     const { onAppendQueryParams } = useAppendQueryParams()
 
-    const handleEdit = (User: User) => {
-        router.push(`#/${User.id}`)
+    const handleEdit = (user: User) => {
+        router.push(`/dashboard/administration/user-management/edit/${user.id}`)
     }
 
     const handleViewDetails = (user: User) => {

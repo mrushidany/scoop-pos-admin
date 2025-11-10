@@ -84,7 +84,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     }
 
     const handleEdit = () => {
-        router.push(`/concepts/customers/customer-edit/${data.data?.id}`)
+        router.push(`/dashboard/administration/user-management/edit/${data.data?.id}`)
     }
 
     return (
