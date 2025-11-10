@@ -18,7 +18,7 @@ interface UserResponse {
 }
 
 interface ListOfUsersResponse {
-    data: [ UserResponse ]
+    data: Array<UserResponse>   
     current_page: number
     first_page_url: string
     from: number

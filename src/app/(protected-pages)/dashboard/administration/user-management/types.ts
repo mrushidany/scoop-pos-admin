@@ -47,25 +47,23 @@ export type UserDetails =  {
         phone?: string
         is_active?: boolean
         is_admin?: boolean
-        stores?: [
-            {
-                created_at?: string
-                created_by?: number
-                deleted_at?: string | null
-                device_timestamp: string | null
-                license_type?: string
-                name?: string
-                slug?: string
-                store_type_string?: string
-                updated_at?: string
-                version?: number
-                id?: string
-                pivot: {
-                    store_id?: string
-                    user_id?: number
-                }
+        stores?: Array<{
+            created_at?: string
+            created_by?: number
+            deleted_at?: string | null
+            device_timestamp: string | null
+            license_type?: string
+            name?: string
+            slug?: string
+            store_type_string?: string
+            updated_at?: string
+            version?: number
+            id?: string
+            pivot: {
+                store_id?: string
+                user_id?: number
             }
-        ]
+        }>
         created_at?: string
         updated_at?: string
         id?: number

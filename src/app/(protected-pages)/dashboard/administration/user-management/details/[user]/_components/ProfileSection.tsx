@@ -61,7 +61,6 @@ const avatarProps = {
 }
 
 const ProfileSection = ({ data }: ProfileSectionProps) => {
-    console.log('What is the data here : ', data)
     const router = useRouter()
 
     const [dialogOpen, setDialogOpen] = useState(false)

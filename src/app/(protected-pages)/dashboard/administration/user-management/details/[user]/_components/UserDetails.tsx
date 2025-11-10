@@ -4,6 +4,7 @@ import Card from '@/components/ui/Card'
 import Tabs from '@/components/ui/Tabs'
 import type { UserDetails } from '../../../types'
 import ProfileSection from './ProfileSection'
+import StoreSection from './StoreSection'
 
 type UserDetailsProps = {
     data: UserDetails
@@ -24,7 +25,7 @@ const UserDetails = ({ data }: UserDetailsProps) => {
                     </TabList>
                     <div className='p-4'>
                         <TabContent value='stores'>
-                            
+                            <StoreSection data={data.data?.stores} />
                         </TabContent>
                     </div>
                 </Tabs>
