@@ -5,6 +5,7 @@ import { useRetrieveUserDetails } from '@/hooks/features/user-management/userMan
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Loading from '@/components/shared/Loading'
+import isEmpty from 'lodash/isEmpty'
 
 export default function Page({ params }: { params: Promise<{user: number}> }) {
     const resolvedParams = use(params)
@@ -12,7 +13,7 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
 
     const { data, isLoading, error } = useRetrieveUserDetails(user)
 
-    if(error || !data) {
+    if(error || isEmpty(data)) {
         return (
             <div className='h-full flex flex-col items-center justify-center'>
                 <NoUserFound height={280} width={280} />
@@ -35,7 +36,7 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
 
     return (
         <div>
-            <h1>User Details</h1>
+           
         </div>
     )
 }

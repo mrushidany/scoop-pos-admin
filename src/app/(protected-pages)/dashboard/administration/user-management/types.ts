@@ -37,4 +37,5 @@ export type UserFormSchema =  {
     dialCode: string
     is_active: boolean
     is_admin: boolean
+    stores?: []
 }
