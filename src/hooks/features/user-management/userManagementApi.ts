@@ -1,6 +1,8 @@
 import { useQuery } from '@/hooks/useQuery'
 import { API_ENDPOINTS } from '@/lib/constants'
 import { useAuthStore } from '@/store/auth'
+import { useMutation } from '@/hooks/useMutations'
+import { createApiOptions } from '@/hooks/useApiHooks'
 
 interface ListOfUsersResponse {
     data: [
@@ -35,15 +37,45 @@ interface ListOfUsersResponse {
     ]
 }
 
+interface UserCreateVariables {
+    name: string
+    email: string
+    password: string
+    phone: string
+    is_admin: boolean
+    is_active: boolean
+}
+
+interface UserCreateResponse {
+    id: number
+    name: string
+    email: string
+    phone: string
+    created_at: string
+    updated_at: string
+    is_admin: boolean
+    is_active: boolean
+}
+
 // Data Fetching
 
 export function useRetrieveListOfUsers() {
     const { access_token } = useAuthStore()
     return useQuery<ListOfUsersResponse>(
         ['retrieve-list-of-users'],
-        API_ENDPOINTS.RETRIEVE_LIST_OF_USERS,
+        API_ENDPOINTS.ADMIN_USERS,
         {
             enabled: !!access_token,
         }
+    )
+}
+
+// Data Mutation
+
+export function useCreateUser() {
+    const { access_token } = useAuthStore()
+    return useMutation<UserCreateResponse, UserCreateVariables>(
+        API_ENDPOINTS.ADMIN_USERS,
+        createApiOptions(access_token ?? '', 'POST')
     )
 }
