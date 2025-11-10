@@ -47,14 +47,14 @@ interface UserCreateVariables {
 }
 
 interface UserCreateResponse {
-    id: number
-    name: string
-    email: string
-    phone: string
-    created_at: string
-    updated_at: string
-    is_admin: boolean
-    is_active: boolean
+    success: boolean
+    message: string
+    data: {
+        id: number
+        name: string
+        email: string
+        phone: string
+    }
 }
 
 // Data Fetching

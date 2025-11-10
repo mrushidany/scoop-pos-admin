@@ -26,6 +26,8 @@ import NumericInput from '@/components/shared/NumericInput'
 import { countryList } from '@/constants/countries.constant'
 import { components } from 'react-select'
 import type { ControlProps, OptionProps } from 'react-select'
+import { useCreateUser } from '@/hooks/features/user-management/userManagementApi'
+import { getApiErrorMessage } from '@/utils/apiError'
 
 type CountryOption = {
     label: string
@@ -89,6 +91,8 @@ const validationSchema: ZodType<UserFormSchema> = z.object({
 
 const UserCreate = () => {
     const router = useRouter()
+
+    const { mutate, isPending } = useCreateUser()
 
     const {
         handleSubmit,
@@ -166,8 +170,24 @@ const UserCreate = () => {
             phone: fullPhone,
         }
 
-        console.log('User payload:', payload)
-        // TODO: Call your create user service with `payload` when ready.
+        await mutate(payload, {
+            onSuccess: (response) => {
+                console.log('What is the response here : ', response)
+                toast.push(
+                    <Notification type='success'>{response.message}</Notification>,
+                    { placement: 'top-center' },
+                )
+                router.push('/administration/user-management')
+            }, 
+            onError: (error) => {
+                const message = getApiErrorMessage(error, 'Failed to create user')
+                toast.push(
+                    <Notification type='danger'>{message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            }
+        })
+
     }
 
     return (
@@ -353,6 +373,8 @@ const UserCreate = () => {
                                 <Button
                                     variant='solid'
                                     type='submit'
+                                    loading={isPending}
+                                    disabled={isPending}
                                 >
                                     Create
                                 </Button>
