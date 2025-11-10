@@ -89,7 +89,7 @@ const validationSchema: ZodType<UserFormSchema> = z.object({
     is_admin: z.boolean(),
 })
 
-const UserCreate = () => {
+const UserEdit = () => {
     const router = useRouter()
 
     const { mutate, isPending } = useCreateUser()
@@ -400,6 +400,6 @@ const UserCreate = () => {
     )
 }
 
-export default UserCreate
+export default UserEdit
 
 
