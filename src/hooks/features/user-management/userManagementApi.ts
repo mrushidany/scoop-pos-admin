@@ -4,19 +4,19 @@ import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
 
+interface UserResponse {
+    id?: number
+    name?: string
+    email?: string
+    phone?: string
+    created_at?: string
+    updated_at?: string
+    is_admin?: boolean
+    is_active?: boolean
+}
+
 interface ListOfUsersResponse {
-    data: [
-        {
-            id: number
-            name: string
-            email: string
-            phone: string
-            created_at: string
-            updated_at: string
-            is_admin: boolean
-            is_active: boolean
-        }
-    ]
+    data: [ UserResponse ]
     current_page: number
     first_page_url: string
     from: number
@@ -49,12 +49,7 @@ interface UserCreateVariables {
 interface UserCreateResponse {
     success: boolean
     message: string
-    data: {
-        id: number
-        name: string
-        email: string
-        phone: string
-    }
+    data: UserResponse
 }
 
 // Data Fetching
@@ -68,6 +63,18 @@ export function useRetrieveListOfUsers() {
             enabled: !!access_token,
         }
     )
+}
+
+export function useRetrieveUserDetails(userId: number) {
+    const { access_token } = useAuthStore()
+    return useQuery<UserResponse>(
+        ['retrieve-user-details', userId],
+        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+        {
+            enabled: !!access_token,
+        }
+    )
+
 }
 
 // Data Mutation
