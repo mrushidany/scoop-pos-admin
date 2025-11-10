@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from '@/lib/constants'
 import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
+import type { User } from '@/app/(protected-pages)/dashboard/administration/user-management/types'
 
 interface UserResponse {
     data: {
@@ -18,7 +19,7 @@ interface UserResponse {
 }
 
 interface ListOfUsersResponse {
-    data: Array<UserResponse>   
+    data: User[]   
     current_page: number
     first_page_url: string
     from: number
