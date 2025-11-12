@@ -65,7 +65,7 @@ const avatarProps = {
 const ProfileSection = ({ data }: ProfileSectionProps) => {
     const router = useRouter()
 
-    const { mutate: deleteUser } = useDeleteUser(data.data?.id ?? 0)
+    const { mutate: deleteUser, isPending } = useDeleteUser()
 
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -78,14 +78,15 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     }
 
     const handleDelete = async () => {
-        setDialogOpen(false)
-        await deleteUser(data.data?.id ?? 0, {
+        if (!data.data?.id) return
+        await deleteUser(data.data.id, {
             onSuccess: (response) => {
                 toast.push(
                     <Notification title={'Successfully Deleted'} type='success'>
                        {response.message}
                     </Notification>,
                 )
+                setDialogOpen(false)
                 router.push('/dashboard/administration/user-management')
             },
             onError: (error) => {
@@ -144,6 +145,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                             'text-error hover:border-error hover:ring-1 ring-error hover:text-error'
                         }
                         icon={<HiOutlineTrash />}
+                        disabled={isPending}
                         onClick={handleDialogOpen}
                     >
                         Delete
@@ -157,6 +159,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                     onRequestClose={handleDialogClose}
                     onCancel={handleDialogClose}
                     onConfirm={handleDelete}
+                    confirmButtonProps={{ loading: isPending, disabled: isPending }}
                 >
                     <p>
                         Are you sure you want to delete <span className='font-bold'>{data.data?.name}</span>? All

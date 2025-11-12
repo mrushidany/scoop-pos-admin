@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from '@/lib/constants'
 import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
+import axiosInstance from '@/lib/client'
 import type { User } from '@/app/(protected-pages)/dashboard/administration/user-management/types'
 
 interface UserResponse {
@@ -104,10 +105,29 @@ export function useUpdateUserDetails(userId: number) {
     )
 }
 
-export function useDeleteUser(userId: number) {
+export function useDeleteUser() {
     const { access_token } = useAuthStore()
-    return useMutation<DeleteUserResponse>(
-        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
-        createApiOptions(access_token ?? '', 'DELETE')
+    return useMutation<DeleteUserResponse, number>(
+        API_ENDPOINTS.ADMIN_USERS,
+        {
+            method: 'DELETE',
+            apiOptions: {
+                headers: {
+                    Authorization: `Bearer ${access_token ?? ''}`,
+                },
+            },
+            mutationFn: async (userId: number) => {
+                const response = await axiosInstance<DeleteUserResponse>(
+                    `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            Authorization: `Bearer ${access_token ?? ''}`,
+                        },
+                    }
+                )
+                return response.data
+            },
+        }
     )
 }

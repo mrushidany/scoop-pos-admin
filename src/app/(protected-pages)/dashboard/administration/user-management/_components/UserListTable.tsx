@@ -1,15 +1,19 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Tag from '@/components/ui/Tag'
 import Tooltip from '@/components/ui/Tooltip'
 import DataTable from '@/components/shared/DataTable'
-import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { TbPencil, TbEye, TbTrash } from 'react-icons/tb'
 import type { ColumnDef } from '@/components/shared/DataTable'
 import type { User } from '../types'
+import { useDeleteUser, useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
+import { getApiErrorMessage } from '@/utils/apiError'
+import toast from '@/components/ui/toast'
+import Notification from '@/components/ui/Notification'
+import ConfirmDialog from '@/components/shared/ConfirmDialog'
 
 type UserListTableProps = {
     users: User[]
@@ -88,7 +92,20 @@ const UserListTable = ({
 }: UserListTableProps) => {
     const router = useRouter()
 
-    const { onAppendQueryParams } = useAppendQueryParams()
+    const { refetch } = useRetrieveListOfUsers()
+    const { mutate: deleteUser, isPending } = useDeleteUser()
+    
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const [selectedUser, setSelectedUser] = useState<User | null>(null)
+
+    const handleDialogClose = () => {
+        setDialogOpen(false)
+    }
+
+    const handleDialogOpen = (user: User) => {
+        setSelectedUser(user)
+        setDialogOpen(true)
+    }
 
     const handleEdit = (user: User) => {
         router.push(`/dashboard/administration/user-management/edit/${user.id}`)
@@ -99,7 +116,24 @@ const UserListTable = ({
     }
     
     const handleDelete = async (user: User) => {
-        void user
+        await deleteUser(user.id, {
+            onSuccess: (response) => {
+                toast.push(
+                    <Notification title={'Successfully Deleted'} type='success'>
+                       {response.message}
+                    </Notification>,
+                )
+                setDialogOpen(false)
+                refetch()
+            },
+            onError: (error) => {
+                const message = getApiErrorMessage(error, 'Failed to delete user')
+                toast.push(
+                    <Notification type='danger'>{message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            }
+        })
     }
 
     const columns: ColumnDef<User>[] = useMemo(
@@ -152,7 +186,7 @@ const UserListTable = ({
                         onViewDetail={() =>
                             handleViewDetails(props.row.original)
                         }
-                        onDelete={() => handleDelete(props.row.original)}
+                        onDelete={() => handleDialogOpen(props.row.original)}
                     />
                 ),
             },
@@ -162,24 +196,40 @@ const UserListTable = ({
     )
 
     const handlePaginationChange = (page: number) => {
-        onAppendQueryParams({
-            pageIndex: String(page),
-        })
+       void page
     }
 
     return (
-        <DataTable
-            columns={columns}
-            data={users}
-            loading={initialLoading}
-            pagingData={{
-                total: userListTotal,
-                pageIndex,
-                pageSize,
-            }}
-            onPaginationChange={handlePaginationChange}
-            
-        />
+        <>
+            <DataTable
+                columns={columns}
+                data={users}
+                loading={initialLoading}
+                pagingData={{
+                    total: userListTotal,
+                    pageIndex,
+                    pageSize,
+                }}
+                onPaginationChange={handlePaginationChange}
+                
+            />
+            <ConfirmDialog
+                isOpen={dialogOpen}
+                type='danger'
+                title='Delete user'
+                onClose={handleDialogClose}
+                onRequestClose={handleDialogClose}
+                onCancel={handleDialogClose}
+                onConfirm={() => selectedUser && handleDelete(selectedUser)}
+                confirmButtonProps={{ loading: isPending, disabled: isPending }}
+            >
+                <p>
+                    Are you sure you want to delete <span className='font-bold'>{selectedUser?.name}</span>? All
+                    record related to this user will be deleted as well.
+                    This action cannot be undone.
+                </p>
+            </ConfirmDialog>
+        </>
     )
 }
 
