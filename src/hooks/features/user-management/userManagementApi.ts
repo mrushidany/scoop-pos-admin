@@ -61,6 +61,12 @@ interface DeleteUserResponse {
     message: string
 }
 
+interface ToggleUserResponse {
+    success: boolean
+    message: string
+    data: UserResponse
+}
+
 
 // Data Fetching
 
@@ -109,18 +115,72 @@ export function useDeleteUser() {
     const { access_token } = useAuthStore()
     return useMutation<DeleteUserResponse, number>(
         API_ENDPOINTS.ADMIN_USERS,
+            {
+                method: 'DELETE',
+                apiOptions: {
+                    headers: {
+                        Authorization: `Bearer ${access_token ?? ''}`,
+                    },
+                },
+                mutationFn: async (userId: number) => {
+                    const response = await axiosInstance<DeleteUserResponse>(
+                        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+                        {
+                            method: 'DELETE',
+                            headers: {
+                                Authorization: `Bearer ${access_token ?? ''}`,
+                            },
+                        }
+                    )
+                    return response.data
+                },
+            }
+    )
+}
+
+export function useToggleUserStatus() {
+    const { access_token } = useAuthStore()
+    return useMutation<ToggleUserResponse, number>(
+        '',
         {
-            method: 'DELETE',
+            method: 'POST',
             apiOptions: {
                 headers: {
                     Authorization: `Bearer ${access_token ?? ''}`,
                 },
             },
             mutationFn: async (userId: number) => {
-                const response = await axiosInstance<DeleteUserResponse>(
-                    `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+                const response = await axiosInstance<ToggleUserResponse>(
+                    API_ENDPOINTS.TOGGLE_USER_STATUS(userId),
                     {
-                        method: 'DELETE',
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Bearer ${access_token ?? ''}`,
+                        },
+                    }
+                )
+                return response.data
+            },
+        }
+    )
+}
+
+export function useToggleAdminStatus() {
+    const { access_token } = useAuthStore()
+    return useMutation<ToggleUserResponse, number>(
+        '',
+        {
+            method: 'POST',
+            apiOptions: {
+                headers: {
+                    Authorization: `Bearer ${access_token ?? ''}`,
+                },
+            },
+            mutationFn: async (adminId: number) => {
+                const response = await axiosInstance<ToggleUserResponse>(
+                    API_ENDPOINTS.TOGGLE_ADMIN_STATUS(adminId),
+                    {
+                        method: 'POST',
                         headers: {
                             Authorization: `Bearer ${access_token ?? ''}`,
                         },
