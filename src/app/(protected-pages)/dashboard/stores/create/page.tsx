@@ -1,7 +1,7 @@
-import UserCreate from './UserCreate'
+import StoreCreate from './StoreCreate'
 
-export default function CreateUserPage() {
+export default function CreateStorePage() {
   return (
-    <UserCreate />
+    <StoreCreate />
   )
 }

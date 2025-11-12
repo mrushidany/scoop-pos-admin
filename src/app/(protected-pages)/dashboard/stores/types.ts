@@ -50,3 +50,9 @@ export type ListOfStores = {
         devices: Devices[]
     ]
 }
+
+export type StoreFormSchema = {
+    name: string,
+    store_type_string: string,
+    owner_id: number,
+}

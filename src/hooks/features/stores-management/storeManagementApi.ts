@@ -53,22 +53,31 @@ interface ListOfStoresResponse {
     ]
 }
 
-interface UserCreateVariables {
+interface StoreCreateVariables {
     name: string
-    email: string
-    password?: string
-    phone?: string
-    is_admin?: boolean
-    is_active?: boolean
+    store_type_string: string
+    owner_id: number
 }
 
-interface UserCreateResponse {
+interface StoreResponse {
     success: boolean
     message: string
-    data: UserResponse
+    data: {
+        id: string,
+        name: string,
+        slug: string,
+        store_type_string: string,
+        license_type: string,
+        created_by: number,
+        created_at: string,
+        updated_at: string,
+        deleted_at: string | null,
+        users: Users[],
+        devices: Devices[]
+    }
 }
 
-interface DeleteUserResponse {
+interface DeleteStoreResponse {
     success: boolean
     message: string
 }
@@ -86,11 +95,11 @@ export function useRetrieveListOfStores() {
     )
 }
 
-export function useRetrieveUserDetails(userId: number) {
+export function useRetrieveStoreDetails(storeId: string) {
     const { access_token } = useAuthStore()
-    return useQuery<UserResponse>(
-        ['retrieve-user-details', userId],
-        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+    return useQuery<StoreResponse>(
+        ['retrieve-store-details', storeId],
+        `${API_ENDPOINTS.ADMIN_STORES}/${storeId}`,
         {
             enabled: !!access_token,
         }
@@ -100,10 +109,10 @@ export function useRetrieveUserDetails(userId: number) {
 
 // Data Mutation
 
-export function useCreateUser() {
+export function useCreateStore() {
     const { access_token } = useAuthStore()
-    return useMutation<UserCreateResponse, UserCreateVariables>(
-        API_ENDPOINTS.ADMIN_USERS,
+    return useMutation<StoreResponse, StoreCreateVariables>(
+        API_ENDPOINTS.ADMIN_STORES,
         createApiOptions(access_token ?? '', 'POST')
     )
 }
