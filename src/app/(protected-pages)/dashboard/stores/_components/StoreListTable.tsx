@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Tag from '@/components/ui/Tag'
 import Tooltip from '@/components/ui/Tooltip'
 import DataTable from '@/components/shared/DataTable'
 import { useRouter } from 'next/navigation'
@@ -21,11 +20,6 @@ type StoreListTableProps = {
     storeListTotal: number
     pageIndex?: number
     pageSize?: number
-}
-
-const statusColor: Record<string, string> = {
-    active: 'bg-emerald-200 dark:bg-emerald-200 text-gray-900 dark:text-gray-900',
-    blocked: 'bg-red-200 dark:bg-red-200 text-gray-900 dark:text-gray-900',
 }
 
 const NameColumn = ({ row }: { row: Store }) => {

@@ -6,19 +6,6 @@ import { createApiOptions } from '@/hooks/useApiHooks'
 import axiosInstance from '@/lib/client'
 import type { Users, Devices } from '@/app/(protected-pages)/dashboard/stores/types'
 
-interface Response {
-    data: {
-        id?: number
-        name?: string
-        email?: string
-        phone?: string
-        created_at?: string
-        updated_at?: string
-        is_admin?: boolean
-        is_active?: boolean
-    }
-}
-
 interface ListOfStoresResponse {
     data: [
         id: string,
@@ -119,16 +106,16 @@ export function useCreateStore() {
 
 export function useUpdateUserDetails(userId: number) {
     const { access_token } = useAuthStore()
-    return useMutation<UserCreateResponse, UserCreateVariables>(
-        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+    return useMutation<StoreResponse, StoreCreateVariables>(
+        `${API_ENDPOINTS.ADMIN_STORES}/${userId}`,
         createApiOptions(access_token ?? '', 'PUT')
     )
 }
 
 export function useDeleteStore() {
     const { access_token } = useAuthStore()
-    return useMutation<DeleteUserResponse, number>(
-        API_ENDPOINTS.ADMIN_USERS,
+    return useMutation<DeleteStoreResponse, string>(
+        API_ENDPOINTS.ADMIN_STORES,
             {
                 method: 'DELETE',
                 apiOptions: {
@@ -136,9 +123,9 @@ export function useDeleteStore() {
                         Authorization: `Bearer ${access_token ?? ''}`,
                     },
                 },
-                mutationFn: async (userId: number) => {
-                    const response = await axiosInstance<DeleteUserResponse>(
-                        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+                mutationFn: async (storeId: string) => {
+                    const response = await axiosInstance<DeleteStoreResponse>(
+                        `${API_ENDPOINTS.ADMIN_STORES}/${storeId}`,
                         {
                             method: 'DELETE',
                             headers: {
