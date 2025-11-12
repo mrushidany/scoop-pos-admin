@@ -137,15 +137,15 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                 <ConfirmDialog
                     isOpen={dialogOpen}
                     type='danger'
-                    title='Delete customer'
+                    title='Delete user'
                     onClose={handleDialogClose}
                     onRequestClose={handleDialogClose}
                     onCancel={handleDialogClose}
                     onConfirm={handleDelete}
                 >
                     <p>
-                        Are you sure you want to delete this customer? All
-                        record related to this customer will be deleted as well.
+                        Are you sure you want to delete <span className='font-bold'>{data.data?.name}</span>? All
+                        record related to this user will be deleted as well.
                         This action cannot be undone.
                     </p>
                 </ConfirmDialog>
