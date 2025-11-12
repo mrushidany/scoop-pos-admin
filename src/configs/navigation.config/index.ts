@@ -1,7 +1,7 @@
 import dashboardNavigationConfig from './dashboard.navigation.config'
 import logisticsNavigationConfig from './store.navigation.config'
-import financeNavigationConfig from './finance.navigation.config'
-import insightsNavigationConfig from './insights.navigation.config'
+// import financeNavigationConfig from './finance.navigation.config'
+// import insightsNavigationConfig from './insights.navigation.config'
 import administrationNavigationConfig from './administration.navigation.config'
 import type { NavigationTree } from '@/@types/navigation'
 import deviceManagementNavigationConfig from './devicemanagement.navigation.config'
@@ -14,9 +14,9 @@ const navigationConfig: NavigationTree[] = [
     ...deviceManagementNavigationConfig,
     ...licensePricingNavigationConfig,
     ...telecomOperatorsNavigationConfig,
-    ...logisticsNavigationConfig,
-    ...financeNavigationConfig,
-    ...insightsNavigationConfig,
+    ...logisticsNavigationConfig
+    // ...financeNavigationConfig,
+    // ...insightsNavigationConfig,
 ]
 
 export default navigationConfig
