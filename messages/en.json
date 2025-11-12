@@ -24,9 +24,9 @@
             "ordersDesc": "Orders Management"
         },
         "store": {
-            "storeManagement": "Store Management",
-            "store": "Store",
-            "storeDesc": "Store Management",
+            "storeManagement": "Stores Management",
+            "store": "Stores",
+            "storeDesc": "Stores Management",
             "vendor": "Vendors",
             "inventory": "Inventory",
             "vendorDesc": "Vendors Management",

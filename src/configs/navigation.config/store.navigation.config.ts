@@ -10,7 +10,7 @@ const storeNavigationConfig: NavigationTree[] = [
     {
         key: 'store',
         path: '',
-        title: 'Store Management',
+        title: 'Stores Management',
         translateKey: 'nav.store.storeManagement',
         icon: 'warehoure',
         type: NAV_ITEM_TYPE_TITLE,
@@ -25,7 +25,7 @@ const storeNavigationConfig: NavigationTree[] = [
             {
                 key: 'store.store',
                 path: `${STORE_PREFIX_PATH}`,
-                title: 'Store',
+                title: 'Stores',
                 translateKey: 'nav.store.store',
                 icon: 'warehouse',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -33,7 +33,7 @@ const storeNavigationConfig: NavigationTree[] = [
                 meta: {
                     description: {
                         translateKey: 'nav.store.storeDesc',
-                        label: 'Store Management',
+                        label: 'Stores Management',
                     },
                 },
                 subMenu: [],
