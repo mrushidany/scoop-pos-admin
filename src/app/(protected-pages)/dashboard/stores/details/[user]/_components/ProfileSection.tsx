@@ -13,7 +13,7 @@ import { PiUserDuotone } from 'react-icons/pi'
 import { useRouter } from 'next/navigation'
 import { UserDetails } from '../../../types'
 import Tag from '@/components/ui/Tag'
-import { useDeleteUser, useToggleAdminStatus, useToggleUserStatus } from '@/hooks/features/user-management/userManagementApi'
+import { useRetrieveUserDetails, useDeleteUser, useToggleAdminStatus, useToggleUserStatus } from '@/hooks/features/user-management/userManagementApi'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Switcher from '@/components/ui/Switcher'
 
@@ -25,7 +25,6 @@ type UserInfoFieldProps = {
 
 type ProfileSectionProps = {
     data: UserDetails
-    onRefetch?: () => void
 }
 
 const statusColor: Record<string, string> = {
@@ -64,13 +63,14 @@ const avatarProps = {
     icon: <PiUserDuotone />
 }
 
-const ProfileSection = ({ data, onRefetch }: ProfileSectionProps) => {
+const ProfileSection = ({ data }: ProfileSectionProps) => {
     const router = useRouter()
+
+    const { refetch } = useRetrieveUserDetails(data.data?.id || 0)
         
     const { mutate: deleteUser, isPending } = useDeleteUser()
     const { mutate: toggleUserStatus, isPending: isPendingToggleUser } = useToggleUserStatus()
     const { mutate: toggleAdminStatus, isPending: isPendingToggleAdmin } = useToggleAdminStatus()
-    const [activeOverride, setActiveOverride] = useState<boolean | null>(null)
 
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -109,9 +109,6 @@ const ProfileSection = ({ data, onRefetch }: ProfileSectionProps) => {
         const id = data.data.id
         const isAdmin = Boolean(data.data?.is_admin)
         const mutateFn = isAdmin ? toggleAdminStatus : toggleUserStatus
-        const currentActive = Boolean(activeOverride ?? data.data?.is_active)
-        // Optimistically update UI
-        setActiveOverride(!currentActive)
         await mutateFn(id, {
             onSuccess: (response) => {
                 toast.push(
@@ -119,9 +116,7 @@ const ProfileSection = ({ data, onRefetch }: ProfileSectionProps) => {
                         {response.message}
                     </Notification>,
                 )
-                // Clear override and refetch to reconcile
-                setActiveOverride(null)
-                onRefetch?.()
+                refetch()
             },
             onError: (error) => {
                 const message = getApiErrorMessage(error, 'Failed to update status')
@@ -129,8 +124,6 @@ const ProfileSection = ({ data, onRefetch }: ProfileSectionProps) => {
                     <Notification type='danger'>{message}</Notification>,
                     { placement: 'top-center' },
                 )
-                // Revert override on error
-                setActiveOverride(null)
             },
         })
     }
@@ -177,7 +170,7 @@ const ProfileSection = ({ data, onRefetch }: ProfileSectionProps) => {
                         <div className='flex flex-col gap-4'>
                             <span></span>
                             <Switcher
-                                checked={activeOverride ?? data.data?.is_active}
+                                checked={data.data?.is_active}
                                 isLoading={Boolean(data.data?.is_admin) ? isPendingToggleAdmin : isPendingToggleUser}
                                 disabled={Boolean(data.data?.is_admin) ? isPendingToggleAdmin : isPendingToggleUser}
                                 onChange={() => handleToggleActive()}

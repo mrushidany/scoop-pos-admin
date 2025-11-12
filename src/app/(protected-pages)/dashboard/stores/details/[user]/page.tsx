@@ -12,7 +12,7 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
     const resolvedParams = use(params)
     const { user }  = resolvedParams
 
-    const { data, isLoading, error, refetch } = useRetrieveUserDetails(user)
+    const { data, isLoading, error } = useRetrieveUserDetails(user)
 
     if(error || isEmpty(data)) {
         return (
@@ -32,5 +32,5 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-    return <UserDetails data={data} refetch={refetch} />
+    return <UserDetails data={data} />
 }

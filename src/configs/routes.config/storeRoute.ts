@@ -1,7 +1,7 @@
 import type { Routes } from '@/@types/routes'
 
 const storeRoute: Routes = {
-    '/dashboard/store': {
+    '/dashboard/stores': {
         key: 'store.store',
         authority: [],
         meta: {
