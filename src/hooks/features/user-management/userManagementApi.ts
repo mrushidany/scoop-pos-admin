@@ -55,6 +55,12 @@ interface UserCreateResponse {
     data: UserResponse
 }
 
+interface DeleteUserResponse {
+    success: boolean
+    message: string
+}
+
+
 // Data Fetching
 
 export function useRetrieveListOfUsers() {
@@ -95,5 +101,13 @@ export function useUpdateUserDetails(userId: number) {
     return useMutation<UserCreateResponse, UserCreateVariables>(
         `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
         createApiOptions(access_token ?? '', 'PUT')
+    )
+}
+
+export function useDeleteUser(userId: number) {
+    const { access_token } = useAuthStore()
+    return useMutation<DeleteUserResponse>(
+        `${API_ENDPOINTS.ADMIN_USERS}/${userId}`,
+        createApiOptions(access_token ?? '', 'DELETE')
     )
 }

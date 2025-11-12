@@ -13,6 +13,8 @@ import { PiUserDuotone } from 'react-icons/pi'
 import { useRouter } from 'next/navigation'
 import { UserDetails } from '../../../types'
 import Tag from '@/components/ui/Tag'
+import { useDeleteUser } from '@/hooks/features/user-management/userManagementApi'
+import { getApiErrorMessage } from '@/utils/apiError'
 
 type UserInfoFieldProps = {
     title?: string
@@ -63,6 +65,8 @@ const avatarProps = {
 const ProfileSection = ({ data }: ProfileSectionProps) => {
     const router = useRouter()
 
+    const { mutate: deleteUser } = useDeleteUser(data.data?.id ?? 0)
+
     const [dialogOpen, setDialogOpen] = useState(false)
 
     const handleDialogClose = () => {
@@ -73,14 +77,25 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
         setDialogOpen(true)
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         setDialogOpen(false)
-        router.push('/concepts/customers/customer-list')
-        toast.push(
-            <Notification title={'Successfully Deleted'} type='success'>
-                Customer successfuly deleted
-            </Notification>,
-        )
+        await deleteUser(data.data?.id ?? 0, {
+            onSuccess: (response) => {
+                toast.push(
+                    <Notification title={'Successfully Deleted'} type='success'>
+                       {response.message}
+                    </Notification>,
+                )
+                router.push('/dashboard/administration/user-management')
+            },
+            onError: (error) => {
+                const message = getApiErrorMessage(error, 'Failed to delete user')
+                toast.push(
+                    <Notification type='danger'>{message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            }
+        })
     }
 
     const handleEdit = () => {
