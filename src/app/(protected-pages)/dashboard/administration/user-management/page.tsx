@@ -10,7 +10,6 @@ import UserListTable from './_components/UserListTable'
 export default function UsersPage() {
   const { data, isLoading } = useRetrieveListOfUsers()
 
-  console.log('What is the data here : ', data)
   return (
     <>
       <Container>

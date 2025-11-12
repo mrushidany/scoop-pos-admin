@@ -13,8 +13,9 @@ import { PiUserDuotone } from 'react-icons/pi'
 import { useRouter } from 'next/navigation'
 import { UserDetails } from '../../../types'
 import Tag from '@/components/ui/Tag'
-import { useDeleteUser } from '@/hooks/features/user-management/userManagementApi'
+import { useRetrieveUserDetails, useDeleteUser, useToggleAdminStatus, useToggleUserStatus } from '@/hooks/features/user-management/userManagementApi'
 import { getApiErrorMessage } from '@/utils/apiError'
+import Switcher from '@/components/ui/Switcher'
 
 type UserInfoFieldProps = {
     title?: string
@@ -65,7 +66,13 @@ const avatarProps = {
 const ProfileSection = ({ data }: ProfileSectionProps) => {
     const router = useRouter()
 
+    const { refetch } = useRetrieveUserDetails(data.data?.id || 0)
+
+    console.log('What is the data here : ', data)
+    
     const { mutate: deleteUser, isPending } = useDeleteUser()
+    const { mutate: toggleUserStatus, isPending: isPendingToggleUser } = useToggleUserStatus()
+    const { mutate: toggleAdminStatus, isPending: isPendingToggleAdmin } = useToggleAdminStatus()
 
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -96,6 +103,30 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                     { placement: 'top-center' },
                 )
             }
+        })
+    }
+
+    const handleToggleActive = async () => {
+        if (!data.data?.id) return
+        const id = data.data.id
+        const isAdmin = Boolean(data.data?.is_admin)
+        const mutateFn = isAdmin ? toggleAdminStatus : toggleUserStatus
+        await mutateFn(id, {
+            onSuccess: (response) => {
+                toast.push(
+                    <Notification title={'Status Updated'} type='success'>
+                        {response.message}
+                    </Notification>,
+                )
+                refetch()
+            },
+            onError: (error) => {
+                const message = getApiErrorMessage(error, 'Failed to update status')
+                toast.push(
+                    <Notification type='danger'>{message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            },
         })
     }
 
@@ -132,11 +163,23 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                         type='admin'
                         value={data.data?.is_admin ? 'Yes' : 'No'}
                     />
-                    <UserInfoWithStatusField
-                        title='Active'
-                        type='active'
-                        value={data.data?.is_active ? 'Yes' : 'No'} 
-                    />
+                    <div className='flex flex-row items-center gap-8'>
+                        <UserInfoWithStatusField
+                            title='Active'
+                            type='active'
+                            value={data.data?.is_active ? 'Yes' : 'No'} 
+                        />
+                        <div className='flex flex-col gap-4'>
+                            <span></span>
+                            <Switcher
+                                checked={data.data?.is_active}
+                                isLoading={Boolean(data.data?.is_admin) ? isPendingToggleAdmin : isPendingToggleUser}
+                                disabled={Boolean(data.data?.is_admin) ? isPendingToggleAdmin : isPendingToggleUser}
+                                onChange={() => handleToggleActive()}
+                            />
+                        </div>
+                    </div>
+
                 </div>
                 <div className='flex flex-col gap-4 mt-7'>
                     <Button
