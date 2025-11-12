@@ -15,7 +15,7 @@ import toast from '@/components/ui/toast'
 import Notification from '@/components/ui/Notification'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 
-type UserListTableProps = {
+type StoreListTableProps = {
     users: User[]
     initialLoading: boolean
     userListTotal: number
@@ -83,13 +83,13 @@ const ActionColumn = ({
     )
 }
 
-const UserListTable = ({
+const StoreListTable = ({
     users,
     userListTotal,
     initialLoading,
     pageIndex = 1,
     pageSize = 10,
-}: UserListTableProps) => {
+}: StoreListTableProps) => {
     const router = useRouter()
 
     const { refetch } = useRetrieveListOfUsers()
@@ -233,4 +233,4 @@ const UserListTable = ({
     )
 }
 
-export default UserListTable
+export default StoreListTable

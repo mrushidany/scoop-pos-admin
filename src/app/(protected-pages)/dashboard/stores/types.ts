@@ -1,71 +1,52 @@
-export type User = {
+export type Store = {
+    id: string,
+    name: string,
+    slug: string,
+    store_type_string: string,
+    license_type: string,
+    created_by: number,
+    created_at: string,
+    updated_at: string,
+    deleted_at: string | null,
+}
+
+export type Users = {
     id: number
     name: string
     email: string
-    phone: string
+    phone:string
+}
+
+export type Devices = {
+    id: string
+    name: string
+    platform: string
+    device_model: string
+    os_version: string
+    public_key: string
+    metadata: {
+      screen_resolution: string
+    }
+    store_id: string
+    enrolled_at: string
+    registered_at: string
+    last_seen_at: string
     created_at: string
     updated_at: string
-    is_admin: boolean
-    is_active: boolean
 }
 
-export type ListOfUsers = {
-    data: User[]
-    current_page: number
-    first_page_url: string
-    from: number
-    last_page_url: string | null
-    next_page_url: string | null
-    path: string
-    per_page: number
-    prev_page_url: string | null
-    to: number
-    total: number
-    links: Array<{
-        url: string | null 
-        label: string | null
-        page: number | null
-        active: boolean
-    }>
-}
-
-export type UserFormSchema =  {
-    name: string
-    email: string
-    password?: string
-    phone?: string
-    dialCode?: string
-    is_active?: boolean
-    is_admin?: boolean
-    stores?: []
-}
-
-export type UserDetails =  {
-    data: {
-        name?: string
-        email?: string
-        phone?: string
-        is_active?: boolean
-        is_admin?: boolean
-        stores?: Array<{
-            created_at?: string
-            created_by?: number
-            deleted_at?: string | null
-            device_timestamp: string | null
-            license_type?: string
-            name?: string
-            slug?: string
-            store_type_string?: string
-            updated_at?: string
-            version?: number
-            id?: string
-            pivot: {
-                store_id?: string
-                user_id?: number
-            }
-        }>
-        created_at?: string
-        updated_at?: string
-        id?: number
-    }
+export type ListOfStores = {
+    data: [
+        id: string,
+        name: string,
+        slug: string,
+        store_type_string: string,
+        license_type: string,
+        created_by: number,
+        created_at: string,
+        updated_at: string,
+        deleted_at: string | null,
+        users: Users[],
+        devices: Devices[]
+    ]
 }

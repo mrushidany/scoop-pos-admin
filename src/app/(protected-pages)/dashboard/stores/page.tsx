@@ -2,13 +2,15 @@
 
 import AdaptiveCard from '@/components/shared/AdaptiveCard'
 import Container from '@/components/shared/Container'
-import { useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
-import UserListActionTools from './_components/UserListActionTools'
-import UserListTableTools from './_components/UserListTableTools'
-import UserListTable from './_components/UserListTable'
+import { useRetrieveListOfStores } from '@/hooks/features/stores-management/storeManagementApi'
+import StoreListActionTools from './_components/StoreListActionTools'
+import StoreListTableTools from './_components/StoreListTableTools'
+import StoreListTable from './_components/StoreListTable'
 
 export default function StoresPage() {
-  const { data, isLoading } = useRetrieveListOfUsers()
+  const { data, isLoading } = useRetrieveListOfStores()
+
+  console.log('What are the stores data here : ', data)
 
   return (
     <>
@@ -16,14 +18,14 @@ export default function StoresPage() {
         <AdaptiveCard>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-2'>
-              <h3>Users</h3>
-              <UserListActionTools />
+              <h3>Stores</h3>
+              <StoreListActionTools />    
             </div>
-            <UserListTableTools />
-            <UserListTable 
-              users={data?.data || []} 
+            <StoreListTableTools />
+            <StoreListTable 
+              stores={data?.data || []} 
               initialLoading={isLoading}
-              userListTotal={data?.total || 0} 
+              storeListTotal={data?.total || 0} 
               pageIndex={data?.current_page || 1}
               pageSize={data?.per_page || 10}
             />

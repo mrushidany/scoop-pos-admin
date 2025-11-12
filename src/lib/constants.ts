@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
     ADMIN_USERS: `${API_BASE_URL}/users`,
     TOGGLE_USER_STATUS: (userId: number) => `${API_BASE_URL}/users/${userId}/toggle-status`,
     TOGGLE_ADMIN_STATUS: (adminId: number) => `${API_BASE_URL}/users/${adminId}/toggle-admin`,
+    ADMIN_STORES: `${API_BASE_URL}/stores`,
 } as const

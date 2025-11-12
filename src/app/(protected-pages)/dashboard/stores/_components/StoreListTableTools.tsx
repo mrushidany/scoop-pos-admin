@@ -1,9 +1,9 @@
 'use client'
 
 import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
-import UserListSearch from './UserListSearch'
+import StoreListSearch from './StoreListSearch'
 
-const UserListTableTools = () => {
+const StoreListTableTools = () => { 
     const { onAppendQueryParams } = useAppendQueryParams()
 
     const handleInputChange = (query: string) => {
@@ -14,10 +14,10 @@ const UserListTableTools = () => {
 
     return (
         <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-2'>
-            <UserListSearch onInputChange={handleInputChange} />
+            <StoreListSearch onInputChange={handleInputChange} />
         </div>
 
     )
 }
 
-export default UserListTableTools
+export default StoreListTableTools

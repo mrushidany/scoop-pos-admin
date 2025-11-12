@@ -32,6 +32,17 @@ const columns = [
             )
         },
     }),
+    columnHelper.accessor('store_type_string', {
+        header: 'Store Type',
+        cell: (props) => {
+            const row = props.row.original
+            return (
+                <div className='flex items-center gap-2'>
+                    <span className='font-semibold'>{row.store_type_string}</span>  
+                </div>
+            )
+        },
+    }),
     columnHelper.accessor('license_type', {
         header: 'License Type',
         cell: (props) => {
