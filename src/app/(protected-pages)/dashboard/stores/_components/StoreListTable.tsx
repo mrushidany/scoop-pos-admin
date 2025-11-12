@@ -8,17 +8,17 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { TbPencil, TbEye, TbTrash } from 'react-icons/tb'
 import type { ColumnDef } from '@/components/shared/DataTable'
-import type { User } from '../types'
-import { useDeleteUser, useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
+import type { Store } from '../types'
+import { useDeleteStore, useRetrieveListOfStores } from '@/hooks/features/stores-management/storeManagementApi'
 import { getApiErrorMessage } from '@/utils/apiError'
 import toast from '@/components/ui/toast'
 import Notification from '@/components/ui/Notification'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 
 type StoreListTableProps = {
-    users: User[]
+    stores: Store[]
     initialLoading: boolean
-    userListTotal: number
+    storeListTotal: number
     pageIndex?: number
     pageSize?: number
 }
@@ -28,7 +28,7 @@ const statusColor: Record<string, string> = {
     blocked: 'bg-red-200 dark:bg-red-200 text-gray-900 dark:text-gray-900',
 }
 
-const NameColumn = ({ row }: { row: User }) => {
+const NameColumn = ({ row }: { row: Store }) => {
     return (
         <div className='flex items-center'>
             <Link
@@ -84,39 +84,39 @@ const ActionColumn = ({
 }
 
 const StoreListTable = ({
-    users,
-    userListTotal,
+    stores,
+    storeListTotal,
     initialLoading,
     pageIndex = 1,
     pageSize = 10,
 }: StoreListTableProps) => {
     const router = useRouter()
 
-    const { refetch } = useRetrieveListOfUsers()
-    const { mutate: deleteUser, isPending } = useDeleteUser()
+    const { refetch } = useRetrieveListOfStores()
+    const { mutate: deleteStore, isPending } = useDeleteStore()
     
     const [dialogOpen, setDialogOpen] = useState(false)
-    const [selectedUser, setSelectedUser] = useState<User | null>(null)
+    const [selectedStore, setSelectedStore] = useState<Store | null>(null)
 
     const handleDialogClose = () => {
         setDialogOpen(false)
     }
 
-    const handleDialogOpen = (user: User) => {
-        setSelectedUser(user)
+    const handleDialogOpen = (store: Store) => {
+        setSelectedStore(store)
         setDialogOpen(true)
     }
 
-    const handleEdit = (user: User) => {
-        router.push(`/dashboard/administration/user-management/edit/${user.id}`)
+    const handleEdit = (store: Store) => {
+        router.push(`/dashboard/stores/edit/${store.id}`)
     }
 
-    const handleViewDetails = (user: User) => {
-        router.push(`/dashboard/administration/user-management/details/${user.id}`)
+    const handleViewDetails = (store: Store) => {
+        router.push(`/dashboard/stores/details/${store.id}`)
     }
     
-    const handleDelete = async (user: User) => {
-        await deleteUser(user.id, {
+    const handleDelete = async (store: Store) => {
+        await deleteStore(store.id, {
             onSuccess: (response) => {
                 toast.push(
                     <Notification title={'Successfully Deleted'} type='success'>
@@ -136,7 +136,7 @@ const StoreListTable = ({
         })
     }
 
-    const columns: ColumnDef<User>[] = useMemo(
+    const columns: ColumnDef<Store>[] = useMemo(
         () => [
             {
                 header: 'Name',
@@ -147,35 +147,12 @@ const StoreListTable = ({
                 },
             },
             {
-                header: 'Email',
-                accessorKey: 'email',
+                header: 'Store type',
+                accessorKey: 'store_type_string',
             },
             {
-                header: 'phone',
-                accessorKey: 'phone',
-            },
-            {
-                header: 'User type',
-                accessorKey: 'is_admin',
-                cell: (props) => {
-                    const row = props.row.original
-                    return (
-                        <div className='flex items-center'>
-                            <Tag className={statusColor[row.is_admin ? 'active' : 'blocked']}>
-                                <span className='capitalize'>{row.is_admin ? 'Admin' : 'User'}</span>
-                            </Tag>
-                        </div>
-                    )
-                },
-            },
-            {
-                header: 'Activity',
-                accessorKey: 'is_active',
-                cell: (props) => {
-                    return <Tag className={statusColor[props.row.original.is_active ? 'active' : 'blocked']}>
-                                <span className='capitalize'>{props.row.original.is_active ? 'Active' : 'Blocked'}</span>
-                            </Tag>  
-                },
+                header: 'License type',
+                accessorKey: 'license_type',
             },
             {
                 header: '',
@@ -203,10 +180,10 @@ const StoreListTable = ({
         <>
             <DataTable
                 columns={columns}
-                data={users}
+                data={stores}
                 loading={initialLoading}
                 pagingData={{
-                    total: userListTotal,
+                    total: storeListTotal,
                     pageIndex,
                     pageSize,
                 }}
@@ -220,12 +197,12 @@ const StoreListTable = ({
                 onClose={handleDialogClose}
                 onRequestClose={handleDialogClose}
                 onCancel={handleDialogClose}
-                onConfirm={() => selectedUser && handleDelete(selectedUser)}
+                onConfirm={() => selectedStore && handleDelete(selectedStore)}
                 confirmButtonProps={{ loading: isPending, disabled: isPending }}
             >
                 <p>
-                    Are you sure you want to delete <span className='font-bold'>{selectedUser?.name}</span>? All
-                    record related to this user will be deleted as well.
+                    Are you sure you want to delete <span className='font-bold'>{selectedStore?.name}</span>? All
+                    record related to this store will be deleted as well.   
                     This action cannot be undone.
                 </p>
             </ConfirmDialog>

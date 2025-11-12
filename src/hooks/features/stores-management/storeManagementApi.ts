@@ -116,7 +116,7 @@ export function useUpdateUserDetails(userId: number) {
     )
 }
 
-export function useDeleteUser() {
+export function useDeleteStore() {
     const { access_token } = useAuthStore()
     return useMutation<DeleteUserResponse, number>(
         API_ENDPOINTS.ADMIN_USERS,
