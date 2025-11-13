@@ -13,8 +13,6 @@ export default function EditStorePage({ params }: { params: Promise<{store: stri
 
   const { data, isLoading, error } = useRetrieveStoreDetails(store)
 
-  console.log('What is the store details here : ', data)
-
   if (isLoading) {
     return <Loading type='default' loading={isLoading} />
   }

@@ -53,9 +53,9 @@ export type AssignUserToStoreFormSchema = {
 }
 
 export type StoreDetails = {
-    success: boolean
-    message: string
-    data: {
+    success?: boolean
+    message?: string
+    data?: {
         id: string,
         name: string,
         slug: string,
