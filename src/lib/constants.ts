@@ -9,4 +9,5 @@ export const API_ENDPOINTS = {
     TOGGLE_ADMIN_STATUS: (adminId: number) => `${API_BASE_URL}/users/${adminId}/toggle-admin`,
     ADMIN_STORES: `${API_BASE_URL}/stores`,
     ASSIGN_USER_TO_STORE: (storeId: string) => `${API_BASE_URL}/stores/${storeId}/assign-user`,
+    ADMIN_TELECOM_OPERATORS: `${API_BASE_URL}/operators`,
 } as const
