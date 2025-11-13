@@ -15,6 +15,7 @@ export type Users = {
     name: string
     email: string
     phone:string
+    role?: string
 }
 
 export type Devices = {
@@ -47,19 +48,18 @@ export type StoreFormSchema = {
 
 export type StoreDetails = {
     success: boolean
+    message: string
     data: {
-        created_at: string
-        created_by: number
-        deleted_at: string | null
-        device_timestamp: string | null
+        id: string,
+        name: string,
+        slug: string,
+        store_type_string: string,
+        license_type: string,
+        created_by: number,
+        created_at: string,
+        updated_at: string,
+        deleted_at: string | null,
+        users: Users[],
         devices: Devices[]
-        id: string
-        license_type: string
-        name: string
-        owner_id: number
-        slug: string
-        store_type_string: string
-        updated_at: string
-        users: Users[]
     }
 }

@@ -14,8 +14,6 @@ export default function Page({ params }: { params: Promise<{store: string}> }) {
 
     const { data, isLoading, error } = useRetrieveStoreDetails(store)
 
-    console.log('What is the data here : ', data)
-
     if(error || isEmpty(data)) {
         return (
             <div className='h-full flex flex-col items-center justify-center'>

@@ -8,17 +8,15 @@ import {
     useReactTable,
     createColumnHelper,
 } from '@tanstack/react-table'
-import type { UserDetails } from '../../../types'
+import type { Users } from '../../../types'
 
-type StoreRow = NonNullable<UserDetails['data']['stores']>[number]
-
-type StoreSectionProps = {
-    data?: StoreRow[]
+type UsersSectionProps = {
+    data?: Users[]
 }
 
 const { Tr, Td, Th, TBody, THead } = Table
 
-const columnHelper = createColumnHelper<StoreRow>()
+const columnHelper = createColumnHelper<Users>()
 
 const columns = [
     columnHelper.accessor('name', {
@@ -32,20 +30,43 @@ const columns = [
             )
         },
     }),
-    columnHelper.accessor('license_type', {
-        header: 'License Type',
+    columnHelper.accessor('email', {
+        header: 'Email',
         cell: (props) => {
             const row = props.row.original
             return (
                 <div className='flex items-center gap-2'>
-                    <span className='font-semibold'>{row.license_type}</span>
+                    <span className='font-semibold'>{row.email}</span>
                 </div>
             )
         },
-    })
+    }),
+    columnHelper.accessor('phone', {
+        header: 'Phone',
+        cell: (props) => {
+            const row = props.row.original
+            return (
+                <div className='flex items-center gap-2'>
+                    <span className='font-semibold'>{row.phone}</span>
+                </div>
+            )
+        },
+    }),
+    columnHelper.accessor('role', {
+        header: 'Role',
+        cell: (props) => {
+            const row = props.row.original
+            return (
+                <div className='flex items-center gap-2'>
+                    <span className='font-semibold'>{row.phone}</span>
+                </div>
+            )
+        },
+    }),
+
 ]
 
-const StoreSection = ({ data }: StoreSectionProps) => {
+const UsersSection = ({ data }: UsersSectionProps) => {
     console.log('What is the data here : ', data)
     
     const table = useReactTable({
@@ -57,7 +78,7 @@ const StoreSection = ({ data }: StoreSectionProps) => {
 
     return (
         <>
-            <h6 className='mb-4'>Store Details</h6>
+            <h6 className='mb-4'>Store user details</h6>
             <Table>
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -100,5 +121,5 @@ const StoreSection = ({ data }: StoreSectionProps) => {
     )
 }
 
-export default StoreSection
+export default UsersSection
 
