@@ -12,7 +12,7 @@ export default function UserListActionTools() {
         variant='solid' 
         icon={<TbUserPlus className='text-xl' />} 
         onClick={() => router.push('/dashboard/administration/user-management/create')}
-    >
+      >
         Create new user
       </Button>
     </div>

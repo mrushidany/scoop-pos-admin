@@ -47,6 +47,11 @@ export type StoreFormSchema = {
     owner_id: number,
 }
 
+export type AssignUserToStoreFormSchema = {
+    role?: string
+    user_id: number
+}
+
 export type StoreDetails = {
     success: boolean
     message: string

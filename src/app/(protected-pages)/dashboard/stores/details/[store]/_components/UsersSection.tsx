@@ -1,6 +1,10 @@
 'use client'
 
+import Button from '@/components/ui/Button'
+import { TbUserPlus } from 'react-icons/tb'
 import Table from '@/components/ui/Table'
+import Dialog from '@/components/ui/Dialog'
+import { useState } from 'react'
 import {
     flexRender,
     getCoreRowModel,
@@ -9,9 +13,35 @@ import {
     createColumnHelper,
 } from '@tanstack/react-table'
 import type { Users } from '../../../types'
+import Input from '@/components/ui/Input'
+import { Controller } from 'react-hook-form'
+import Select from '@/components/ui/Select'
+import { FormItem } from '@/components/ui/Form'
+import { Form } from '@/components/ui/Form'
+import { AssignUserToStoreFormSchema } from '../../../types'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import type { ZodType } from 'zod'
+import { useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
+import { getApiErrorMessage } from '@/utils/apiError'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useAssignUserToStore } from '@/hooks/features/stores-management/storeManagementApi'
+import Notification from '@/components/ui/Notification'
+import toast from '@/components/ui/toast'
+
+type SelectOption = {
+    label: string
+    value: number
+}
+
+const validationSchema: ZodType<AssignUserToStoreFormSchema> = z.object({
+    user_id: z.number().min(1, 'User is required'),
+    role: z.string().optional(),
+})
 
 type UsersSectionProps = {
     data?: Users[]
+    storeId?: string
 }
 
 const { Tr, Td, Th, TBody, THead } = Table
@@ -66,7 +96,57 @@ const columns = [
 
 ]
 
-const UsersSection = ({ data }: UsersSectionProps) => {    
+const UsersSection = ({ data, storeId }: UsersSectionProps) => {
+    const { data: users } = useRetrieveListOfUsers()
+
+    const { mutate , isPending } = useAssignUserToStore(storeId || '')
+
+    const [dialogOpen, setDialogOpen] = useState(false)
+
+    const handleDialogClose = () => {
+        setDialogOpen(false)
+    }
+
+    const handleDialogOpen = () => {
+        setDialogOpen(true)
+    }
+
+    const {
+        handleSubmit,
+        formState: { errors },
+        control,
+    } = useForm<AssignUserToStoreFormSchema>({
+        defaultValues: {
+            user_id: 0,
+            role: '',    
+        },
+        resolver: zodResolver(validationSchema),
+        mode: 'onTouched'
+    })
+    
+    const usersList: Array<SelectOption> = users?.data?.map((user) => ({
+        label: user.name,
+        value: user.id,
+    })) || []
+
+    const onSubmit = async (values: AssignUserToStoreFormSchema) => {
+        await mutate(values, {  
+            onSuccess: (response) => {
+                toast.push(
+                    <Notification type='success'>{response.message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            }, 
+            onError: (error) => {
+                const message = getApiErrorMessage(error, 'Failed to assign user to store') 
+                toast.push(
+                    <Notification type='danger'>{message}</Notification>,
+                    { placement: 'top-center' },
+                )
+            }
+        })
+    }
+     
     const table = useReactTable({
         data: data || [],
         columns,
@@ -76,7 +156,18 @@ const UsersSection = ({ data }: UsersSectionProps) => {
 
     return (
         <>
-            <h6 className='mb-4'>Store user details</h6>
+            <div className='flex flex-row justify-between items-center mb-4'>
+                <h6>Store user details</h6>
+                <div>
+                    <Button 
+                        variant='solid' 
+                        icon={<TbUserPlus className='text-xl' />}
+                        onClick={handleDialogOpen} 
+                    >
+                        Assign user to store
+                    </Button>
+                </div>
+            </div>
             <Table>
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -115,6 +206,67 @@ const UsersSection = ({ data }: UsersSectionProps) => {
                     }
                 </TBody>
             </Table>
+            <Dialog
+                isOpen={dialogOpen}
+                onClose={handleDialogClose}
+                onRequestClose={handleDialogClose}
+            >
+                <h5 className='mb-4'>Assign user to store</h5>
+                <Form className='flex w-full h-full' containerClassName='flex flex-col w-full justify-between' onSubmit={handleSubmit(onSubmit)}>
+                    <div className='grid md:grid-cols-2 gap-4'>
+                        <FormItem  
+                            invalid={
+                                Boolean(errors.user_id) || Boolean(errors.user_id)
+                            }
+                            className='w-full'
+                        >
+                            <label className='form-label mb-2'>Store user</label>
+                            <Controller
+                                name='user_id'
+                                control={control}
+                                render={({ field }) => (
+                                    <Select<SelectOption> 
+                                        options={usersList} 
+                                        {...field}
+                                        className='w-full'
+                                        placeholder=''
+                                        value={usersList.filter(
+                                            (option) => option.value === field.value,
+                                        )}
+                                        onChange={(option) =>
+                                            field.onChange(option?.value)
+                                        }
+                                    />
+                                )}
+                            />
+                        </FormItem>
+                        <FormItem label='Role' invalid={Boolean(errors.role)} errorMessage={errors.role?.message}>
+                            <Controller 
+                                name='role'
+                                control={control}
+                                render={({ field }) => (
+                                    <Input 
+                                        type='text'
+                                        autoComplete='off'
+                                        placeholder='Enter role (optional)'
+                                        {...field}
+                                    />
+                                )}
+                            />
+                        </FormItem>
+                    </div>
+                    <div className='w-full flex justify-end'>
+                        <Button
+                            variant='solid'
+                            type='submit'
+                            loading={isPending}
+                            disabled={isPending}
+                        >
+                            Assign
+                        </Button>
+                    </div>
+                </Form>
+            </Dialog>
         </>
     )
 }

@@ -14,7 +14,7 @@ type StoreDetailsProps = {
 const { TabNav, TabList, TabContent } = Tabs
 
 const StoreDetails = ({ data }: StoreDetailsProps) => {
-    console.log('What is the data here : ', data)
+
     return (
         <div className='flex flex-col xl:flex-row gap-4'>
             <div className='min-w-[330px] 2xl:min-w-[400px]'>
@@ -28,7 +28,7 @@ const StoreDetails = ({ data }: StoreDetailsProps) => {
                     </TabList>
                     <div className='p-4'>
                         <TabContent value='users'>
-                            <UsersSection data={data.data?.users} />
+                            <UsersSection data={data.data?.users} storeId={data.data?.id} />
                         </TabContent>
                         <TabContent value='devices'>
                             <DevicesSection data={data.data?.devices} />

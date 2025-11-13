@@ -57,6 +57,11 @@ interface DeleteStoreResponse {
     message: string
 }
 
+interface AssignUserToStoreVariables {
+    role?: string
+    user_id: number
+}
+
 // Data Fetching
 
 export function useRetrieveListOfStores() {
@@ -97,6 +102,14 @@ export function useUpdateUserDetails(userId: number) {
     return useMutation<StoreResponse, StoreCreateVariables>(
         `${API_ENDPOINTS.ADMIN_STORES}/${userId}`,
         createApiOptions(access_token ?? '', 'PUT')
+    )
+}
+
+export function useAssignUserToStore(storeId: string) {
+    const { access_token } = useAuthStore()
+    return useMutation<StoreResponse, AssignUserToStoreVariables>(
+        API_ENDPOINTS.ASSIGN_USER_TO_STORE(storeId),
+        createApiOptions(access_token ?? '', 'POST')
     )
 }
 
