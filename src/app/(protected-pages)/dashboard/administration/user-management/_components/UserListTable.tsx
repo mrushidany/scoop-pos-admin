@@ -169,7 +169,7 @@ const UserListTable = ({
                 },
             },
             {
-                header: 'Activity',
+                header: 'Status',
                 accessorKey: 'is_active',
                 cell: (props) => {
                     return <Tag className={statusColor[props.row.original.is_active ? 'active' : 'blocked']}>

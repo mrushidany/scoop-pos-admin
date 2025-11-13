@@ -25,6 +25,7 @@ export type Devices = {
     device_model: string
     os_version: string
     public_key: string
+    is_active: boolean
     metadata: {
       screen_resolution: string
     }

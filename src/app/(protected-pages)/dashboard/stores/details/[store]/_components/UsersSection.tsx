@@ -66,9 +66,7 @@ const columns = [
 
 ]
 
-const UsersSection = ({ data }: UsersSectionProps) => {
-    console.log('What is the data here : ', data)
-    
+const UsersSection = ({ data }: UsersSectionProps) => {    
     const table = useReactTable({
         data: data || [],
         columns,
