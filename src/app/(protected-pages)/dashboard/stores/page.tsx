@@ -10,8 +10,6 @@ import StoreListTable from './_components/StoreListTable'
 export default function StoresPage() {
   const { data, isLoading } = useRetrieveListOfStores()
 
-  console.log('What are the stores data here : ', data)
-
   return (
     <>
       <Container>

@@ -20,6 +20,14 @@ const storeRoute: Routes = {
             pageContainerType: 'contained',
         },
     },
+    '/dashboard/stores/details/[store]': {
+            key: 'store.store',
+            authority: [],
+            dynamicRoute: true,
+            meta: {
+                pageContainerType: 'contained',
+            },
+        },
 }
 
 export default storeRoute

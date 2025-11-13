@@ -2,17 +2,17 @@
 
 import Card from '@/components/ui/Card'
 import Tabs from '@/components/ui/Tabs'
-import type { UserDetails } from '../../../types'
+import type { StoreDetails } from '../../../types'
 import ProfileSection from './ProfileSection'
 import StoreSection from './StoreSection'
 
-type UserDetailsProps = {
-    data: UserDetails
+type StoreDetailsProps = {
+    data: StoreDetails
 }
 
 const { TabNav, TabList, TabContent } = Tabs
 
-const UserDetails = ({ data }: UserDetailsProps) => {
+const StoreDetails = ({ data }: StoreDetailsProps) => {
     return (
         <div className='flex flex-col xl:flex-row gap-4'>
             <div className='min-w-[330px] 2xl:min-w-[400px]'>
@@ -34,5 +34,5 @@ const UserDetails = ({ data }: UserDetailsProps) => {
     )
 }
 
-export default UserDetails
+export default StoreDetails
  

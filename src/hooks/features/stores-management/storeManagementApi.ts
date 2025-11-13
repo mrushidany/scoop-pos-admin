@@ -4,22 +4,10 @@ import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
 import axiosInstance from '@/lib/client'
-import type { Users, Devices } from '@/app/(protected-pages)/dashboard/stores/types'
+import type { Users, Devices, Store } from '@/app/(protected-pages)/dashboard/stores/types'
 
 interface ListOfStoresResponse {
-    data: [
-        id: string,
-        name: string,
-        slug: string,
-        store_type_string: string,
-        license_type: string,
-        created_by: number,
-        created_at: string,
-        updated_at: string,
-        deleted_at: string | null,
-        users: Users[],
-        devices: Devices[]
-    ]
+    data: Store[]
     current_page: number
     first_page_url: string
     from: number

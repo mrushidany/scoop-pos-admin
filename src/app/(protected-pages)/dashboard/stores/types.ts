@@ -36,23 +36,30 @@ export type Devices = {
 }
 
 export type ListOfStores = {
-    data: [
-        id: string,
-        name: string,
-        slug: string,
-        store_type_string: string,
-        license_type: string,
-        created_by: number,
-        created_at: string,
-        updated_at: string,
-        deleted_at: string | null,
-        users: Users[],
-        devices: Devices[]
-    ]
+    data: Store[]
 }
 
 export type StoreFormSchema = {
     name: string,
     store_type_string: string,
     owner_id: number,
+}
+
+export type StoreDetails = {
+    success: boolean
+    data: {
+        created_at: string
+        created_by: number
+        deleted_at: string | null
+        device_timestamp: string | null
+        devices: Devices[]
+        id: string
+        license_type: string
+        name: string
+        owner_id: number
+        slug: string
+        store_type_string: string
+        updated_at: string
+        users: Users[]
+    }
 }

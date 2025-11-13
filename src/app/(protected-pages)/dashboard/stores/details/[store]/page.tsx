@@ -1,24 +1,26 @@
 'use client'
 
 import React, { use } from 'react'
-import { useRetrieveUserDetails } from '@/hooks/features/user-management/userManagementApi'
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Loading from '@/components/shared/Loading'
 import isEmpty from 'lodash/isEmpty'
-import UserDetails from './_components/UserDetails'
+import StoreDetails from './_components/StoreDetails'
+import { useRetrieveStoreDetails } from '@/hooks/features/stores-management/storeManagementApi'
 
-export default function Page({ params }: { params: Promise<{user: number}> }) {
+export default function Page({ params }: { params: Promise<{store: string}> }) {
     const resolvedParams = use(params)
-    const { user }  = resolvedParams
+    const { store }  = resolvedParams
 
-    const { data, isLoading, error } = useRetrieveUserDetails(user)
+    const { data, isLoading, error } = useRetrieveStoreDetails(store)
+
+    console.log('What is the data here : ', data)
 
     if(error || isEmpty(data)) {
         return (
             <div className='h-full flex flex-col items-center justify-center'>
                 <NoUserFound height={280} width={280} />
-                <h2 className='mt-4'>{Boolean(error) ? 'Error loading user!' : 'No user found!'}</h2>
+                <h2 className='mt-4'>{Boolean(error) ? 'Error loading store!' : 'No store found!'}</h2>
                 {Boolean(error) && (
                     <p className='text-red-500 mt-2'>
                         {getApiErrorMessage(error)}
@@ -32,5 +34,5 @@ export default function Page({ params }: { params: Promise<{user: number}> }) {
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-    return <UserDetails data={data} />
+    return <StoreDetails data={data} />
 }
