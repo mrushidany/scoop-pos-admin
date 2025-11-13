@@ -21,13 +21,21 @@ const storeRoute: Routes = {
         },
     },
     '/dashboard/stores/details/[store]': {
-            key: 'store.store',
-            authority: [],
-            dynamicRoute: true,
-            meta: {
-                pageContainerType: 'contained',
-            },
+        key: 'store.store',
+        authority: [],
+        dynamicRoute: true,
+        meta: {
+            pageContainerType: 'contained',
         },
+    },
+    '/dashboard/stores/edit/[store]': {
+        key: 'store.store',
+        authority: [],
+        dynamicRoute: true,
+        meta: {
+            pageContainerType: 'contained',
+        },
+    },
 }
 
 export default storeRoute

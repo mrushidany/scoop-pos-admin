@@ -82,7 +82,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     return (
         <Card className='w-full'>
             <div className='flex justify-end'>
-                <Tooltip title='Edit user'>
+                <Tooltip title='Edit store'>
                     <button
                         className='close-button button-press-feedback'
                         type='button'

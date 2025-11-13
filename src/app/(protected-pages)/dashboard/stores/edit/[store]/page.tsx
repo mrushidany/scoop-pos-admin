@@ -1,12 +1,11 @@
 'use client'
 
-import UserEdit from '../StoreEdit'
+import StoreEdit from '../StoreEdit'
 import { use } from 'react'
 import { useRetrieveStoreDetails } from '@/hooks/features/stores-management/storeManagementApi'
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Loading from '@/components/shared/Loading'
-import isEmpty from 'lodash/isEmpty'
 
 export default function EditStorePage({ params }: { params: Promise<{store: string}> }) {
   const resolvedParams = use(params)
@@ -16,7 +15,11 @@ export default function EditStorePage({ params }: { params: Promise<{store: stri
 
   console.log('What is the store details here : ', data)
 
-  if(error || isEmpty(data)) {
+  if (isLoading) {
+    return <Loading type='default' loading={isLoading} />
+  }
+
+  if (error || !data || !data.data) {
     return (
       <div className='h-full flex flex-col items-center justify-center'>
         <NoUserFound height={280} width={280} />
@@ -30,11 +33,7 @@ export default function EditStorePage({ params }: { params: Promise<{store: stri
     )
   }
 
-  if (isLoading) {
-    return <Loading type='default' loading={isLoading} />
-  }
-    
   return (
-    <UserEdit storeId={store} data={data.data} />
+    <StoreEdit storeId={store} data={data.data} />
   )
 }

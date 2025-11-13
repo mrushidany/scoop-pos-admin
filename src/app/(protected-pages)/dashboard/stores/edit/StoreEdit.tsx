@@ -19,14 +19,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import type { ZodType } from 'zod'
-import { StoreFormSchema } from '../types'
+import { StoreDetails, StoreFormSchema } from '../types'
 import { getApiErrorMessage } from '@/utils/apiError'
 import { useUpdateStoreDetails } from '@/hooks/features/stores-management/storeManagementApi'
 import { useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
 
 type SelectOption = {
     label: string
-    value: boolean
+    value: number
 }
 
 const validationSchema: ZodType<StoreFormSchema> = z.object({
@@ -35,22 +35,15 @@ const validationSchema: ZodType<StoreFormSchema> = z.object({
     owner_id: z.number().min(1, 'Owner is required'),
 })
 
-type UserEditProps = {
-    userId: number
-    data: {
-        id?: number
-        name?: string
-        email?: string
-        phone?: string
-        is_admin?: boolean
-        is_active?: boolean
-    }
+type StoreEditProps = {
+    storeId: string
+    data: StoreDetails['data']
 }
 
-const StoreEdit = ({ userId, data }: UserEditProps) => {
+const StoreEdit = ({ storeId, data }: StoreEditProps) => {
     const router = useRouter()
 
-    const { mutate, isPending } = useUpdateStoreDetails(userId)
+    const { mutate, isPending } = useUpdateStoreDetails(storeId)
 
     const { data: owners } = useRetrieveListOfUsers()
     
@@ -67,7 +60,7 @@ const StoreEdit = ({ userId, data }: UserEditProps) => {
         defaultValues: {
             name: data?.name ?? '',
             store_type_string: data?.store_type_string ?? '',
-            owner_id: data?.owner_id ?? 0,
+            owner_id: data?.created_by ?? 0,
         },
         resolver: zodResolver(validationSchema),
         mode: 'onTouched'
@@ -99,7 +92,7 @@ const StoreEdit = ({ userId, data }: UserEditProps) => {
                     <Notification type='success'>{response.message}</Notification>,
                     { placement: 'top-center' },
                 )
-                router.push(`/dashboard/stores/details/${userId}`)
+                router.push(`/dashboard/stores/details/${storeId}`)
             }, 
             onError: (error) => {
                 const message = getApiErrorMessage(error, 'Failed to update store details') 
@@ -165,9 +158,9 @@ const StoreEdit = ({ userId, data }: UserEditProps) => {
                                                         {...field}
                                                         className='w-full'
                                                         placeholder=''
-                                                        value={ownerList.filter(
+                                                        value={ownerList.find(
                                                             (option) => option.value === field.value,
-                                                        )}
+                                                        ) ?? null}
                                                         onChange={(option) =>
                                                             field.onChange(option?.value)
                                                         }
