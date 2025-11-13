@@ -1,24 +1,26 @@
 'use client'
 
-import UserEdit from '../UserEdit'
+import UserEdit from '../StoreEdit'
 import { use } from 'react'
-import { useRetrieveUserDetails } from '@/hooks/features/user-management/userManagementApi'
+import { useRetrieveStoreDetails } from '@/hooks/features/stores-management/storeManagementApi'
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { getApiErrorMessage } from '@/utils/apiError'
 import Loading from '@/components/shared/Loading'
 import isEmpty from 'lodash/isEmpty'
 
-export default function EditUserPage({ params }: { params: Promise<{user: number}> }) {
+export default function EditStorePage({ params }: { params: Promise<{store: string}> }) {
   const resolvedParams = use(params)
-  const { user }  = resolvedParams
+  const { store }  = resolvedParams
 
-  const { data, isLoading, error } = useRetrieveUserDetails(user)
+  const { data, isLoading, error } = useRetrieveStoreDetails(store)
+
+  console.log('What is the store details here : ', data)
 
   if(error || isEmpty(data)) {
     return (
       <div className='h-full flex flex-col items-center justify-center'>
         <NoUserFound height={280} width={280} />
-        <h2 className='mt-4'>{Boolean(error) ? 'Error loading user!' : 'No user found!'}</h2>
+        <h2 className='mt-4'>{Boolean(error) ? 'Error loading store!' : 'No store found!'}</h2>
         {Boolean(error) && (
           <p className='text-red-500 mt-2'>
             {getApiErrorMessage(error)}
@@ -33,6 +35,6 @@ export default function EditUserPage({ params }: { params: Promise<{user: number
   }
     
   return (
-    <UserEdit userId={user} data={data.data} />
+    <UserEdit storeId={store} data={data.data} />
   )
 }

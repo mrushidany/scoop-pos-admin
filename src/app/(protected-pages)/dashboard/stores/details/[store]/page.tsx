@@ -12,7 +12,7 @@ export default function Page({ params }: { params: Promise<{store: string}> }) {
     const resolvedParams = use(params)
     const { store }  = resolvedParams
 
-    const { data, isLoading, error } = useRetrieveStoreDetails(store)
+    const { data, isLoading, error, refetch } = useRetrieveStoreDetails(store)
 
     if(error || isEmpty(data)) {
         return (
@@ -32,5 +32,5 @@ export default function Page({ params }: { params: Promise<{store: string}> }) {
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-    return <StoreDetails data={data} />
+    return <StoreDetails data={data} refetch={refetch} />
 }

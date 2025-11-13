@@ -97,10 +97,10 @@ export function useCreateStore() {
     )
 }
 
-export function useUpdateUserDetails(userId: number) {
+export function useUpdateStoreDetails(storeId: string) {
     const { access_token } = useAuthStore()
     return useMutation<StoreResponse, StoreCreateVariables>(
-        `${API_ENDPOINTS.ADMIN_STORES}/${userId}`,
+        `${API_ENDPOINTS.ADMIN_STORES}/${storeId}`,
         createApiOptions(access_token ?? '', 'PUT')
     )
 }

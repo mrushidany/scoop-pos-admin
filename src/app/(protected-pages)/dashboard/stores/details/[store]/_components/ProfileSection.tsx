@@ -76,7 +76,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     }
 
     const handleEdit = () => {
-        router.push(`/dashboard/store/edit/${data.data?.id}`)
+        router.push(`/dashboard/stores/edit/${data.data?.id}`)
     }
 
     return (

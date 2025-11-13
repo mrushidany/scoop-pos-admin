@@ -9,11 +9,12 @@ import UsersSection from './UsersSection'
 
 type StoreDetailsProps = {
     data: StoreDetails
+    refetch?: () => Promise<unknown>
 }
 
 const { TabNav, TabList, TabContent } = Tabs
 
-const StoreDetails = ({ data }: StoreDetailsProps) => {
+const StoreDetails = ({ data, refetch }: StoreDetailsProps) => {
 
     return (
         <div className='flex flex-col xl:flex-row gap-4'>
@@ -28,7 +29,7 @@ const StoreDetails = ({ data }: StoreDetailsProps) => {
                     </TabList>
                     <div className='p-4'>
                         <TabContent value='users'>
-                            <UsersSection data={data.data?.users} storeId={data.data?.id} />
+                            <UsersSection data={data.data?.users} storeId={data.data?.id} refetch={refetch} />
                         </TabContent>
                         <TabContent value='devices'>
                             <DevicesSection data={data.data?.devices} />

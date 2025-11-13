@@ -42,6 +42,7 @@ const validationSchema: ZodType<AssignUserToStoreFormSchema> = z.object({
 type UsersSectionProps = {
     data?: Users[]
     storeId?: string
+    refetch?: () => Promise<unknown>
 }
 
 const { Tr, Td, Th, TBody, THead } = Table
@@ -96,7 +97,7 @@ const columns = [
 
 ]
 
-const UsersSection = ({ data, storeId }: UsersSectionProps) => {
+const UsersSection = ({ data, storeId, refetch }: UsersSectionProps) => {
     const { data: users } = useRetrieveListOfUsers()
 
     const { mutate , isPending } = useAssignUserToStore(storeId || '')
@@ -136,6 +137,8 @@ const UsersSection = ({ data, storeId }: UsersSectionProps) => {
                     <Notification type='success'>{response.message}</Notification>,
                     { placement: 'top-center' },
                 )
+                refetch && refetch()
+                setDialogOpen(false)
             }, 
             onError: (error) => {
                 const message = getApiErrorMessage(error, 'Failed to assign user to store') 
