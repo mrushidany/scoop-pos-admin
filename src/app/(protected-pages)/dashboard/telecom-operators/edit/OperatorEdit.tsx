@@ -19,48 +19,58 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import type { ZodType } from 'zod'
-import { StoreDetails, StoreFormSchema } from '../types'
+import { TelecomOperatorDetails, TelecomOperatorSchema } from '../types'
 import { getApiErrorMessage } from '@/utils/apiError'
-import { useUpdateStoreDetails } from '@/hooks/features/stores-management/storeManagementApi'
-import { useRetrieveListOfUsers } from '@/hooks/features/user-management/userManagementApi'
+import { useUpdateTelecomOperatorDetails } from '@/hooks/features/telecom-operators-management/telecomOperatorsManagementApi'
+import CreatableSelect from 'react-select/creatable'
 
 type SelectOption = {
     label: string
-    value: number
+    value: number | boolean
 }
 
-const validationSchema: ZodType<StoreFormSchema> = z.object({
+type SeriesOption = {
+    label: string
+    value: string
+}
+
+const validationSchema: ZodType<TelecomOperatorSchema> = z.object({
     name: z.string().min(1, 'Name is required'),
-    store_type_string: z.string().min(1, 'Store type is required'),
-    owner_id: z.number().min(1, 'Owner is required'),
+    is_active: z.boolean(),
+    number_series: z.array(z.string().min(1, 'Number series is required')),
 })
 
-type StoreEditProps = {
-    storeId: string
-    data: StoreDetails['data']
+type OperatorEditProps = {
+    operatorId: number
+    data: TelecomOperatorDetails
 }
 
-const StoreEdit = ({ storeId, data }: StoreEditProps) => {
+const OperatorEdit = ({ operatorId, data }: OperatorEditProps) => {
+    console.log('What is the operator data here : ', data)
     const router = useRouter()
 
-    const { mutate, isPending } = useUpdateStoreDetails(storeId)
+    const { mutate, isPending } = useUpdateTelecomOperatorDetails(operatorId)
 
-    const { data: owners } = useRetrieveListOfUsers()
-    
-    const ownerList: Array<SelectOption> = owners?.data?.map((owner) => ({
-        label: owner.name,
-        value: owner.id,
-    })) || []
+    const activeList: Array<SelectOption> = [
+        {
+            label: 'Active',
+            value: true,
+        },
+        {
+            label: 'Inactive',
+            value: false,
+        },
+    ]
 
     const {
         handleSubmit,
         formState: { errors },
         control,
-    } = useForm<StoreFormSchema>({
+    } = useForm<TelecomOperatorSchema>({
         defaultValues: {
-            name: data?.name ?? '',
-            store_type_string: data?.store_type_string ?? '',
-            owner_id: data?.created_by ?? 0,
+            name: data.operator?.name ?? '',
+            is_active: data.operator?.is_active ?? false,
+            number_series: data.operator?.number_series ?? [],
         },
         resolver: zodResolver(validationSchema),
         mode: 'onTouched'
@@ -71,10 +81,10 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
     const handleConfirmDiscard = () => {
         setDiscardConfirmationOpen(true)
         toast.push(
-            <Notification type='success'>Store discarded!</Notification>,
+            <Notification type='success'>Telecom operator discarded!</Notification>,
             { placement: 'top-center' },
         )
-        router.push(`/dashboard/stores`)
+        router.push(`/dashboard/telecom-operators`)
     }
 
     const handleDiscard = () => {
@@ -85,17 +95,17 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
         setDiscardConfirmationOpen(false)
     }
 
-    const onSubmit = async (values: StoreFormSchema) => {
+    const onSubmit = async (values: TelecomOperatorSchema) => {
         await mutate(values, {
             onSuccess: (response) => {
                 toast.push(
                     <Notification type='success'>{response.message}</Notification>,
                     { placement: 'top-center' },
                 )
-                router.push(`/dashboard/stores/details/${storeId}`)
+                router.push(`/dashboard/telecom-operators/details/${operatorId}`)
             }, 
             onError: (error) => {
-                const message = getApiErrorMessage(error, 'Failed to update store details') 
+                const message = getApiErrorMessage(error, 'Failed to update telecom operator details') 
                 toast.push(
                     <Notification type='danger'>{message}</Notification>,
                     { placement: 'top-center' },
@@ -111,7 +121,7 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='gap-4 flex flex-col flex-auto'>
                             <Card>
-                                <h4 className='mb-6'>Edit store details</h4>
+                                <h4 className='mb-6'>Edit operator details</h4>
                                 <div className='grid md:grid-cols-3 gap-4'>
                                     <FormItem label='Name' invalid={Boolean(errors.name)} errorMessage={errors.name?.message}>
                                         <Controller 
@@ -127,16 +137,21 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
                                             )}
                                         />
                                     </FormItem>
-                                    <FormItem label='Store type' invalid={Boolean(errors.store_type_string)} errorMessage={errors.store_type_string?.message}>
+                                    <FormItem label='Number series' invalid={Boolean(errors.number_series)} errorMessage={errors.number_series?.message}>
                                         <Controller 
-                                            name='store_type_string'
+                                            name='number_series'
                                             control={control}
                                             render={({ field }) => (
-                                                <Input 
-                                                    type='text'
-                                                    autoComplete='off'
-                                                    placeholder='Enter store type'
-                                                    {...field}
+                                                <Select<SeriesOption, true> 
+                                                    componentAs={CreatableSelect}
+                                                    isMulti
+                                                    options={(field.value || []).map((v) => ({ label: v, value: v }))}
+                                                    className='w-full'
+                                                    placeholder='Enter number series and press Enter'
+                                                    value={(field.value || []).map((v) => ({ label: v, value: v }))}
+                                                    onChange={(options) =>
+                                                        field.onChange((options || []).map((opt) => opt.value))
+                                                    }
                                                 />
                                             )}
                                         />
@@ -144,21 +159,21 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
                                     <div className='flex items-end gap-4 w-full'>
                                         <FormItem  
                                             invalid={
-                                                Boolean(errors.owner_id) || Boolean(errors.owner_id)
+                                                Boolean(errors.is_active) || Boolean(errors.is_active)
                                             }
                                             className='w-full'
                                         >
-                                            <label className='form-label mb-2'>Store owner</label>
+                                            <label className='form-label mb-2'>Status</label>
                                             <Controller
-                                                name='owner_id'
+                                                name='is_active'
                                                 control={control}
                                                 render={({ field }) => (
                                                     <Select<SelectOption> 
-                                                        options={ownerList} 
+                                                        options={activeList} 
                                                         {...field}
                                                         className='w-full'
                                                         placeholder=''
-                                                        value={ownerList.find(
+                                                        value={activeList.find(
                                                             (option) => option.value === field.value,
                                                         ) ?? null}
                                                         onChange={(option) =>
@@ -222,6 +237,6 @@ const StoreEdit = ({ storeId, data }: StoreEditProps) => {
     )
 }
 
-export default StoreEdit
+export default OperatorEdit
 
 

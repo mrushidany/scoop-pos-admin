@@ -32,6 +32,5 @@ export default function Page({ params }: { params: Promise<{operator: number}> }
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-    const normalizedData = { operator: data }
-    return <OperatorDetails data={normalizedData} />
+    return <OperatorDetails data={data} />
 }

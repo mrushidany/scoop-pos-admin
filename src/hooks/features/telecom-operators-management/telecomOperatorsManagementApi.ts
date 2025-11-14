@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
 import axiosInstance from '@/lib/client'
-import type { TelecomOperator } from '@/app/(protected-pages)/dashboard/telecom-operators/types'
+import type { TelecomOperator, TelecomOperatorDetails } from '@/app/(protected-pages)/dashboard/telecom-operators/types'
 
 interface ListOfOperatorsResponse {
     operators: {
@@ -71,7 +71,7 @@ export function useRetrieveListOfTelecomOperators() {
 
 export function useRetrieveTelecomOperatorDetails(operatorId: number) {
     const { access_token } = useAuthStore()
-    return useQuery<TelecomOperator>(
+    return useQuery<TelecomOperatorDetails>(
         ['retrieve-telecom-operator-details', operatorId],
         `${API_ENDPOINTS.ADMIN_TELECOM_OPERATORS}/${operatorId}`,
         {
