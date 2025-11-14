@@ -1,4 +1,4 @@
-import StoreCreate from './StoreCreate'
+import StoreCreate from './OperatorCreate'
 
 export default function CreateStorePage() {
   return (

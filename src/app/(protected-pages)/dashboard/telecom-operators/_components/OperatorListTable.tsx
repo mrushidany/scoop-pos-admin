@@ -15,7 +15,6 @@ import Notification from '@/components/ui/Notification'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 import Tag from '@/components/ui/Tag'
 
-
 const statusColor: Record<string, string> = {
     active: 'bg-emerald-200 dark:bg-emerald-200 text-gray-900 dark:text-gray-900',
     blocked: 'bg-red-200 dark:bg-red-200 text-gray-900 dark:text-gray-900',
@@ -92,8 +91,6 @@ const OperatorListTable = ({
     pageSize = 10,
 }: OperatorListTableProps) => {
     const router = useRouter()
-
-    console.log('Give me the list of these operators : ', operators)
 
     const { refetch } = useRetrieveListOfTelecomOperators()
     const { mutate: deleteOperator, isPending } = useDeleteOperator()

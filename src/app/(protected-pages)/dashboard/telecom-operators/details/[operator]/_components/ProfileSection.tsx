@@ -9,23 +9,29 @@ import Tooltip from '@/components/ui/Tooltip'
 import toast from '@/components/ui/toast'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 import { HiPencil, HiOutlineTrash } from 'react-icons/hi'
-import { PiStorefrontDuotone } from 'react-icons/pi'
+import { GiNetworkBars } from 'react-icons/gi'
 import { useRouter } from 'next/navigation'
-import { StoreDetails } from '../../../types'
-import { useDeleteStore } from '@/hooks/features/stores-management/storeManagementApi'
+import { TelecomOperatorDetails } from '../../../types'
+import { useDeleteOperator } from '@/hooks/features/telecom-operators-management/telecomOperatorsManagementApi'
 import { getApiErrorMessage } from '@/utils/apiError'
+import Tag from '@/components/ui/Tag'
 
-type StoreInfoFieldProps = {
+type TelecomOperatorInfoFieldProps = {
     title?: string
-    value?: string
+    value?: string | boolean
     type?: string
 }
 
 type ProfileSectionProps = {
-    data: StoreDetails
+    data: TelecomOperatorDetails
 }
 
-const StoreInfoField = ({ title, value }: StoreInfoFieldProps) => {
+const statusColor: Record<string, string> = {
+    active: 'bg-emerald-200 dark:bg-emerald-200 text-gray-900 dark:text-gray-900',
+    blocked: 'bg-red-200 dark:bg-red-200 text-gray-900 dark:text-gray-900',
+}
+
+const TelecomOperatorInfoField = ({ title, value }: TelecomOperatorInfoFieldProps) => {
     return (
         <div>
             <span className='font-semibold'>{title}</span>
@@ -34,14 +40,31 @@ const StoreInfoField = ({ title, value }: StoreInfoFieldProps) => {
     )
 }
 
+const TelecomOperatorInfoWithStatusField = ({ title, value }: TelecomOperatorInfoFieldProps) => { 
+    const tagText = value ? 'Active' : 'In Active'
+    const tagColorKey = value ? 'active' : 'blocked'
+
+    return (
+        <div>
+            <span className='font-semibold'>{title}</span>
+            <div className='flex items-center'>
+                <Tag className={statusColor[tagColorKey]}>
+                    <span className='capitalize'>{tagText}</span>
+                </Tag>
+            </div>
+        </div>
+    )
+}
+
 const avatarProps = {
-    icon: <PiStorefrontDuotone />
+    icon: <GiNetworkBars />
 }
 
 const ProfileSection = ({ data }: ProfileSectionProps) => {
+    console.log('What is the data here in the profile section : ', data)
     const router = useRouter()
         
-    const { mutate: deleteStore, isPending } = useDeleteStore()
+    const { mutate: deleteOperator, isPending } = useDeleteOperator()
 
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -54,8 +77,8 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     }
 
     const handleDelete = async () => {
-        if (!data.data?.id) return
-        await deleteStore(data.data.id, {
+        if (!data.operator?.id) return
+        await deleteOperator(data.operator.id, {
             onSuccess: (response) => {
                 toast.push(
                     <Notification title={'Successfully Deleted'} type='success'>
@@ -63,7 +86,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                     </Notification>,
                 )
                 setDialogOpen(false)
-                router.push('/dashboard/stores')
+                router.push('/dashboard/telecom-operators')
             },
             onError: (error) => {
                 const message = getApiErrorMessage(error, 'Failed to delete store')
@@ -76,13 +99,13 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
     }
 
     const handleEdit = () => {
-        router.push(`/dashboard/stores/edit/${data.data?.id}`)
+        router.push(`/dashboard/telecom-operators/edit/${data.operator?.id}`)
     }
 
     return (
         <Card className='w-full'>
             <div className='flex justify-end'>
-                <Tooltip title='Edit store'>
+                <Tooltip title='Edit telecom operator'>
                     <button
                         className='close-button button-press-feedback'
                         type='button'
@@ -95,15 +118,11 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
             <div className='flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto'>
                 <div className='flex xl:flex-col items-center gap-4 mt-6'>
                     <Avatar size={90} shape='circle' {...avatarProps} />
-                    <h4 className='font-bold'>{data.data?.name}</h4>
+                    <h4 className='font-bold'>{data.operator?.name}</h4>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-10'>
-                    <StoreInfoField title='Store type' value={data.data?.store_type_string} />
-                    <StoreInfoField
-                        title='License type'
-                        value={data.data?.license_type}
-                    />
-                    
+                    <TelecomOperatorInfoField title='Number series' value={String(data.operator?.number_series)} />
+                    <TelecomOperatorInfoWithStatusField title='Status' value={data.operator?.is_active} />
                 </div>
                 <div className='flex flex-col gap-4 mt-7'>
                     <Button
@@ -121,7 +140,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                 <ConfirmDialog
                     isOpen={dialogOpen}
                     type='danger'
-                    title='Delete store'
+                    title='Delete operator'
                     onClose={handleDialogClose}
                     onRequestClose={handleDialogClose}
                     onCancel={handleDialogClose}
@@ -129,7 +148,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                     confirmButtonProps={{ loading: isPending, disabled: isPending }}
                 >
                     <p>
-                        Are you sure you want to delete <span className='font-bold'>{data.data?.name}</span>? All
+                        Are you sure you want to delete <span className='font-bold'>{data.operator?.name}</span>? All
                         record related to this user will be deleted as well.
                         This action cannot be undone.
                     </p>

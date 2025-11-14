@@ -31,36 +31,29 @@ interface ListOfOperatorsResponse {
     
 }
 
-interface StoreCreateVariables {
+interface TelecomOperatorCreateVariables {
     name: string
-    store_type_string: string
-    owner_id: number
+    is_active: boolean
+    number_series: string[]
 }
 
-interface StoreResponse {
+interface TelecomOperatorCreateResponse {
     success?: boolean
     message?: string
-    data?: {
-        id: string,
+    operator?: {
+        id: number,
         name: string,
-        slug: string,
-        store_type_string: string,
-        license_type: string,
-        created_by: number,
+        is_active: boolean,
+        number_series: string[],
         created_at: string,
         updated_at: string,
         deleted_at: string | null,
     }
 }
 
-interface DeleteStoreResponse {
+interface DeleteTelecomOperatorResponse {
     success: boolean
     message: string
-}
-
-interface AssignUserToStoreVariables {
-    role?: string
-    user_id: number
 }
 
 // Data Fetching
@@ -76,11 +69,11 @@ export function useRetrieveListOfTelecomOperators() {
     )
 }
 
-export function useRetrieveStoreDetails(storeId: string) {
+export function useRetrieveTelecomOperatorDetails(operatorId: number) {
     const { access_token } = useAuthStore()
-    return useQuery<StoreResponse>(
-        ['retrieve-store-details', storeId],
-        `${API_ENDPOINTS.ADMIN_STORES}/${storeId}`,
+    return useQuery<TelecomOperator>(
+        ['retrieve-telecom-operator-details', operatorId],
+        `${API_ENDPOINTS.ADMIN_TELECOM_OPERATORS}/${operatorId}`,
         {
             enabled: !!access_token,
         }
@@ -90,33 +83,25 @@ export function useRetrieveStoreDetails(storeId: string) {
 
 // Data Mutation
 
-export function useCreateStore() {
+export function useCreateTelecomOperator() {
     const { access_token } = useAuthStore()
-    return useMutation<StoreResponse, StoreCreateVariables>(
-        API_ENDPOINTS.ADMIN_STORES,
+    return useMutation<TelecomOperatorCreateResponse, TelecomOperatorCreateVariables>(
+        API_ENDPOINTS.ADMIN_TELECOM_OPERATORS,
         createApiOptions(access_token ?? '', 'POST')
     )
 }
 
-export function useUpdateStoreDetails(storeId: string) {
+export function useUpdateTelecomOperatorDetails(operatorId: number) {
     const { access_token } = useAuthStore()
-    return useMutation<StoreResponse, StoreCreateVariables>(
-        `${API_ENDPOINTS.ADMIN_STORES}/${storeId}`,
+    return useMutation<TelecomOperatorCreateResponse, TelecomOperatorCreateVariables>(
+        `${API_ENDPOINTS.ADMIN_TELECOM_OPERATORS}/${operatorId}`,
         createApiOptions(access_token ?? '', 'PUT')
-    )
-}
-
-export function useAssignUserToStore(storeId: string) {
-    const { access_token } = useAuthStore()
-    return useMutation<StoreResponse, AssignUserToStoreVariables>(
-        API_ENDPOINTS.ASSIGN_USER_TO_STORE(storeId),
-        createApiOptions(access_token ?? '', 'POST')
     )
 }
 
 export function useDeleteOperator() {
     const { access_token } = useAuthStore()
-    return useMutation<DeleteStoreResponse, number>(
+    return useMutation<DeleteTelecomOperatorResponse, number>(
         API_ENDPOINTS.ADMIN_TELECOM_OPERATORS,
             {
                 method: 'DELETE',
@@ -126,7 +111,7 @@ export function useDeleteOperator() {
                     },
                 },
                 mutationFn: async (operatorId: number) => {
-                    const response = await axiosInstance<DeleteStoreResponse>(
+                    const response = await axiosInstance<DeleteTelecomOperatorResponse>(
                         `${API_ENDPOINTS.ADMIN_TELECOM_OPERATORS}/${operatorId}`,
                         {
                             method: 'DELETE',
