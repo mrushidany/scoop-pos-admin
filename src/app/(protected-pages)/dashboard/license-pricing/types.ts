@@ -12,3 +12,7 @@ export type LicensePricingDetails = {
     created_at: string
     updated_at: string
 }
+
+export type LicensePricingDetail = {
+    data: LicensePricingDetails
+}

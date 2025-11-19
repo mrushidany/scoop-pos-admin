@@ -73,7 +73,6 @@ export function useRetrieveLicensePricingDetails(pricingId: number) {
 
 // Data Mutation
 
-
 export function useUpdateTelecomOperatorDetails(operatorId: number) {
     const { access_token } = useAuthStore()
     return useMutation<LicensePricingCreateResponse, LicensePricingCreateVariables>(

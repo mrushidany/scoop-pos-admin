@@ -9,7 +9,23 @@ const licensePricingRoute: Routes = {
             pageBackgroundType: 'plain',
             pageContainerType: 'contained',
         },
-    }
+    },
+    '/dashboard/license-pricing/details/[license]': {
+        key: 'licensePricing.licensePricing',
+        authority: [],
+        dynamicRoute: true,
+        meta: {
+            pageContainerType: 'contained',
+        },
+    },
+    '/dashboard/license-pricing/edit/[license]': {
+        key: 'licensePricing.licensePricing',
+        authority: [],
+        dynamicRoute: true,
+        meta: {
+            pageContainerType: 'contained',
+        },
+    },
 }
 
 export default licensePricingRoute
