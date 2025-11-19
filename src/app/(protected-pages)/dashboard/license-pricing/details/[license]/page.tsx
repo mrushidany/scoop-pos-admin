@@ -14,8 +14,6 @@ export default function Page({ params }: { params: Promise<{license: number}> })
 
     const { data, isLoading, error } = useRetrieveLicensePricingDetails(license)
 
-    console.log('What is the details here : ', data)
-
     if(error || isEmpty(data)) {
         return (
             <div className='h-full flex flex-col items-center justify-center'>
