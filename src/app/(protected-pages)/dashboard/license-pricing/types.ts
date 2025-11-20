@@ -16,3 +16,14 @@ export type LicensePricingDetails = {
 export type LicensePricingDetail = {
     data: LicensePricingDetails
 }
+
+export type LicensePricingFormSchema = {
+    price?: number,
+    period_months?: number,
+    setup_fee?: number,
+    is_active?: boolean,
+    max_devices?: number | null,
+    max_users?: number | null,
+    included_features?: string[],
+    excluded_features?: string[]
+}
