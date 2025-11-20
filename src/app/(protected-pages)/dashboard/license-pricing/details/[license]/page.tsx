@@ -27,11 +27,9 @@ export default function Page({ params }: { params: Promise<{license: number}> })
             </div>
         )
     }
-    
+
     if (isLoading) {
        return <Loading type='default' loading={isLoading} />
     }
-
     return <LicenseDetails data={data} />
-
 }

@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from '@/lib/constants'
 import { useAuthStore } from '@/store/auth'
 import { useMutation } from '@/hooks/useMutations'
 import { createApiOptions } from '@/hooks/useApiHooks'
-import { LicensePricingDetails } from '@/app/(protected-pages)/dashboard/license-pricing/types'
+import { LicensePricingDetails, LicensePricingDetail } from '@/app/(protected-pages)/dashboard/license-pricing/types'
 
 interface ListOfLicensePricingResponse {
     success: boolean
@@ -61,7 +61,7 @@ export function useRetrieveListOfLicensePricing() {
 
 export function useRetrieveLicensePricingDetails(pricingId: number) {
     const { access_token } = useAuthStore()
-    return useQuery<LicensePricingDetails>(
+    return useQuery<LicensePricingDetail>(
         ['retrieve-license-pricing-details', pricingId],
         `${API_ENDPOINTS.ADMIN_LICENSE_PRICING}/${pricingId}`,
         {

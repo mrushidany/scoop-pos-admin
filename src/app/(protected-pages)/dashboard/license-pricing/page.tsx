@@ -9,8 +9,6 @@ import LicensePricingListTable from './_components/LicensePricingListTable'
 export default function LicensePricingPage() {
   const { data, isLoading } = useRetrieveListOfLicensePricing()
 
-  console.log('What is the data', data)
-
   return (
     <>
       <Container>
