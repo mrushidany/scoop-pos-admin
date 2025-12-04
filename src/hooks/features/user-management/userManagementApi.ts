@@ -67,14 +67,35 @@ interface ToggleUserResponse {
     data: UserResponse
 }
 
+interface ListOfUsersFilters {
+    search?: string
+    is_admin?: boolean
+    is_active?: boolean
+}
+
 
 // Data Fetching
 
-export function useRetrieveListOfUsers() {
+export function useRetrieveListOfUsers(filters?: ListOfUsersFilters) {
     const { access_token } = useAuthStore()
+
+    // Build query parameters
+    const queryParams = new URLSearchParams()
+    if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value !== undefined) {
+                queryParams.append(key, value.toString())
+            }
+        })
+    }
+
+    const url = queryParams.toString()
+        ? `${API_ENDPOINTS.ADMIN_USERS}?${queryParams.toString()}`
+        : API_ENDPOINTS.ADMIN_USERS
+
     return useQuery<ListOfUsersResponse>(
-        ['retrieve-list-of-users'],
-        API_ENDPOINTS.ADMIN_USERS,
+        ['retrieve-list-of-users', filters],
+        url,
         {
             enabled: !!access_token,
         }
